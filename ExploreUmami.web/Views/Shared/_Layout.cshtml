@@ -35,11 +35,10 @@
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer text-muted">
-        <div class="footer-content d-flex justify-content-start">
+        <div class="container">
             &copy; Explore Umami @ReleaseYear
-            @if(DateTime.UtcNow.Year != ReleaseYear)
+            @if (DateTime.UtcNow.Year != ReleaseYear)
             {
                 @Html.Raw($" - {DateTime.UtcNow.Year}")
             }
@@ -51,3 +50,5 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
