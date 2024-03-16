@@ -9,6 +9,7 @@ namespace ExploreUmami.Data.Models
 
         public BusinessOwner()
         {
+            Id = Guid.NewGuid();
             OwnedBusinesses = new HashSet<Business>();
         }
 

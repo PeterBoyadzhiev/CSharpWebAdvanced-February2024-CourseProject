@@ -8,6 +8,7 @@ namespace ExploreUmami.Data.Models
     {
         public Business()
         {
+            Id = Guid.NewGuid();
             Reviews = new HashSet<Review>();
             Categories = new HashSet<Category>();
         }
