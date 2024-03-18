@@ -3,19 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExploreUmami.Web", "ExploreUmami.web\ExploreUmami.Web.csproj", "{E7EF016D-1B66-4BE5-A39D-8BCD1EE592B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreUmami.Web", "ExploreUmami.web\ExploreUmami.Web.csproj", "{E7EF016D-1B66-4BE5-A39D-8BCD1EE592B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExploreUmami.Common", "AppConstantsCommon\ExploreUmami.Common.csproj", "{DB9F3594-4F6F-4ED9-9FC6-E28411965EAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreUmami.Common", "AppConstantsCommon\ExploreUmami.Common.csproj", "{DB9F3594-4F6F-4ED9-9FC6-E28411965EAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{8ED865AC-F6E8-46BE-B96F-38DF0DED886C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{93EA4CAF-0A91-4E79-947C-DD27EC96103F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExploreUmami.Data", "ExploreUmami.Data\ExploreUmami.Data.csproj", "{A60EA8FC-BD3E-4B0C-9CA5-CBA2BA60C6BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreUmami.Data", "ExploreUmami.Data\ExploreUmami.Data.csproj", "{A60EA8FC-BD3E-4B0C-9CA5-CBA2BA60C6BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExploreUmami.Data.Models", "ExploreUmami.Data.Models\ExploreUmami.Data.Models.csproj", "{1927A58B-6CB4-4916-9F24-8B80302B1E2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreUmami.Data.Models", "ExploreUmami.Data.Models\ExploreUmami.Data.Models.csproj", "{1927A58B-6CB4-4916-9F24-8B80302B1E2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExploreUmami.Web.ViewModels", "ExploreUmami.Web.ViewModels\ExploreUmami.Web.ViewModels.csproj", "{C616D014-E57C-491A-928A-9D2E7CB47B1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreUmami.Web.ViewModels", "ExploreUmami.Web.ViewModels\ExploreUmami.Web.ViewModels.csproj", "{C616D014-E57C-491A-928A-9D2E7CB47B1C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{35316D46-4756-45FC-959B-A7D5985B5351}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExploreUmami.Services.Data", "ExploreUmami.Services.Data\ExploreUmami.Services.Data.csproj", "{896B7363-3CEC-4890-ABC0-E6198B347868}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +47,10 @@ Global
 		{C616D014-E57C-491A-928A-9D2E7CB47B1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C616D014-E57C-491A-928A-9D2E7CB47B1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C616D014-E57C-491A-928A-9D2E7CB47B1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{896B7363-3CEC-4890-ABC0-E6198B347868}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{896B7363-3CEC-4890-ABC0-E6198B347868}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{896B7363-3CEC-4890-ABC0-E6198B347868}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{896B7363-3CEC-4890-ABC0-E6198B347868}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +60,7 @@ Global
 		{A60EA8FC-BD3E-4B0C-9CA5-CBA2BA60C6BB} = {93EA4CAF-0A91-4E79-947C-DD27EC96103F}
 		{1927A58B-6CB4-4916-9F24-8B80302B1E2E} = {93EA4CAF-0A91-4E79-947C-DD27EC96103F}
 		{C616D014-E57C-491A-928A-9D2E7CB47B1C} = {8ED865AC-F6E8-46BE-B96F-38DF0DED886C}
+		{896B7363-3CEC-4890-ABC0-E6198B347868} = {35316D46-4756-45FC-959B-A7D5985B5351}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F0C1DA79-B539-46B0-8A2B-DD17B7B950D5}
