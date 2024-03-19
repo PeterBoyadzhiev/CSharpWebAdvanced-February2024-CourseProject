@@ -11,5 +11,10 @@ namespace ExploreUmami.Web.Controllers
         {
             return View();
         }
+
+        public IActionResult BusinessPerCountry() 
+        { 
+            return View(); 
+        }
     }
 }

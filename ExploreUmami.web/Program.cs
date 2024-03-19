@@ -1,5 +1,7 @@
 using ExploreUmami.Data;
 using ExploreUmami.Data.Models;
+using ExploreUmami.Services.Data.Interfaces;
+using ExploreUmami.Web.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExploreUmami.Web
@@ -14,7 +16,7 @@ namespace ExploreUmami.Web
             builder.Services.AddDbContext<ExploreUmamiDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            builder.Services.AddDefaultIdentity<ApplicationUser>(options => 
+            builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
                 options.Password.RequireDigit = builder.Configuration.GetValue<bool>("Identity:Password:RequireDigit");
@@ -24,6 +26,9 @@ namespace ExploreUmami.Web
                 options.Password.RequiredLength = builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
             })
                 .AddEntityFrameworkStores<ExploreUmamiDbContext>();
+
+            builder.Services.AddApplicationServices(typeof(IBusinessService));
+
             builder.Services.AddControllersWithViews();
 
             WebApplication app = builder.Build();
@@ -45,6 +50,12 @@ namespace ExploreUmami.Web
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();

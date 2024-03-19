@@ -1,4 +1,10 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('#map-container svg path').forEach(function (el) {
+        
+        el.addEventListener('click', function (path) {
+            const elValue = path.target.attributes.title.value;
+            const country = elValue.toLowerCase();
+            document.location.href = `/business/per-country/${country}`;
+        })
+    }) 
+    })

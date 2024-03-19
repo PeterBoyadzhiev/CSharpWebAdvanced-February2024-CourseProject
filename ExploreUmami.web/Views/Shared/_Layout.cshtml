@@ -22,7 +22,7 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Business" asp-action="All">All Businesses</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="All">All Businesses</a>
                             </li>
                             @if (User.Identity?.IsAuthenticated ?? false)
                             {
@@ -39,14 +39,11 @@
                 </div>
             </nav>
         </header>
-        <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-                <div id="map-container">
-                    <partial name="_JapanMap" />
-                </div>
-            </main>
-        </div>
+        <main role="main" class="main-content pb-3">
+            <div class="container">
+            @RenderBody()
+            </div>
+        </main>
         <footer class="border-top footer text-muted">
             <div class="container">
                 &copy; Explore Umami @ReleaseYear
@@ -58,7 +55,7 @@
         </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/map.js"></script>  <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

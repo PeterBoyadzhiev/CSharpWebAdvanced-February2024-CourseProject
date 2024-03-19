@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ExploreUmami.Web.ViewModels.Home;
 
 namespace ExploreUmami.Services.Data.Interfaces
 {
-    internal interface IBusinessService
+    public interface IBusinessService
     {
+        Task<IEnumerable<BusinessViewModel>> GetBusinessesAsync();
     }
 }

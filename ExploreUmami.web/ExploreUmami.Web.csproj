@@ -19,7 +19,13 @@
     <ProjectReference Include="..\AppConstantsCommon\ExploreUmami.Common.csproj" />
     <ProjectReference Include="..\ExploreUmami.Data.Models\ExploreUmami.Data.Models.csproj" />
     <ProjectReference Include="..\ExploreUmami.Data\ExploreUmami.Data.csproj" />
+    <ProjectReference Include="..\ExploreUmami.Services.Data\ExploreUmami.Services.Data.csproj" />
+    <ProjectReference Include="..\ExploreUmami.Web.Infrastructure\ExploreUmami.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\ExploreUmami.Web.ViewModels\ExploreUmami.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\" />
   </ItemGroup>
 
 </Project>
