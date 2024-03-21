@@ -10,7 +10,6 @@ namespace ExploreUmami.Data.Models
         {
             Id = Guid.NewGuid();
             Reviews = new HashSet<Review>();
-            Categories = new HashSet<Category>();
         }
 
         [Key]
@@ -45,6 +44,12 @@ namespace ExploreUmami.Data.Models
 
         public Category Category { get; set; } = null!;
 
+        [Required]
+        [ForeignKey(nameof(Prefecture))]
+        public int PrefectureId { get; set; }
+
+        public Prefecture Prefecture { get; set; }
+
         [ForeignKey(nameof(BusinessOwner))]
         public Guid BusinessOwnerId { get; set; }
 
@@ -56,7 +61,5 @@ namespace ExploreUmami.Data.Models
         public virtual ApplicationUser? Visitor { get; set; } = null!;
 
         public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
-
-        public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
     }
 }

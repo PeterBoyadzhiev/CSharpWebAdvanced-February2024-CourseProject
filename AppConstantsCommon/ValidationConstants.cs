@@ -36,5 +36,11 @@
             public const int PhoneNumberMaxLength = 20;
             public const string PhoneNumberRegularExpression = @"^\d{3}-\d{4}-\d{4}$";
         }
+
+        public static class Prefecture
+        {
+            public const int NameMinLength = 3;
+            public const int NameMaxLength = 20;
+        }
     }
 }

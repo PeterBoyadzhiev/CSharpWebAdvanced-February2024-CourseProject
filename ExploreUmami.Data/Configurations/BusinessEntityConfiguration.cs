@@ -15,6 +15,12 @@ namespace ExploreUmami.Data.Configurations
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
+                .HasOne(b => b.Prefecture)
+                .WithMany(p => p.Businesses)
+                .HasForeignKey(b => b.PrefectureId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
                 .HasOne(b => b.BusinessOwner)
                 .WithMany(bo => bo.OwnedBusinesses)
                 .HasForeignKey(b => b.BusinessOwnerId)
@@ -38,7 +44,8 @@ namespace ExploreUmami.Data.Configurations
                 WebsiteURL = "https://www.restaurant.com",
                 ImageURL = "https://dummyimage.com/400x200",
                 CategoryId = 1,
-                BusinessOwnerId = Guid.Parse("6D8562F6-6EC4-4C21-8B7A-57670C10A292")
+                PrefectureId = 1,
+                BusinessOwnerId = Guid.Parse("C805DDB6-BCF7-47A3-8744-3EC84036CAA0")
             };
             businesses.Add(business);
 
@@ -51,7 +58,8 @@ namespace ExploreUmami.Data.Configurations
                 WebsiteURL = "https://www.cafe.com",
                 ImageURL = "https://dummyimage.com/400x200",
                 CategoryId = 2,
-                BusinessOwnerId = Guid.Parse("6D8562F6-6EC4-4C21-8B7A-57670C10A292")
+                PrefectureId = 2,
+                BusinessOwnerId = Guid.Parse("C805DDB6-BCF7-47A3-8744-3EC84036CAA0")
             };
             businesses.Add(business);
 
@@ -64,7 +72,8 @@ namespace ExploreUmami.Data.Configurations
                 WebsiteURL = "https://www.bar.com",
                 ImageURL = "https://dummyimage.com/400x200",
                 CategoryId = 3,
-                BusinessOwnerId = Guid.Parse("6D8562F6-6EC4-4C21-8B7A-57670C10A292")
+                PrefectureId = 3,
+                BusinessOwnerId = Guid.Parse("C805DDB6-BCF7-47A3-8744-3EC84036CAA0")
             };
             businesses.Add(business);
 
@@ -77,7 +86,8 @@ namespace ExploreUmami.Data.Configurations
                 WebsiteURL = "https://www.bakery.com",
                 ImageURL = "https://dummyimage.com/400x200",
                 CategoryId = 4,
-                BusinessOwnerId = Guid.Parse("28BEC72C-A405-4303-9F92-8B84C161B93E")
+                PrefectureId = 4,
+                BusinessOwnerId = Guid.Parse("C805DDB6-BCF7-47A3-8744-3EC84036CAA0")
             };
             businesses.Add(business);
 
@@ -90,7 +100,8 @@ namespace ExploreUmami.Data.Configurations
                 WebsiteURL = "https://www.fastfood.com",
                 ImageURL = "https://dummyimage.com/400x200",
                 CategoryId = 5,
-                BusinessOwnerId = Guid.Parse("28BEC72C-A405-4303-9F92-8B84C161B93E")
+                PrefectureId = 5,
+                BusinessOwnerId = Guid.Parse("E826FF19-1946-4237-B266-E326CBEAD8FF")
             };
             businesses.Add(business);
 
@@ -103,7 +114,8 @@ namespace ExploreUmami.Data.Configurations
                 WebsiteURL = "https://www.foodtruck.com",
                 ImageURL = "https://dummyimage.com/400x200",
                 CategoryId = 6,
-                BusinessOwnerId = Guid.Parse("28BEC72C-A405-4303-9F92-8B84C161B93E")
+                PrefectureId = 6,
+                BusinessOwnerId = Guid.Parse("E826FF19-1946-4237-B266-E326CBEAD8FF")
             };
             businesses.Add(business);
 
@@ -116,7 +128,8 @@ namespace ExploreUmami.Data.Configurations
                 WebsiteURL = "https://www.dessertshop.com",
                 ImageURL = "https://dummyimage.com/400x200",
                 CategoryId = 7,
-                BusinessOwnerId = Guid.Parse("28BEC72C-A405-4303-9F92-8B84C161B93E")
+                PrefectureId = 1,
+                BusinessOwnerId = Guid.Parse("E826FF19-1946-4237-B266-E326CBEAD8FF")
             };
             businesses.Add(business);
 
@@ -129,7 +142,8 @@ namespace ExploreUmami.Data.Configurations
                 WebsiteURL = "https://www.grocerystore.com",
                 ImageURL = "https://dummyimage.com/400x200",
                 CategoryId = 8,
-                BusinessOwnerId = Guid.Parse("6D8562F6-6EC4-4C21-8B7A-57670C10A292")
+                PrefectureId = 1,
+                BusinessOwnerId = Guid.Parse("E826FF19-1946-4237-B266-E326CBEAD8FF")
             };
             businesses.Add(business);
 

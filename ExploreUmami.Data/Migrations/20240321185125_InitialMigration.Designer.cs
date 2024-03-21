@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExploreUmami.Data.Migrations
 {
     [DbContext(typeof(ExploreUmamiDbContext))]
-    [Migration("20240316195644_SeedCategoriesAndBusinesses")]
-    partial class SeedCategoriesAndBusinesses
+    [Migration("20240321185125_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -122,6 +122,9 @@ namespace ExploreUmami.Data.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<int>("PrefectureId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -140,107 +143,11 @@ namespace ExploreUmami.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("PrefectureId");
+
                     b.HasIndex("VisitorId");
 
                     b.ToTable("Businesses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("439e6946-75c4-4f45-9840-1bc268f98e49"),
-                            Address = "123 Main Street",
-                            BusinessOwnerId = new Guid("6d8562f6-6ec4-4c21-8b7a-57670c10a292"),
-                            CategoryId = 1,
-                            Description = "A place where you can eat food",
-                            ImageURL = "https://getimg.ai/img/img-GzEi9e3A35BWRRAs6efuR",
-                            PhoneNumber = "123-456-7890",
-                            Title = "Restaurant",
-                            WebsiteURL = "https://www.restaurant.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("22e63a65-2d88-4090-a6c6-f51d421854fc"),
-                            Address = "456 Elm Street",
-                            BusinessOwnerId = new Guid("6d8562f6-6ec4-4c21-8b7a-57670c10a292"),
-                            CategoryId = 2,
-                            Description = "A place where you can drink coffee",
-                            ImageURL = "https://getimg.ai/img/img-OysDjiqns60NDYgiCOidV",
-                            PhoneNumber = "123-456-7890",
-                            Title = "Cafe",
-                            WebsiteURL = "https://www.cafe.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("cff0007d-56f6-4720-83b4-770c903f783f"),
-                            Address = "789 Oak Street",
-                            BusinessOwnerId = new Guid("6d8562f6-6ec4-4c21-8b7a-57670c10a292"),
-                            CategoryId = 3,
-                            Description = "A place where you can drink alcohol",
-                            ImageURL = "https://getimg.ai/img/img-r3saoofM9CrvQfG1foV2P",
-                            PhoneNumber = "123-456-7890",
-                            Title = "Bar",
-                            WebsiteURL = "https://www.bar.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("a61cce1f-06a5-4fa8-822c-3a67acdca9a5"),
-                            Address = "1012 Pine Street",
-                            BusinessOwnerId = new Guid("28bec72c-a405-4303-9f92-8b84c161b93e"),
-                            CategoryId = 4,
-                            Description = "A place where you can buy bread",
-                            ImageURL = "https://getimg.ai/img/img-2PqN4NLYb5UFxWb9gFMuZ",
-                            PhoneNumber = "123-456-7890",
-                            Title = "Bakery",
-                            WebsiteURL = "https://www.bakery.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("45ab573e-e84e-4466-8c2d-cdc707430134"),
-                            Address = "1314 Cedar Street",
-                            BusinessOwnerId = new Guid("28bec72c-a405-4303-9f92-8b84c161b93e"),
-                            CategoryId = 5,
-                            Description = "A place where you can eat food quickly",
-                            ImageURL = "https://getimg.ai/img/img-PvULGwtcwlWZ5694nHPFC",
-                            PhoneNumber = "123-456-7890",
-                            Title = "Fast Food",
-                            WebsiteURL = "https://www.fastfood.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("bea1f022-d9bf-4a94-b219-0104ff363116"),
-                            Address = "1516 Maple Street",
-                            BusinessOwnerId = new Guid("28bec72c-a405-4303-9f92-8b84c161b93e"),
-                            CategoryId = 6,
-                            Description = "A place where you can eat food on the go",
-                            ImageURL = "https://getimg.ai/img/img-iwKO3ZYj0tUW9NZ4RbF3Q",
-                            PhoneNumber = "123-456-7890",
-                            Title = "Food Truck",
-                            WebsiteURL = "https://www.foodtruck.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("8b30853f-49a8-41a7-b995-50e14657430b"),
-                            Address = "1718 Walnut Street",
-                            BusinessOwnerId = new Guid("28bec72c-a405-4303-9f92-8b84c161b93e"),
-                            CategoryId = 7,
-                            Description = "A place where you can eat dessert",
-                            ImageURL = "https://getimg.ai/img/img-tqk28rgRktCvKB33e4FmM",
-                            PhoneNumber = "123-456-7890",
-                            Title = "Dessert Shop",
-                            WebsiteURL = "https://www.dessertshop.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("5d7f3f6c-0c61-42fa-a554-81be03917c4e"),
-                            Address = "1920 Cherry Street",
-                            BusinessOwnerId = new Guid("6d8562f6-6ec4-4c21-8b7a-57670c10a292"),
-                            CategoryId = 8,
-                            Description = "A place where you can buy food",
-                            ImageURL = "https://getimg.ai/img/img-jmK84Ff5DOP68jbtpJJNb",
-                            PhoneNumber = "123-456-7890",
-                            Title = "Grocery Store",
-                            WebsiteURL = "https://www.grocerystore.com"
-                        });
                 });
 
             modelBuilder.Entity("ExploreUmami.Data.Models.BusinessOwner", b =>
@@ -272,9 +179,6 @@ namespace ExploreUmami.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<Guid?>("BusinessId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -282,61 +186,25 @@ namespace ExploreUmami.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BusinessId");
-
                     b.ToTable("Categories");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Restaurant"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Cafe"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Bar"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Bakery"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Fast Food"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Food Truck"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "Dessert Shop"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Name = "Grocery Store"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Name = "Market"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Name = "Food Stand"
-                        });
+            modelBuilder.Entity("ExploreUmami.Data.Models.Prefecture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Prefectures");
                 });
 
             modelBuilder.Entity("ExploreUmami.Data.Models.Review", b =>
@@ -516,6 +384,12 @@ namespace ExploreUmami.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("ExploreUmami.Data.Models.Prefecture", "Prefecture")
+                        .WithMany("Businesses")
+                        .HasForeignKey("PrefectureId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("ExploreUmami.Data.Models.ApplicationUser", "Visitor")
                         .WithMany("VisitedBusinesses")
                         .HasForeignKey("VisitorId");
@@ -523,6 +397,8 @@ namespace ExploreUmami.Data.Migrations
                     b.Navigation("BusinessOwner");
 
                     b.Navigation("Category");
+
+                    b.Navigation("Prefecture");
 
                     b.Navigation("Visitor");
                 });
@@ -536,13 +412,6 @@ namespace ExploreUmami.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ExploreUmami.Data.Models.Category", b =>
-                {
-                    b.HasOne("ExploreUmami.Data.Models.Business", null)
-                        .WithMany("Categories")
-                        .HasForeignKey("BusinessId");
                 });
 
             modelBuilder.Entity("ExploreUmami.Data.Models.Review", b =>
@@ -620,8 +489,6 @@ namespace ExploreUmami.Data.Migrations
 
             modelBuilder.Entity("ExploreUmami.Data.Models.Business", b =>
                 {
-                    b.Navigation("Categories");
-
                     b.Navigation("Reviews");
                 });
 
@@ -631,6 +498,11 @@ namespace ExploreUmami.Data.Migrations
                 });
 
             modelBuilder.Entity("ExploreUmami.Data.Models.Category", b =>
+                {
+                    b.Navigation("Businesses");
+                });
+
+            modelBuilder.Entity("ExploreUmami.Data.Models.Prefecture", b =>
                 {
                     b.Navigation("Businesses");
                 });
