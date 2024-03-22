@@ -86,6 +86,56 @@ namespace ExploreUmami.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b43c3753-de4e-4417-b2ad-1c029c7b9795"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "de669ae7-6236-44e1-8243-8e82accfda43",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJ/01P1j7BXAwRAMolOEyVKdH1vy1Gi4T6wBhGHa+QdHqAiSno9NtOgJUD8Y6lpiwQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6C94B3E70009FE549F746E84FE82B7A4",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@gmail.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("1ae80037-f648-442e-a309-4b94a3d1315c"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "309b1121-002e-422d-9115-8b54bb0b93ef",
+                            Email = "businessowner@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "BUSINESSOWNER@GMAIL.COM",
+                            NormalizedUserName = "BUSINESSOWNER@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG8cvbIwuq55S0FvLcT7e+U2tMq7dmwqbD9FbQanGUNO0FXkk17p4MxHGwkpVn8gZg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6C94B3E70009FE549F746E84FE82B7A4",
+                            TwoFactorEnabled = false,
+                            UserName = "businessowner@gmail.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "28e6eb1f-faee-42af-9d90-475d062b2583",
+                            Email = "reviewer@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "REVIEWER@GMAIL.COM",
+                            NormalizedUserName = "REVIEWER@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHaejeRdRkGCm4zQDS2FeuZ/wmDPqc928eZJBl7+t/SMxFYge6xOO5yir+q1QNs0tg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6C94B3E70009FE549F746E84FE82B7A4",
+                            TwoFactorEnabled = false,
+                            UserName = "reviewer@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("ExploreUmami.Data.Models.Business", b =>
@@ -150,7 +200,7 @@ namespace ExploreUmami.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("464473d3-5e31-4c0d-a476-ddb37f2edf07"),
+                            Id = new Guid("3c3e6a68-e749-4ede-a918-f4fab6715385"),
                             Address = "123 Main Street",
                             BusinessOwnerId = new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"),
                             CategoryId = 1,
@@ -163,7 +213,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0d496894-8eda-47d8-804d-4ea5995736e5"),
+                            Id = new Guid("ca480780-dca2-4527-b54a-054da1477393"),
                             Address = "456 Elm Street",
                             BusinessOwnerId = new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"),
                             CategoryId = 2,
@@ -176,7 +226,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9bce1175-0b12-4c75-9851-17d1a69f2f10"),
+                            Id = new Guid("10a63976-d018-4e76-bb0d-5fb2bef31f4e"),
                             Address = "789 Oak Street",
                             BusinessOwnerId = new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"),
                             CategoryId = 3,
@@ -189,7 +239,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("922a6a8d-3be2-442b-9af6-b07b41af536d"),
+                            Id = new Guid("afc00a63-3a15-4c79-a7b0-08c3d68a50c7"),
                             Address = "1012 Pine Street",
                             BusinessOwnerId = new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"),
                             CategoryId = 4,
@@ -202,7 +252,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1fbdb890-0e0b-4f0e-8db5-4d900fdbbbaf"),
+                            Id = new Guid("4dadc4e2-43e0-4e5f-9cec-639cfbd35999"),
                             Address = "1314 Cedar Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 5,
@@ -215,7 +265,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bf97e3c5-5e74-4292-a0da-b64200350522"),
+                            Id = new Guid("8565f995-a200-46b7-bc84-67c2fbc93b21"),
                             Address = "1516 Maple Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 6,
@@ -228,7 +278,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f5417133-5ed7-4847-87d1-837b3473be55"),
+                            Id = new Guid("edcc329d-a02c-4afe-b045-50772f6fcae0"),
                             Address = "1718 Walnut Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 7,
@@ -241,7 +291,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8382f044-01c3-4330-a07d-d2c7d540ff68"),
+                            Id = new Guid("45400dcb-0dd9-4fa8-9c29-550be9b5036a"),
                             Address = "1920 Cherry Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 8,
@@ -260,6 +310,21 @@ namespace ExploreUmami.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("NameOfBusiness")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -273,6 +338,26 @@ namespace ExploreUmami.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("BusinessOwners");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"),
+                            FirstName = "John",
+                            LastName = "Doe",
+                            NameOfBusiness = "John's Restaurant",
+                            PhoneNumber = "123-456-7890",
+                            UserId = new Guid("b43c3753-de4e-4417-b2ad-1c029c7b9795")
+                        },
+                        new
+                        {
+                            Id = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
+                            FirstName = "Jane",
+                            LastName = "Doe",
+                            NameOfBusiness = "Jane's Cafe",
+                            PhoneNumber = "123-456-7890",
+                            UserId = new Guid("1ae80037-f648-442e-a309-4b94a3d1315c")
+                        });
                 });
 
             modelBuilder.Entity("ExploreUmami.Data.Models.Category", b =>

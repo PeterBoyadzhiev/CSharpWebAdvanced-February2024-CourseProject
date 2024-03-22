@@ -35,6 +35,12 @@
             public const int PhoneNumberMinLength = 10;
             public const int PhoneNumberMaxLength = 20;
             public const string PhoneNumberRegularExpression = @"^\d{3}-\d{4}-\d{4}$";
+            public const int FirstNameMinLength = 2;
+            public const int FirstNameMaxLength = 20;
+            public const int LastNameMinLength = 2;
+            public const int LastNameMaxLength = 20;
+            public const int NameOfBusinessMinLength = 3;
+            public const int NameOfBusinessMaxLength = 50;
         }
 
         public static class Prefecture

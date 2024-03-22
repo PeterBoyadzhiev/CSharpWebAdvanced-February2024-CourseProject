@@ -7,4 +7,4 @@
             document.location.href = `/business/per-country/${country}`;
         })
     }) 
-    })
+})

@@ -21,6 +21,18 @@ namespace ExploreUmami.Data.Models
         [RegularExpression(PhoneNumberRegularExpression)]
         public string PhoneNumber { get; set; } = null!;
 
+        [Required]
+        [MaxLength(FirstNameMaxLength)]
+        public string FirstName { get; set; } = null!;
+
+        [Required]
+        [MaxLength(LastNameMaxLength)]
+        public string LastName { get; set; } = null!;
+
+        [Required]
+        [MaxLength(NameOfBusinessMaxLength)]
+        public string NameOfBusiness { get; set; } = null!;
+
         [ForeignKey(nameof(User))]
         public Guid UserId { get; set; }
 

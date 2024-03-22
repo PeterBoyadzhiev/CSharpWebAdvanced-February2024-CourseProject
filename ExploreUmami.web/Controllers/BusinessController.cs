@@ -7,7 +7,7 @@ namespace ExploreUmami.Web.Controllers
     public class BusinessController : Controller
     {
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public IActionResult All()
         {
             return View();
         }

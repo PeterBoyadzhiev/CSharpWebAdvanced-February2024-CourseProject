@@ -6,6 +6,7 @@ namespace ExploreUmami.Data.Models
     {
         public ApplicationUser()
         {
+            Id = Guid.NewGuid();
             VisitedBusinesses = new HashSet<Business>();
         }
 
