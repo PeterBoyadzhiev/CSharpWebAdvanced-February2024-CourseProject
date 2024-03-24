@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExploreUmami.Web.ViewModels.Home;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,10 @@ namespace ExploreUmami.Services.Data.Interfaces
 {
     public interface IBusinessOwnerService
     {
-        Task<bool> IsOwnerByUserId(string userId);
+        Task<bool> IsOwnerByUserIdAsync(string userId);
+
+        Task<bool> OwnerExistsByDetailsAsync(string businessName, string businessPhoneNumber, string ownerFirstName, string ownerLastName);
+
+        Task AddOwnerAsync(string userId, SwitchFormModel model);
     }
 }

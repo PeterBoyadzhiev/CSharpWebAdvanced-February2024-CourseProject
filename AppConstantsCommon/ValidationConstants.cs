@@ -34,7 +34,7 @@
         {
             public const int PhoneNumberMinLength = 10;
             public const int PhoneNumberMaxLength = 20;
-            public const string PhoneNumberRegularExpression = @"^\d{3}-\d{4}-\d{4}$";
+            public const string PhoneNumberRegularExpression = @"^\d{2}-\d{4}-\d{4}$";
             public const int FirstNameMinLength = 2;
             public const int FirstNameMaxLength = 20;
             public const int LastNameMinLength = 2;

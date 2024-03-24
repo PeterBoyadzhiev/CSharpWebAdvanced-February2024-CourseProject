@@ -26,7 +26,7 @@ namespace ExploreUmami.Data.Configurations
                 FirstName = "John",
                 LastName = "Doe",
                 NameOfBusiness = "John's Restaurant",
-                PhoneNumber = "123-456-7890",
+                PhoneNumber = "12-3456-7890",
                 UserId = Guid.Parse("B43C3753-DE4E-4417-B2AD-1C029C7B9795")
             };
 
@@ -38,7 +38,7 @@ namespace ExploreUmami.Data.Configurations
                 FirstName = "Jane",
                 LastName = "Doe",
                 NameOfBusiness = "Jane's Cafe",
-                PhoneNumber = "123-456-7890",
+                PhoneNumber = "12-3456-7890",
                 UserId = Guid.Parse("1AE80037-F648-442E-A309-4B94A3D1315C")
             };
 

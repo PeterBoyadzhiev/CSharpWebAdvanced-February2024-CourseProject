@@ -7,18 +7,24 @@ namespace ExploreUmami.Web.ViewModels.Home
     {
         [Required]
         [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength)]
+        [Phone]
+        [RegularExpression(PhoneNumberRegularExpression, ErrorMessage = "Please enter the phone number in the format XX-XXXX-XXXX")]
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; } = string.Empty;
 
         [Required]
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; } = null!;
 
         [Required]
         [StringLength(LastNameMaxLength, MinimumLength = LastNameMinLength)]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; } = null!;
 
         [Required]
         [StringLength(NameOfBusinessMaxLength, MinimumLength = NameOfBusinessMinLength)]
+        [Display(Name = "Name of Main Business")]
         public string NameOfBusiness { get; set; } = null!;
     }
 }

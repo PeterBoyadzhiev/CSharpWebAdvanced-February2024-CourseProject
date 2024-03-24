@@ -1,5 +1,6 @@
 ﻿using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Web.Infrastructure.Extensions;
+using ExploreUmami.Web.ViewModels.Home;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,7 @@ namespace ExploreUmami.Web.Controllers
         public async Task<IActionResult> Switch()
         {
             string userId = this.User.GetId();
-            bool isOwner = await this.businessOwnerService.IsOwnerByUserId(userId);
+            bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
 
             if (isOwner)
             {
@@ -30,6 +31,42 @@ namespace ExploreUmami.Web.Controllers
             }
 
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Switch(SwitchFormModel model)
+        {
+            string userId = this.User.GetId();
+            bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
+
+            if (isOwner)
+            {
+                TempData[ErrorMessage] = "You are already a business owner!";
+                return RedirectToAction("Index", "Home");
+            }
+
+            try
+            {
+                bool ownerExists = await this.businessOwnerService
+                    .OwnerExistsByDetailsAsync(model.NameOfBusiness, model.PhoneNumber, model.FirstName, model.LastName);
+            }
+            catch (ArgumentException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(model);
+            }
+
+            try
+            {
+                await this.businessOwnerService.AddOwnerAsync(userId, model);
+            }
+            catch (Exception)
+            {
+                TempData[ErrorMessage] = "An error occurred while registering you as a business owner. Please try again later or contact administrator.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            return RedirectToAction("Add", "BusinessOwner");
         }
     }
 }
