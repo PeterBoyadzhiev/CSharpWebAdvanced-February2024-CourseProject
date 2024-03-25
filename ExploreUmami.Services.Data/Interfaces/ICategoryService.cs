@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ExploreUmami.Web.ViewModels.Business;
+using ExploreUmami.Web.ViewModels.Category;
 
 namespace ExploreUmami.Services.Data.Interfaces
 {
-    internal class ICategoryService
+    public interface ICategoryService
     {
+        Task<IEnumerable<SelectCategoryFormModel>> GetAllCategoriesAsync();
     }
 }
