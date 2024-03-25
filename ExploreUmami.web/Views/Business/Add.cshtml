@@ -1,0 +1,12 @@
+﻿@model AddBusinessFormModel
+@{
+    ViewData["Title"] = "Add Business";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<partial name="_BusinessFormPartial" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -29,5 +29,10 @@ namespace ExploreUmami.Services.Data
 
             return prefectures;
         }
+
+        public Task<bool> PrefectureExistsByIdAsync(int id)
+        {
+            return this.dbContext.Prefectures.AnyAsync(p => p.Id == id);
+        }
     }
 }

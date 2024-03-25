@@ -1,5 +1,7 @@
 ﻿using ExploreUmami.Data;
+using ExploreUmami.Data.Models;
 using ExploreUmami.Services.Data.Interfaces;
+using ExploreUmami.Web.ViewModels.Business;
 using ExploreUmami.Web.ViewModels.Home;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -34,6 +36,25 @@ namespace ExploreUmami.Services.Data
                 .ToArrayAsync();
                 
             return businesses;
+        }
+
+        public async Task AddBusinessAsync(AddBusinessFormModel business, string ownerId)
+        {
+            Business newBusiness = new Business
+            {
+                Title = business.Title,
+                Description = business.Description,
+                Address = business.Address,
+                PhoneNumber = business.PhoneNumber,
+                WebsiteURL = business.WebsiteURL,
+                ImageURL = business.ImageURL,
+                CategoryId = business.CategoryId,
+                PrefectureId = business.PrefectureId,
+                BusinessOwnerId = Guid.Parse(ownerId),
+            };
+
+            await this.dbContext.Businesses.AddAsync(newBusiness);
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }

@@ -34,5 +34,10 @@ namespace ExploreUmami.Services.Data
 
             return categories;
         }
+
+        public Task<bool> CategoryExistsByIdAsync(int id)
+        {
+            return this.dbContext.Categories.AnyAsync(c => c.Id == id);
+        }
     }
 }

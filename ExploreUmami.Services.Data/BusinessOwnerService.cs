@@ -70,5 +70,16 @@ namespace ExploreUmami.Services.Data
             await dbContext.BusinessOwners.AddAsync(businessOwner);
             await dbContext.SaveChangesAsync();
         }
+
+        public async Task<string?> GetOwnerIdByUserId(string userId)
+        {
+            string? ownerId = await this.dbContext
+                .BusinessOwners
+                .Where(x => x.UserId.ToString() == userId)
+                .Select(x => x.Id.ToString())
+                .FirstOrDefaultAsync();
+
+            return ownerId;
+        }
     }
 }

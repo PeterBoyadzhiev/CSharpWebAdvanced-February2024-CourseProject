@@ -14,5 +14,7 @@ namespace ExploreUmami.Services.Data.Interfaces
         Task<bool> OwnerExistsByDetailsAsync(string businessName, string businessPhoneNumber, string ownerFirstName, string ownerLastName);
 
         Task AddOwnerAsync(string userId, SwitchFormModel model);
+
+        Task<string?> GetOwnerIdByUserId(string userId);
     }
 }
