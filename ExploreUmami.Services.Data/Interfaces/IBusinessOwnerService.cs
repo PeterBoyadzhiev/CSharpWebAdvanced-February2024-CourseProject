@@ -1,4 +1,4 @@
-﻿using ExploreUmami.Web.ViewModels.Home;
+﻿using ExploreUmami.Web.ViewModels.BusinessOwner;
 using System;
 using System.Collections.Generic;
 using System.Linq;

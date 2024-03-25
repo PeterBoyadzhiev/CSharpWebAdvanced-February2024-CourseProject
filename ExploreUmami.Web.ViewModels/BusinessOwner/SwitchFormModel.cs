@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static ExploreUmami.Common.ValidationConstants.BusinessOwner;
 
-namespace ExploreUmami.Web.ViewModels.Home
+namespace ExploreUmami.Web.ViewModels.BusinessOwner
 {
     public class SwitchFormModel
     {

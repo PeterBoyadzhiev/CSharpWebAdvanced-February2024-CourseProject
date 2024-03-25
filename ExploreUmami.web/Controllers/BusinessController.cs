@@ -12,6 +12,13 @@ namespace ExploreUmami.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+
+        public async Task<IActionResult> Add()
+        {
+            return View();
+        }
+
         public IActionResult BusinessPerCountry() 
         { 
             return View(); 

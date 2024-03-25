@@ -18,6 +18,7 @@
             public const int AddressMaxLength = 100;
             public const int PhoneNumberMinLength = 10;
             public const int PhoneNumberMaxLength = 20;
+            public const string PhoneNumberRegularExpression = @"^\d{2}-\d{4}-\d{4}$";
             public const int WebsiteURLMinLength = 10;
             public const int WebsiteURLsiteMaxLength = 2048;
             public const int ImageURLMinLength = 10;

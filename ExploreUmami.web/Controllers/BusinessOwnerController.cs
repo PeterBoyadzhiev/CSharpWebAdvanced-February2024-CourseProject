@@ -1,6 +1,6 @@
 ﻿using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Web.Infrastructure.Extensions;
-using ExploreUmami.Web.ViewModels.Home;
+using ExploreUmami.Web.ViewModels.BusinessOwner;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
