@@ -15,6 +15,10 @@ namespace ExploreUmami.Data.Models
         [MaxLength(ContentMaxLength)]
         public string Content { get; set; } = null!;
 
+        [Required]
+        [Range(MinRating, MaxRating)]
+        public double Rating { get; set; }
+
         [ForeignKey(nameof(Business))]
         public Guid BusinessId { get; set; }
 

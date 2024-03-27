@@ -29,6 +29,8 @@
         {
             public const int ContentMinLength = 10;
             public const int ContentMaxLength = 500;
+            public const double MinRating = 1;
+            public const double MaxRating = 5;
         }
 
         public static class BusinessOwner
