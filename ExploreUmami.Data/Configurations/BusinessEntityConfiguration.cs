@@ -26,6 +26,14 @@ namespace ExploreUmami.Data.Configurations
                 .HasForeignKey(b => b.BusinessOwnerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder
+                .Property(b => b.CreatedOn)
+                .HasDefaultValueSql("GETDATE()");
+
+            builder
+                .Property(b => b.IsActive)
+                .HasDefaultValue(true);
+
             builder.HasData(GenerateBusinesses());
         }
 
@@ -37,6 +45,7 @@ namespace ExploreUmami.Data.Configurations
             
             business = new Business
             {
+                Id = Guid.Parse("6EEC121F-F98E-4008-9551-2D8A4B38DA98"),
                 Title = "Restaurant",
                 Description = "A place where you can eat food",
                 Address = "123 Main Street",
@@ -51,6 +60,7 @@ namespace ExploreUmami.Data.Configurations
 
             business = new Business
             {
+                Id = Guid.Parse("8F87F835-3DEB-43B4-AA01-852C5D287984"),
                 Title = "Cafe",
                 Description = "A place where you can drink coffee",
                 Address = "456 Elm Street",

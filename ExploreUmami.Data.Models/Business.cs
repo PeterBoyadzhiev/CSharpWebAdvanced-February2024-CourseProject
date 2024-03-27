@@ -38,6 +38,10 @@ namespace ExploreUmami.Data.Models
         [MaxLength(ImageURLMaxLength)]
         public string ImageURL { get; set; } = null!;
 
+        public DateTime CreatedOn { get; set; }
+
+        public bool? IsActive { get; set; }
+
         [Required]
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
@@ -48,7 +52,7 @@ namespace ExploreUmami.Data.Models
         [ForeignKey(nameof(Prefecture))]
         public int PrefectureId { get; set; }
 
-        public Prefecture Prefecture { get; set; }
+        public Prefecture Prefecture { get; set; } = null!;
 
         [ForeignKey(nameof(BusinessOwner))]
         public Guid BusinessOwnerId { get; set; }

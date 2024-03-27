@@ -253,6 +253,7 @@ namespace ExploreUmami.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Content = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Rating = table.Column<double>(type: "float", nullable: false),
                     BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ReviewerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -263,13 +264,14 @@ namespace ExploreUmami.Data.Migrations
                         name: "FK_Reviews_AspNetUsers_ReviewerId",
                         column: x => x.ReviewerId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Reviews_Businesses_BusinessId",
                         column: x => x.BusinessId,
                         principalTable: "Businesses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -277,9 +279,9 @@ namespace ExploreUmami.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("1ae80037-f648-442e-a309-4b94a3d1315c"), 0, "309b1121-002e-422d-9115-8b54bb0b93ef", "businessowner@gmail.com", false, false, null, "BUSINESSOWNER@GMAIL.COM", "BUSINESSOWNER@GMAIL.COM", "AQAAAAEAACcQAAAAEG8cvbIwuq55S0FvLcT7e+U2tMq7dmwqbD9FbQanGUNO0FXkk17p4MxHGwkpVn8gZg==", null, false, "6C94B3E70009FE549F746E84FE82B7A4", false, "businessowner@gmail.com" },
-                    { new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"), 0, "28e6eb1f-faee-42af-9d90-475d062b2583", "reviewer@gmail.com", false, false, null, "REVIEWER@GMAIL.COM", "REVIEWER@GMAIL.COM", "AQAAAAEAACcQAAAAEHaejeRdRkGCm4zQDS2FeuZ/wmDPqc928eZJBl7+t/SMxFYge6xOO5yir+q1QNs0tg==", null, false, "6C94B3E70009FE549F746E84FE82B7A4", false, "reviewer@gmail.com" },
-                    { new Guid("b43c3753-de4e-4417-b2ad-1c029c7b9795"), 0, "de669ae7-6236-44e1-8243-8e82accfda43", "admin@gmail.com", false, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEJ/01P1j7BXAwRAMolOEyVKdH1vy1Gi4T6wBhGHa+QdHqAiSno9NtOgJUD8Y6lpiwQ==", null, false, "6C94B3E70009FE549F746E84FE82B7A4", false, "admin@gmail.com" }
+                    { new Guid("1ae80037-f648-442e-a309-4b94a3d1315c"), 0, "4d085571-f597-441a-a398-593926e298de", "businessowner@gmail.com", false, false, null, "BUSINESSOWNER@GMAIL.COM", "BUSINESSOWNER@GMAIL.COM", "AQAAAAEAACcQAAAAEGxBoNK52+spDyVp9GldfH8Z9u8Gb23gbnC/752215SuO0g7G9NLBJw+ZKetnkoTgw==", null, false, "49E3F745CBBF9193D54BD99DBD098F45", false, "businessowner@gmail.com" },
+                    { new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"), 0, "604aa6a9-b3ac-410d-a8cc-9e7c9e88897d", "reviewer@gmail.com", false, false, null, "REVIEWER@GMAIL.COM", "REVIEWER@GMAIL.COM", "AQAAAAEAACcQAAAAEEH9K973I4u7IcY4Qfkjr4lNWBJvwxx4aAz5SwWTnTfnAdJTDcDYliw8YKrkpVJbBg==", null, false, "49E3F745CBBF9193D54BD99DBD098F45", false, "reviewer@gmail.com" },
+                    { new Guid("b43c3753-de4e-4417-b2ad-1c029c7b9795"), 0, "84e5e5de-45d4-4d22-a3c4-1efdef094d3a", "admin@gmail.com", false, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAELhxZRSa9nMNTjKuwOFFV0UmYmKZwdw1yhYYYDAfMYie4XMmt6MdMiGO4NWhKyew/A==", null, false, "49E3F745CBBF9193D54BD99DBD098F45", false, "admin@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -363,27 +365,37 @@ namespace ExploreUmami.Data.Migrations
             migrationBuilder.InsertData(
                 table: "BusinessOwners",
                 columns: new[] { "Id", "FirstName", "LastName", "NameOfBusiness", "PhoneNumber", "UserId" },
-                values: new object[] { new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), "John", "Doe", "John's Restaurant", "123-456-7890", new Guid("b43c3753-de4e-4417-b2ad-1c029c7b9795") });
+                values: new object[] { new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), "John", "Doe", "John's Restaurant", "12-3456-7890", new Guid("b43c3753-de4e-4417-b2ad-1c029c7b9795") });
 
             migrationBuilder.InsertData(
                 table: "BusinessOwners",
                 columns: new[] { "Id", "FirstName", "LastName", "NameOfBusiness", "PhoneNumber", "UserId" },
-                values: new object[] { new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), "Jane", "Doe", "Jane's Cafe", "123-456-7890", new Guid("1ae80037-f648-442e-a309-4b94a3d1315c") });
+                values: new object[] { new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), "Jane", "Doe", "Jane's Cafe", "12-3456-7890", new Guid("1ae80037-f648-442e-a309-4b94a3d1315c") });
 
             migrationBuilder.InsertData(
                 table: "Businesses",
                 columns: new[] { "Id", "Address", "BusinessOwnerId", "CategoryId", "Description", "ImageURL", "PhoneNumber", "PrefectureId", "Title", "VisitorId", "WebsiteURL" },
                 values: new object[,]
                 {
-                    { new Guid("10a63976-d018-4e76-bb0d-5fb2bef31f4e"), "789 Oak Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 3, "A place where you can drink alcohol", "https://dummyimage.com/400x200", "123-456-7890", 3, "Bar", null, "https://www.bar.com" },
-                    { new Guid("3c3e6a68-e749-4ede-a918-f4fab6715385"), "123 Main Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 1, "A place where you can eat food", "https://dummyimage.com/400x200", "123-456-7890", 1, "Restaurant", null, "https://www.restaurant.com" },
-                    { new Guid("45400dcb-0dd9-4fa8-9c29-550be9b5036a"), "1920 Cherry Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 8, "A place where you can buy food", "https://dummyimage.com/400x200", "123-456-7890", 1, "Grocery Store", null, "https://www.grocerystore.com" },
-                    { new Guid("4dadc4e2-43e0-4e5f-9cec-639cfbd35999"), "1314 Cedar Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 5, "A place where you can eat food quickly", "https://dummyimage.com/400x200", "123-456-7890", 5, "Fast Food", null, "https://www.fastfood.com" },
-                    { new Guid("8565f995-a200-46b7-bc84-67c2fbc93b21"), "1516 Maple Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 6, "A place where you can eat food on the go", "https://dummyimage.com/400x200", "123-456-7890", 6, "Food Truck", null, "https://www.foodtruck.com" },
-                    { new Guid("afc00a63-3a15-4c79-a7b0-08c3d68a50c7"), "1012 Pine Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 4, "A place where you can buy bread", "https://dummyimage.com/400x200", "123-456-7890", 4, "Bakery", null, "https://www.bakery.com" },
-                    { new Guid("ca480780-dca2-4527-b54a-054da1477393"), "456 Elm Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 2, "A place where you can drink coffee", "https://dummyimage.com/400x200", "123-456-7890", 2, "Cafe", null, "https://www.cafe.com" },
-                    { new Guid("edcc329d-a02c-4afe-b045-50772f6fcae0"), "1718 Walnut Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 7, "A place where you can eat dessert", "https://dummyimage.com/400x200", "123-456-7890", 1, "Dessert Shop", null, "https://www.dessertshop.com" }
+                    { new Guid("159fd9e4-1414-4d03-bd32-385cb7c59f90"), "789 Oak Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 3, "A place where you can drink alcohol", "https://dummyimage.com/400x200", "12-3456-7890", 3, "Bar", null, "https://www.bar.com" },
+                    { new Guid("40292fea-7748-4fe3-9944-987ef2410eda"), "1718 Walnut Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 7, "A place where you can eat dessert", "https://dummyimage.com/400x200", "12-3456-7890", 1, "Dessert Shop", null, "https://www.dessertshop.com" },
+                    { new Guid("51834097-9c17-44cb-acc4-c4dacd6170a4"), "1314 Cedar Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 5, "A place where you can eat food quickly", "https://dummyimage.com/400x200", "12-3456-7890", 5, "Fast Food", null, "https://www.fastfood.com" },
+                    { new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"), "123 Main Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 1, "A place where you can eat food", "https://dummyimage.com/400x200", "12-3456-7890", 1, "Restaurant", null, "https://www.restaurant.com" },
+                    { new Guid("73176956-6a9b-4f7c-9421-1dd8bc6633fa"), "1012 Pine Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 4, "A place where you can buy bread", "https://dummyimage.com/400x200", "12-3456-7890", 4, "Bakery", null, "https://www.bakery.com" },
+                    { new Guid("8a172b65-2a13-41f7-8e97-94b8fdc2d854"), "1920 Cherry Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 8, "A place where you can buy food", "https://dummyimage.com/400x200", "12-3456-7890", 1, "Grocery Store", null, "https://www.grocerystore.com" },
+                    { new Guid("8f87f835-3deb-43b4-aa01-852c5d287984"), "456 Elm Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 2, "A place where you can drink coffee", "https://dummyimage.com/400x200", "12-3456-7890", 2, "Cafe", null, "https://www.cafe.com" },
+                    { new Guid("9310fc7e-d090-48b6-be15-89e4449463f7"), "1516 Maple Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 6, "A place where you can eat food on the go", "https://dummyimage.com/400x200", "12-3456-7890", 6, "Food Truck", null, "https://www.foodtruck.com" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BusinessId", "Content", "Rating", "ReviewerId" },
+                values: new object[] { -2, new Guid("8f87f835-3deb-43b4-aa01-852c5d287984"), "Great coffee!", 5.0, new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83") });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BusinessId", "Content", "Rating", "ReviewerId" },
+                values: new object[] { -1, new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"), "Great food!", 5.0, new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -450,9 +462,11 @@ namespace ExploreUmami.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reviews_BusinessId",
+                name: "IX_Reviews_BusinessId_ReviewerId",
                 table: "Reviews",
-                column: "BusinessId");
+                columns: new[] { "BusinessId", "ReviewerId" },
+                unique: true,
+                filter: "[ReviewerId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_ReviewerId",

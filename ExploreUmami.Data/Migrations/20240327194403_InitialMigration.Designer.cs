@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExploreUmami.Data.Migrations
 {
     [DbContext(typeof(ExploreUmamiDbContext))]
-    [Migration("20240322225215_InitialMigration")]
+    [Migration("20240327194403_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,15 +94,15 @@ namespace ExploreUmami.Data.Migrations
                         {
                             Id = new Guid("b43c3753-de4e-4417-b2ad-1c029c7b9795"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "de669ae7-6236-44e1-8243-8e82accfda43",
+                            ConcurrencyStamp = "84e5e5de-45d4-4d22-a3c4-1efdef094d3a",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ/01P1j7BXAwRAMolOEyVKdH1vy1Gi4T6wBhGHa+QdHqAiSno9NtOgJUD8Y6lpiwQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELhxZRSa9nMNTjKuwOFFV0UmYmKZwdw1yhYYYDAfMYie4XMmt6MdMiGO4NWhKyew/A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6C94B3E70009FE549F746E84FE82B7A4",
+                            SecurityStamp = "49E3F745CBBF9193D54BD99DBD098F45",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         },
@@ -110,15 +110,15 @@ namespace ExploreUmami.Data.Migrations
                         {
                             Id = new Guid("1ae80037-f648-442e-a309-4b94a3d1315c"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "309b1121-002e-422d-9115-8b54bb0b93ef",
+                            ConcurrencyStamp = "4d085571-f597-441a-a398-593926e298de",
                             Email = "businessowner@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BUSINESSOWNER@GMAIL.COM",
                             NormalizedUserName = "BUSINESSOWNER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG8cvbIwuq55S0FvLcT7e+U2tMq7dmwqbD9FbQanGUNO0FXkk17p4MxHGwkpVn8gZg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGxBoNK52+spDyVp9GldfH8Z9u8Gb23gbnC/752215SuO0g7G9NLBJw+ZKetnkoTgw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6C94B3E70009FE549F746E84FE82B7A4",
+                            SecurityStamp = "49E3F745CBBF9193D54BD99DBD098F45",
                             TwoFactorEnabled = false,
                             UserName = "businessowner@gmail.com"
                         },
@@ -126,15 +126,15 @@ namespace ExploreUmami.Data.Migrations
                         {
                             Id = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "28e6eb1f-faee-42af-9d90-475d062b2583",
+                            ConcurrencyStamp = "604aa6a9-b3ac-410d-a8cc-9e7c9e88897d",
                             Email = "reviewer@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "REVIEWER@GMAIL.COM",
                             NormalizedUserName = "REVIEWER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHaejeRdRkGCm4zQDS2FeuZ/wmDPqc928eZJBl7+t/SMxFYge6xOO5yir+q1QNs0tg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEH9K973I4u7IcY4Qfkjr4lNWBJvwxx4aAz5SwWTnTfnAdJTDcDYliw8YKrkpVJbBg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6C94B3E70009FE549F746E84FE82B7A4",
+                            SecurityStamp = "49E3F745CBBF9193D54BD99DBD098F45",
                             TwoFactorEnabled = false,
                             UserName = "reviewer@gmail.com"
                         });
@@ -202,104 +202,104 @@ namespace ExploreUmami.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3c3e6a68-e749-4ede-a918-f4fab6715385"),
+                            Id = new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"),
                             Address = "123 Main Street",
                             BusinessOwnerId = new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"),
                             CategoryId = 1,
                             Description = "A place where you can eat food",
                             ImageURL = "https://dummyimage.com/400x200",
-                            PhoneNumber = "123-456-7890",
+                            PhoneNumber = "12-3456-7890",
                             PrefectureId = 1,
                             Title = "Restaurant",
                             WebsiteURL = "https://www.restaurant.com"
                         },
                         new
                         {
-                            Id = new Guid("ca480780-dca2-4527-b54a-054da1477393"),
+                            Id = new Guid("8f87f835-3deb-43b4-aa01-852c5d287984"),
                             Address = "456 Elm Street",
                             BusinessOwnerId = new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"),
                             CategoryId = 2,
                             Description = "A place where you can drink coffee",
                             ImageURL = "https://dummyimage.com/400x200",
-                            PhoneNumber = "123-456-7890",
+                            PhoneNumber = "12-3456-7890",
                             PrefectureId = 2,
                             Title = "Cafe",
                             WebsiteURL = "https://www.cafe.com"
                         },
                         new
                         {
-                            Id = new Guid("10a63976-d018-4e76-bb0d-5fb2bef31f4e"),
+                            Id = new Guid("159fd9e4-1414-4d03-bd32-385cb7c59f90"),
                             Address = "789 Oak Street",
                             BusinessOwnerId = new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"),
                             CategoryId = 3,
                             Description = "A place where you can drink alcohol",
                             ImageURL = "https://dummyimage.com/400x200",
-                            PhoneNumber = "123-456-7890",
+                            PhoneNumber = "12-3456-7890",
                             PrefectureId = 3,
                             Title = "Bar",
                             WebsiteURL = "https://www.bar.com"
                         },
                         new
                         {
-                            Id = new Guid("afc00a63-3a15-4c79-a7b0-08c3d68a50c7"),
+                            Id = new Guid("73176956-6a9b-4f7c-9421-1dd8bc6633fa"),
                             Address = "1012 Pine Street",
                             BusinessOwnerId = new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"),
                             CategoryId = 4,
                             Description = "A place where you can buy bread",
                             ImageURL = "https://dummyimage.com/400x200",
-                            PhoneNumber = "123-456-7890",
+                            PhoneNumber = "12-3456-7890",
                             PrefectureId = 4,
                             Title = "Bakery",
                             WebsiteURL = "https://www.bakery.com"
                         },
                         new
                         {
-                            Id = new Guid("4dadc4e2-43e0-4e5f-9cec-639cfbd35999"),
+                            Id = new Guid("51834097-9c17-44cb-acc4-c4dacd6170a4"),
                             Address = "1314 Cedar Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 5,
                             Description = "A place where you can eat food quickly",
                             ImageURL = "https://dummyimage.com/400x200",
-                            PhoneNumber = "123-456-7890",
+                            PhoneNumber = "12-3456-7890",
                             PrefectureId = 5,
                             Title = "Fast Food",
                             WebsiteURL = "https://www.fastfood.com"
                         },
                         new
                         {
-                            Id = new Guid("8565f995-a200-46b7-bc84-67c2fbc93b21"),
+                            Id = new Guid("9310fc7e-d090-48b6-be15-89e4449463f7"),
                             Address = "1516 Maple Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 6,
                             Description = "A place where you can eat food on the go",
                             ImageURL = "https://dummyimage.com/400x200",
-                            PhoneNumber = "123-456-7890",
+                            PhoneNumber = "12-3456-7890",
                             PrefectureId = 6,
                             Title = "Food Truck",
                             WebsiteURL = "https://www.foodtruck.com"
                         },
                         new
                         {
-                            Id = new Guid("edcc329d-a02c-4afe-b045-50772f6fcae0"),
+                            Id = new Guid("40292fea-7748-4fe3-9944-987ef2410eda"),
                             Address = "1718 Walnut Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 7,
                             Description = "A place where you can eat dessert",
                             ImageURL = "https://dummyimage.com/400x200",
-                            PhoneNumber = "123-456-7890",
+                            PhoneNumber = "12-3456-7890",
                             PrefectureId = 1,
                             Title = "Dessert Shop",
                             WebsiteURL = "https://www.dessertshop.com"
                         },
                         new
                         {
-                            Id = new Guid("45400dcb-0dd9-4fa8-9c29-550be9b5036a"),
+                            Id = new Guid("8a172b65-2a13-41f7-8e97-94b8fdc2d854"),
                             Address = "1920 Cherry Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 8,
                             Description = "A place where you can buy food",
                             ImageURL = "https://dummyimage.com/400x200",
-                            PhoneNumber = "123-456-7890",
+                            PhoneNumber = "12-3456-7890",
                             PrefectureId = 1,
                             Title = "Grocery Store",
                             WebsiteURL = "https://www.grocerystore.com"
@@ -348,7 +348,7 @@ namespace ExploreUmami.Data.Migrations
                             FirstName = "John",
                             LastName = "Doe",
                             NameOfBusiness = "John's Restaurant",
-                            PhoneNumber = "123-456-7890",
+                            PhoneNumber = "12-3456-7890",
                             UserId = new Guid("b43c3753-de4e-4417-b2ad-1c029c7b9795")
                         },
                         new
@@ -357,7 +357,7 @@ namespace ExploreUmami.Data.Migrations
                             FirstName = "Jane",
                             LastName = "Doe",
                             NameOfBusiness = "Jane's Cafe",
-                            PhoneNumber = "123-456-7890",
+                            PhoneNumber = "12-3456-7890",
                             UserId = new Guid("1ae80037-f648-442e-a309-4b94a3d1315c")
                         });
                 });
@@ -703,16 +703,39 @@ namespace ExploreUmami.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
+
                     b.Property<Guid?>("ReviewerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BusinessId");
-
                     b.HasIndex("ReviewerId");
 
+                    b.HasIndex("BusinessId", "ReviewerId")
+                        .IsUnique()
+                        .HasFilter("[ReviewerId] IS NOT NULL");
+
                     b.ToTable("Reviews");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = -1,
+                            BusinessId = new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"),
+                            Content = "Great food!",
+                            Rating = 5.0,
+                            ReviewerId = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83")
+                        },
+                        new
+                        {
+                            Id = -2,
+                            BusinessId = new Guid("8f87f835-3deb-43b4-aa01-852c5d287984"),
+                            Content = "Great coffee!",
+                            Rating = 5.0,
+                            ReviewerId = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83")
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -899,12 +922,13 @@ namespace ExploreUmami.Data.Migrations
                     b.HasOne("ExploreUmami.Data.Models.Business", "Business")
                         .WithMany("Reviews")
                         .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ExploreUmami.Data.Models.ApplicationUser", "Reviewer")
-                        .WithMany()
-                        .HasForeignKey("ReviewerId");
+                        .WithMany("Reviews")
+                        .HasForeignKey("ReviewerId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Business");
 
@@ -964,6 +988,8 @@ namespace ExploreUmami.Data.Migrations
 
             modelBuilder.Entity("ExploreUmami.Data.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Reviews");
+
                     b.Navigation("VisitedBusinesses");
                 });
 
