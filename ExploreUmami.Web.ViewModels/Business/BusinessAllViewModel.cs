@@ -16,7 +16,7 @@ namespace ExploreUmami.Web.ViewModels.Business
         public string PhoneNumber { get; set; } = null!;
 
         [Display(Name = "Image Link")]
-        public string ImageUrl { get; set; } = null!;
+        public string ImageURL { get; set; } = null!;
 
         [Display(Name = "Website Link")]
         public string WebsiteUrl { get; set; } = null!;

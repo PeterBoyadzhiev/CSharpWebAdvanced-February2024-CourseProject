@@ -90,6 +90,7 @@ namespace ExploreUmami.Services.Data
                     Description = b.Description,
                     Address = b.Address,
                     PhoneNumber = b.PhoneNumber,
+                    ImageURL = b.ImageURL,
                     WebsiteUrl = b.WebsiteURL ?? "",
                 })
                 .ToArrayAsync();
