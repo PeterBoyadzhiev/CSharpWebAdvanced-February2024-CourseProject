@@ -4,6 +4,7 @@ using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Services.Data.Models.Business;
 using ExploreUmami.Web.ViewModels.Business;
 using ExploreUmami.Web.ViewModels.Business.Enums;
+using ExploreUmami.Web.ViewModels.BusinessOwner;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExploreUmami.Services.Data
@@ -25,8 +26,8 @@ namespace ExploreUmami.Services.Data
                 Description = business.Description,
                 Address = business.Address,
                 PhoneNumber = business.PhoneNumber,
-                WebsiteURL = business.WebsiteURL,
-                ImageURL = business.ImageURL,
+                WebsiteUrl = business.WebsiteUrl,
+                ImageUrl = business.ImageUrl,
                 CategoryId = business.CategoryId,
                 PrefectureId = business.PrefectureId,
                 BusinessOwnerId = Guid.Parse(ownerId),
@@ -63,7 +64,7 @@ namespace ExploreUmami.Services.Data
                                 EF.Functions.Like(b.Description, wildCardSearchTerm) ||
                                 EF.Functions.Like(b.Address, wildCardSearchTerm) ||
                                 EF.Functions.Like(b.PhoneNumber, wildCardSearchTerm) ||
-                                EF.Functions.Like(b.WebsiteURL ?? "", wildCardSearchTerm));
+                                EF.Functions.Like(b.WebsiteUrl ?? "", wildCardSearchTerm));
             }
 
             businessesQuery = filterModel.BusinessSorting switch
@@ -89,10 +90,7 @@ namespace ExploreUmami.Services.Data
                     Id = b.Id.ToString(),
                     Title = b.Title,
                     Description = b.Description,
-                    Address = b.Address,
-                    PhoneNumber = b.PhoneNumber,
-                    ImageURL = b.ImageURL,
-                    WebsiteUrl = b.WebsiteURL ?? "",
+                    ImageUrl = b.ImageUrl,
                 })
                 .ToArrayAsync();
 
@@ -116,10 +114,7 @@ namespace ExploreUmami.Services.Data
                     Id = b.Id.ToString(),
                     Title = b.Title,
                     Description = b.Description,
-                    Address = b.Address,
-                    PhoneNumber = b.PhoneNumber,
-                    ImageURL = b.ImageURL,
-                    WebsiteUrl = b.WebsiteURL ?? "",
+                    ImageUrl = b.ImageUrl,
                 })
                 .ToArrayAsync();
 
@@ -137,15 +132,49 @@ namespace ExploreUmami.Services.Data
                     Id = b.Id.ToString(),
                     Title = b.Title,
                     Description = b.Description,
-                    Address = b.Address,
-                    PhoneNumber = b.PhoneNumber,
-                    ImageURL = b.ImageURL,
-                    WebsiteUrl = b.WebsiteURL ?? "",
+                    ImageUrl = b.ImageUrl,
                 })
                 .ToArrayAsync();
 
             return businesses;
 
+        }
+
+        public async Task<BusinessDetailsViewModel?> GetBusinessDetailsByIdAsync(string businessId)
+        {
+            Business? business = await this.dbContext
+                .Businesses
+                .Include(b => b.Category)
+                .Include(b => b.Prefecture)
+                .Include(b => b.BusinessOwner)
+                .ThenInclude(bo => bo.User)
+                .Include(b => b.Reviews) // TO DO
+                .FirstOrDefaultAsync(b => b.Id.ToString() == businessId);
+
+            if (business == null)
+            {
+                return null;
+            }
+
+            return new BusinessDetailsViewModel()
+            {
+                Id = business.Id.ToString(),
+                Title = business.Title,
+                Description = business.Description,
+                Address = business.Address,
+                PhoneNumber = business.PhoneNumber,
+                WebsiteUrl = business.WebsiteUrl ?? "",
+                ImageUrl = business.ImageUrl,
+                Category = business.Category.Name,
+                Prefecture = business.Prefecture.Name,
+                Owner = new OwnerInfoModel()
+                { 
+                    FullName = business.BusinessOwner.FirstName + " " + business.BusinessOwner.LastName,
+                    PhoneNumber = business.BusinessOwner.PhoneNumber,
+                    Email = business.BusinessOwner.User.Email,
+                }
+                
+            };
         }
     }
 }

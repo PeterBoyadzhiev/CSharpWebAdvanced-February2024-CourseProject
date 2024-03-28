@@ -31,12 +31,12 @@ namespace ExploreUmami.Data.Models
         [MaxLength(PhoneNumberMaxLength)]
         public string PhoneNumber { get; set; } = null!;
 
-        [MaxLength(WebsiteURLsiteMaxLength)]
-        public string? WebsiteURL { get; set; }
+        [MaxLength(WebsiteUrlsiteMaxLength)]
+        public string? WebsiteUrl { get; set; }
 
         [Required]
-        [MaxLength(ImageURLMaxLength)]
-        public string ImageURL { get; set; } = null!;
+        [MaxLength(ImageUrlMaxLength)]
+        public string ImageUrl { get; set; } = null!;
 
         public DateTime CreatedOn { get; set; }
 

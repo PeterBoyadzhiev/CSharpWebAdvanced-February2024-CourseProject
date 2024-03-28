@@ -1,4 +1,5 @@
-﻿using ExploreUmami.Services.Data.Interfaces;
+﻿using ExploreUmami.Data.Models;
+using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Services.Data.Models.Business;
 using ExploreUmami.Web.Infrastructure.Extensions;
 using ExploreUmami.Web.ViewModels.Business;
@@ -147,6 +148,21 @@ namespace ExploreUmami.Web.Controllers
 
             return View(businesses);
 
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(string id)
+        {
+            BusinessDetailsViewModel? model = await this.businessService.GetBusinessDetailsByIdAsync(id);
+
+            if (model == null)
+            {
+                this.TempData["Error"] = "Business does not exist!";
+                return this.RedirectToAction("All", "Business");
+            }
+
+            return View(model);
         }
 
         public IActionResult BusinessPerCountry() 

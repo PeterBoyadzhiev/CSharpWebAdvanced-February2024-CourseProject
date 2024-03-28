@@ -31,14 +31,14 @@ namespace ExploreUmami.Web.ViewModels.Business
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; } = null!;
 
-        [StringLength(WebsiteURLsiteMaxLength, MinimumLength = WebsiteURLMinLength)]
+        [StringLength(WebsiteUrlsiteMaxLength, MinimumLength = WebsiteUrlMinLength)]
         [Display(Name = "Website Link")]
-        public string? WebsiteURL { get; set; }
+        public string? WebsiteUrl { get; set; }
 
         [Required]
-        [StringLength(ImageURLMaxLength, MinimumLength = ImageURLMinLength, ErrorMessage = "Image is not the correct size")]
+        [StringLength(ImageUrlMaxLength, MinimumLength = ImageUrlMinLength, ErrorMessage = "Image is not the correct size")]
         [Display(Name = "Image Link")]
-        public string ImageURL { get; set; } = null!;
+        public string ImageUrl { get; set; } = null!;
 
         [Display(Name = "Category")]
         public int CategoryId { get; set; }

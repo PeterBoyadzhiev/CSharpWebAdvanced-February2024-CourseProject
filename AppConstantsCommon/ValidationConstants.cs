@@ -19,10 +19,10 @@
             public const int PhoneNumberMinLength = 10;
             public const int PhoneNumberMaxLength = 20;
             public const string PhoneNumberRegularExpression = @"^\d{2}-\d{4}-\d{4}$";
-            public const int WebsiteURLMinLength = 10;
-            public const int WebsiteURLsiteMaxLength = 2048;
-            public const int ImageURLMinLength = 10;
-            public const int ImageURLMaxLength = 2048;
+            public const int WebsiteUrlMinLength = 10;
+            public const int WebsiteUrlsiteMaxLength = 2048;
+            public const int ImageUrlMinLength = 10;
+            public const int ImageUrlMaxLength = 2048;
         }
 
         public static class Review
