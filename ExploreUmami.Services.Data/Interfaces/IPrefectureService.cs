@@ -7,5 +7,7 @@ namespace ExploreUmami.Services.Data.Interfaces
         Task<IEnumerable<SelectPrefectureFormModel>> GetAllPrefecturesAsync();
 
         Task<bool> PrefectureExistsByIdAsync(int id);
+
+        Task<IEnumerable<string>> AllPrefectureNamesAsync();
     }
 }

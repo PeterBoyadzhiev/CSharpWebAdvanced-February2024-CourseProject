@@ -34,5 +34,15 @@ namespace ExploreUmami.Services.Data
         {
             return this.dbContext.Prefectures.AnyAsync(p => p.Id == id);
         }
+
+        public async Task<IEnumerable<string>> AllPrefectureNamesAsync()
+        {
+            IEnumerable<string> prefectureNames = await this.dbContext
+                .Prefectures
+                .Select(p => p.Name)
+                .ToArrayAsync();
+
+            return prefectureNames;
+        }
     }
 }

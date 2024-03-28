@@ -8,5 +8,7 @@ namespace ExploreUmami.Services.Data.Interfaces
         Task<IEnumerable<SelectCategoryFormModel>> GetAllCategoriesAsync();
 
         Task<bool> CategoryExistsByIdAsync(int id);
+
+        Task<IEnumerable<string>> AllCategoryNamesAsync();
     }
 }

@@ -15,30 +15,30 @@ namespace ExploreUmami.Web.ViewModels.Business
 
         [Required]
         [StringLength(TitleMaxLength, MinimumLength = TitleMinLength)]
-        public string Title { get; set; }
+        public string Title { get; set; } = null!;
 
         [Required]
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
-        public string Description { get; set; }
+        public string Description { get; set; } = null!;
 
         [Required]
         [StringLength(AddressMaxLength, MinimumLength = AddressMinLength)]
-        public string Address { get; set; }
+        public string Address { get; set; } = null!;
 
         [Required]
         [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength)]
         [RegularExpression(PhoneNumberRegularExpression)]
         [Display(Name = "Phone Number")]
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; } = null!;
 
         [StringLength(WebsiteURLsiteMaxLength, MinimumLength = WebsiteURLMinLength)]
         [Display(Name = "Website Link")]
-        public string WebsiteURL { get; set; }
+        public string? WebsiteURL { get; set; }
 
         [Required]
         [StringLength(ImageURLMaxLength, MinimumLength = ImageURLMinLength, ErrorMessage = "Image is not the correct size")]
         [Display(Name = "Image Link")]
-        public string ImageURL { get; set; }
+        public string ImageURL { get; set; } = null!;
 
         [Display(Name = "Category")]
         public int CategoryId { get; set; }

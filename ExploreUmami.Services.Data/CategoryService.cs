@@ -39,5 +39,15 @@ namespace ExploreUmami.Services.Data
         {
             return this.dbContext.Categories.AnyAsync(c => c.Id == id);
         }
+
+        public async Task<IEnumerable<string>> AllCategoryNamesAsync()
+        {
+            IEnumerable<string> categoryNames = await this.dbContext
+                .Categories
+                .Select(c => c.Name)
+                .ToArrayAsync();
+
+            return categoryNames;
+        }
     }
 }

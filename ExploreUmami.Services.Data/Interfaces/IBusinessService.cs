@@ -1,12 +1,12 @@
-﻿using ExploreUmami.Web.ViewModels.Business;
-using ExploreUmami.Web.ViewModels.Home;
+﻿using ExploreUmami.Services.Data.Models.Business;
+using ExploreUmami.Web.ViewModels.Business;
 
 namespace ExploreUmami.Services.Data.Interfaces
 {
     public interface IBusinessService
     {
-        Task<IEnumerable<BusinessViewModel>> GetBusinessesAsync();
-
         Task AddBusinessAsync(AddBusinessFormModel business, string ownerId);
+
+        Task<FilterAndPageModel> GetBusinessFilteredAsync(AllBusinessFilterModel filterModel);
     }
 }

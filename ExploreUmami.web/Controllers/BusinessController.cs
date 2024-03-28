@@ -1,7 +1,7 @@
 ﻿using ExploreUmami.Services.Data.Interfaces;
+using ExploreUmami.Services.Data.Models.Business;
 using ExploreUmami.Web.Infrastructure.Extensions;
 using ExploreUmami.Web.ViewModels.Business;
-using ExploreUmami.Web.ViewModels.Home;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,32 +29,19 @@ namespace ExploreUmami.Web.Controllers
             this.businessService = businessService;
         }
 
+        [HttpGet]
         [AllowAnonymous]
-
-        public async Task<IActionResult> All(int pageNumber = 1, int pageSize = 3)
+        public async Task<IActionResult> All([FromQuery]AllBusinessFilterModel filterModel)
         {
-            string pageNumberString = HttpContext.Request.Query["pageNumber"];
-            pageNumber = int.TryParse(pageNumberString, out int parsedPageNumber) ? parsedPageNumber : 1;
+            FilterAndPageModel serviceModel = await this.businessService
+                .GetBusinessFilteredAsync(filterModel);
 
-            IEnumerable<BusinessViewModel> businesses = await this.businessService.GetBusinessesAsync();
+            filterModel.Categories = await this.categoryService.AllCategoryNamesAsync();
+            filterModel.Prefectures = await this.prefectureService.AllPrefectureNamesAsync();
+            filterModel.Businesses = serviceModel.Businesses;
+            filterModel.TotalBusinesses = serviceModel.TotalBusinessesCount;
 
-            int totalBusinesses = businesses.Count(); // Get total number of businesses
-            int skip = (pageNumber - 1) * pageSize;
-            businesses = businesses.Skip(skip).Take(pageSize);
-
-            var viewModel = new AllViewModel
-            {
-                CurrentPage = pageNumber,
-                Businesses = businesses.Select(b => new BusinessViewModel
-                {
-                    Id = b.Id.ToString(),
-                    Title = b.Title,
-                    ImageURL = b.ImageURL,
-                }).ToList(),
-                TotalPages = (int)Math.Ceiling((double)totalBusinesses / pageSize)
-            };
-
-            return View(viewModel);
+            return View(filterModel);
         }
 
         [HttpGet]

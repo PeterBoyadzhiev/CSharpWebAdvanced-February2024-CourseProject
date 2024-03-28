@@ -1,14 +1,10 @@
 ﻿using ExploreUmami.Data;
 using ExploreUmami.Data.Models;
 using ExploreUmami.Services.Data.Interfaces;
+using ExploreUmami.Services.Data.Models.Business;
 using ExploreUmami.Web.ViewModels.Business;
-using ExploreUmami.Web.ViewModels.Home;
+using ExploreUmami.Web.ViewModels.Business.Enums;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExploreUmami.Services.Data
 {
@@ -19,23 +15,6 @@ namespace ExploreUmami.Services.Data
         public BusinessService(ExploreUmamiDbContext dbContext)
         {
              this.dbContext = dbContext;
-        }
-
-        public async Task<IEnumerable<BusinessViewModel>> GetBusinessesAsync()
-        {
-            IEnumerable<BusinessViewModel> businesses = await this.dbContext
-                .Businesses
-                .OrderByDescending(b => b.Title)
-                .Take(10)
-                .Select(b => new BusinessViewModel
-                {
-                    Id = b.Id.ToString(),
-                    Title = b.Title,
-                    ImageURL = b.ImageURL,
-                })
-                .ToArrayAsync();
-                
-            return businesses;
         }
 
         public async Task AddBusinessAsync(AddBusinessFormModel business, string ownerId)
@@ -55,6 +34,73 @@ namespace ExploreUmami.Services.Data
 
             await this.dbContext.Businesses.AddAsync(newBusiness);
             await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<FilterAndPageModel> GetBusinessFilteredAsync(AllBusinessFilterModel filterModel)
+        {
+            IQueryable<Business> businessesQuery = this.dbContext
+                .Businesses
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(filterModel.Category)) 
+            {
+                businessesQuery = businessesQuery
+                    .Where(b => b.Category.Name == filterModel.Category);
+            }
+
+            if (!string.IsNullOrEmpty(filterModel.Prefecture))
+            {
+                businessesQuery = businessesQuery
+                    .Where(b => b.Prefecture.Name == filterModel.Prefecture);
+            }
+
+            if (!string.IsNullOrEmpty(filterModel.SearchTerm))
+            {
+                string wildCardSearchTerm = $"%{filterModel.SearchTerm.ToLower()}%";
+
+                businessesQuery = businessesQuery
+                    .Where(b => EF.Functions.Like(b.Title, wildCardSearchTerm) ||
+                                EF.Functions.Like(b.Description, wildCardSearchTerm) ||
+                                EF.Functions.Like(b.Address, wildCardSearchTerm) ||
+                                EF.Functions.Like(b.PhoneNumber, wildCardSearchTerm) ||
+                                EF.Functions.Like(b.WebsiteURL ?? "", wildCardSearchTerm));
+            }
+
+            businessesQuery = filterModel.BusinessSorting switch
+            {
+                BusinessSorting.HighestRating => businessesQuery
+                    .OrderByDescending(b => b.Reviews.Average(r => r.Rating)),
+                BusinessSorting.LowestRating => businessesQuery
+                    .OrderBy(b => b.Reviews.Average(r => r.Rating)),
+                BusinessSorting.Latest => businessesQuery
+                    .OrderByDescending(b => b.CreatedOn),
+                BusinessSorting.Oldest => businessesQuery
+                    .OrderBy(b => b.CreatedOn),
+                _ => businessesQuery
+                    .OrderBy(b => b.Title),
+            };
+
+            IEnumerable<BusinessAllViewModel> businesses = await businessesQuery
+                .Skip((filterModel.CurrentPage - 1) * filterModel.BusinessPerPage)
+                .Take(filterModel.BusinessPerPage)
+                .Select(b => new BusinessAllViewModel
+                {
+                    Id = b.Id.ToString(),
+                    Title = b.Title,
+                    Description = b.Description,
+                    Address = b.Address,
+                    PhoneNumber = b.PhoneNumber,
+                    WebsiteUrl = b.WebsiteURL ?? "",
+                })
+                .ToArrayAsync();
+
+            int totalBusinesses = await businessesQuery.CountAsync();
+
+            return new FilterAndPageModel
+            {
+                TotalBusinessesCount = totalBusinesses,
+                Businesses = businesses,
+            };
         }
     }
 }

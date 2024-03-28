@@ -1,4 +1,4 @@
-﻿namespace ExploreUmami.Web.ViewModels.Home
+﻿namespace ExploreUmami.Web.ViewModels.Business
 {
     public class BusinessViewModel
     {
