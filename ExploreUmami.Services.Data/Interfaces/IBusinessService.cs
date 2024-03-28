@@ -8,5 +8,8 @@ namespace ExploreUmami.Services.Data.Interfaces
         Task AddBusinessAsync(AddBusinessFormModel business, string ownerId);
 
         Task<FilterAndPageModel> GetBusinessFilteredAsync(AllBusinessFilterModel filterModel);
+
+        Task<IEnumerable<BusinessAllViewModel>> AllBusinessesByOwnerIdAsync(string ownerId);
+        Task<IEnumerable<BusinessAllViewModel>> AllBusinessesByReviewerIdAsync(string reviewerId);
     }
 }

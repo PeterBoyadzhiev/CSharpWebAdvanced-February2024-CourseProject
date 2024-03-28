@@ -110,7 +110,7 @@ namespace ExploreUmami.Web.Controllers
 
             try
             {
-                string? ownerId = await this.businessOwnerService.GetOwnerIdByUserId(this.User.GetId()!);
+                string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(this.User.GetId()!);
 
                 await this.businessService.AddBusinessAsync(model, ownerId!);
             }
@@ -125,6 +125,28 @@ namespace ExploreUmami.Web.Controllers
             }  
 
             return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> MyBusinesses()
+        {
+            List<BusinessAllViewModel> businesses = new List<BusinessAllViewModel>();
+
+            string? userId = this.User.GetId();
+            bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
+
+            if (isOwner)
+            {
+                string? agentId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
+                businesses.AddRange(await this.businessService.AllBusinessesByOwnerIdAsync(agentId!));
+            }
+            else
+            {
+                businesses.AddRange(await this.businessService.AllBusinessesByReviewerIdAsync(userId));
+            }
+
+            return View(businesses);
+
         }
 
         public IActionResult BusinessPerCountry() 

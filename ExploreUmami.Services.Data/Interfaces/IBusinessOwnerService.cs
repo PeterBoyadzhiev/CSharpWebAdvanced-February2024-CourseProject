@@ -15,6 +15,6 @@ namespace ExploreUmami.Services.Data.Interfaces
 
         Task AddOwnerAsync(string userId, SwitchFormModel model);
 
-        Task<string?> GetOwnerIdByUserId(string userId);
+        Task<string?> GetOwnerIdByUserIdAsync(string userId);
     }
 }

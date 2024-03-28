@@ -81,6 +81,7 @@ namespace ExploreUmami.Services.Data
             };
 
             IEnumerable<BusinessAllViewModel> businesses = await businessesQuery
+                .Where(b => b.IsActive == true)
                 .Skip((filterModel.CurrentPage - 1) * filterModel.BusinessPerPage)
                 .Take(filterModel.BusinessPerPage)
                 .Select(b => new BusinessAllViewModel
@@ -102,6 +103,49 @@ namespace ExploreUmami.Services.Data
                 TotalBusinessesCount = totalBusinesses,
                 Businesses = businesses,
             };
+        }
+
+        public async Task<IEnumerable<BusinessAllViewModel>> AllBusinessesByOwnerIdAsync(string ownerId)
+        {
+            
+            IEnumerable<BusinessAllViewModel> businesses = await this.dbContext
+                .Businesses
+                .Where(b => b.IsActive == true && b.BusinessOwnerId == Guid.Parse(ownerId))
+                .Select(b => new BusinessAllViewModel
+                {
+                    Id = b.Id.ToString(),
+                    Title = b.Title,
+                    Description = b.Description,
+                    Address = b.Address,
+                    PhoneNumber = b.PhoneNumber,
+                    ImageURL = b.ImageURL,
+                    WebsiteUrl = b.WebsiteURL ?? "",
+                })
+                .ToArrayAsync();
+
+            return businesses;
+        }
+
+        public async Task<IEnumerable<BusinessAllViewModel>> AllBusinessesByReviewerIdAsync(string reviewerId)
+        {
+            
+            IEnumerable<BusinessAllViewModel> businesses = await this.dbContext
+                .Businesses
+                .Where(b => b.Reviews.Any(r => r.ReviewerId == Guid.Parse(reviewerId)))
+                .Select(b => new BusinessAllViewModel
+                {
+                    Id = b.Id.ToString(),
+                    Title = b.Title,
+                    Description = b.Description,
+                    Address = b.Address,
+                    PhoneNumber = b.PhoneNumber,
+                    ImageURL = b.ImageURL,
+                    WebsiteUrl = b.WebsiteURL ?? "",
+                })
+                .ToArrayAsync();
+
+            return businesses;
+
         }
     }
 }
