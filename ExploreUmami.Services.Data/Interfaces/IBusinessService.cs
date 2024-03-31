@@ -5,7 +5,7 @@ namespace ExploreUmami.Services.Data.Interfaces
 {
     public interface IBusinessService
     {
-        Task AddBusinessAsync(AddBusinessFormModel business, string ownerId);
+        Task AddBusinessAsync(BusinessFormModel business, string ownerId);
 
         Task<FilterAndPageModel> GetBusinessFilteredAsync(AllBusinessFilterModel filterModel);
 
@@ -13,6 +13,12 @@ namespace ExploreUmami.Services.Data.Interfaces
 
         Task<IEnumerable<BusinessAllViewModel>> AllBusinessesByReviewerIdAsync(string reviewerId);
 
-        Task<BusinessDetailsViewModel?> GetBusinessDetailsByIdAsync(string businessId);
+        Task<BusinessDetailsViewModel> GetBusinessDetailsByIdAsync(string businessId);
+
+        Task<bool> ExistsByIdAsync(string businessId);
+
+        Task<BusinessFormModel> GetBusinessToEditAsync(string businessId);
+
+        Task<bool> IsUserOwnerOfBusinessByIdsAsync(string userId, string businessId);
     }
 }

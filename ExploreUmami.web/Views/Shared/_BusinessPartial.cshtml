@@ -9,6 +9,7 @@
             </h5>
             <p class="card-text">@Model.Description</p>
             <a asp-controller="Business" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary">Details</a>
+            <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
         </div>
     </div>
 </div>

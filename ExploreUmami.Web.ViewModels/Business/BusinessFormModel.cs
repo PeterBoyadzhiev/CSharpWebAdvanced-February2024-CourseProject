@@ -5,9 +5,9 @@ using static ExploreUmami.Common.ValidationConstants.Business;
 
 namespace ExploreUmami.Web.ViewModels.Business
 {
-    public class AddBusinessFormModel
+    public class BusinessFormModel
     {
-        public AddBusinessFormModel()
+        public BusinessFormModel()
         {
             Categories = new HashSet<SelectCategoryFormModel>();
             Prefectures = new HashSet<SelectPrefectureFormModel>();

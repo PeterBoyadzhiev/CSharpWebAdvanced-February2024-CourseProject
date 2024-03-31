@@ -18,7 +18,7 @@ namespace ExploreUmami.Services.Data
              this.dbContext = dbContext;
         }
 
-        public async Task AddBusinessAsync(AddBusinessFormModel business, string ownerId)
+        public async Task AddBusinessAsync(BusinessFormModel business, string ownerId)
         {
             Business newBusiness = new Business
             {
@@ -140,21 +140,16 @@ namespace ExploreUmami.Services.Data
 
         }
 
-        public async Task<BusinessDetailsViewModel?> GetBusinessDetailsByIdAsync(string businessId)
+        public async Task<BusinessDetailsViewModel> GetBusinessDetailsByIdAsync(string businessId)
         {
-            Business? business = await this.dbContext
+            Business business = await this.dbContext
                 .Businesses
                 .Include(b => b.Category)
                 .Include(b => b.Prefecture)
                 .Include(b => b.BusinessOwner)
                 .ThenInclude(bo => bo.User)
                 .Include(b => b.Reviews) // TO DO
-                .FirstOrDefaultAsync(b => b.Id.ToString() == businessId);
-
-            if (business == null)
-            {
-                return null;
-            }
+                .FirstAsync(b => b.Id.ToString() == businessId);
 
             return new BusinessDetailsViewModel()
             {
@@ -175,6 +170,45 @@ namespace ExploreUmami.Services.Data
                 }
                 
             };
+        }
+
+        public async Task<bool> ExistsByIdAsync(string businessId)
+        {
+            return await this.dbContext
+                .Businesses
+                .Where(b => b.IsActive)
+                .AnyAsync(b => b.Id.ToString() == businessId);
+        }
+
+        public async Task<BusinessFormModel> GetBusinessToEditAsync(string businessId)
+        {
+            Business business = await this.dbContext
+                .Businesses
+                .Include(b => b.Category)
+                .Include(b => b.Prefecture)
+                .FirstAsync(b => b.Id.ToString() == businessId);
+
+            return new BusinessFormModel()
+            {
+                Title = business.Title,
+                Description = business.Description,
+                Address = business.Address,
+                PhoneNumber = business.PhoneNumber,
+                WebsiteUrl = business.WebsiteUrl ?? "",
+                ImageUrl = business.ImageUrl,
+                CategoryId = business.CategoryId,
+                PrefectureId = business.PrefectureId,
+            };
+        }
+
+        public async Task<bool> IsUserOwnerOfBusinessByIdsAsync(string userId, string businessId)
+        {
+            Business business = await this.dbContext
+                .Businesses
+                .Where(b => b.IsActive)
+                .FirstAsync(b => b.Id.ToString() == businessId);
+
+            return business.BusinessOwnerId == Guid.Parse(userId);
         }
     }
 }

@@ -40,7 +40,7 @@ namespace ExploreUmami.Data.Models
 
         public DateTime CreatedOn { get; set; }
 
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         [Required]
         [ForeignKey(nameof(Category))]

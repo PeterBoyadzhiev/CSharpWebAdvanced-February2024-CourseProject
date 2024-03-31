@@ -57,7 +57,7 @@ namespace ExploreUmami.Web.Controllers
                 return RedirectToAction("Switch", "BusinessOwner");
             }
 
-            AddBusinessFormModel model = new AddBusinessFormModel
+            BusinessFormModel model = new BusinessFormModel
             {
                 Categories = await this.categoryService.GetAllCategoriesAsync(),
                 Prefectures = await this.prefectureService.GetAllPrefecturesAsync(),
@@ -67,7 +67,7 @@ namespace ExploreUmami.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddBusinessFormModel model)
+        public async Task<IActionResult> Add(BusinessFormModel model)
         {
             bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(this.User.GetId());
 
@@ -154,13 +154,56 @@ namespace ExploreUmami.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
-            BusinessDetailsViewModel? model = await this.businessService.GetBusinessDetailsByIdAsync(id);
+            bool businessExists = await this.businessService.ExistsByIdAsync(id);
 
-            if (model == null)
+            if (!businessExists)
             {
                 this.TempData["Error"] = "Business does not exist!";
                 return this.RedirectToAction("All", "Business");
             }
+
+            BusinessDetailsViewModel model = await this.businessService.GetBusinessDetailsByIdAsync(id);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+
+            bool businessExists = await this.businessService.ExistsByIdAsync(id);
+
+            if (!businessExists)
+            {
+                this.TempData["Error"] = "Business does not exist!";
+                return this.RedirectToAction("All", "Business");
+            }
+
+            bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(this.User.GetId());
+
+            if (!isOwner)
+            {
+                this.TempData["Error"] = "You must be a business owner to edit a business!";
+
+                return RedirectToAction("Switch", "BusinessOwner");
+            }
+
+            string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(this.User.GetId()!);
+
+            bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, id);
+
+            if (!isUserOwner)
+            {
+                this.TempData["Error"] = "You must be the owner of the business to edit!";
+
+                return RedirectToAction("MyBusinesses", "Business");
+
+            }
+
+            BusinessFormModel model = await this.businessService.GetBusinessToEditAsync(id);
+
+            model.Categories = await this.categoryService.GetAllCategoriesAsync();
+            model.Prefectures = await this.prefectureService.GetAllPrefecturesAsync();
 
             return View(model);
         }
