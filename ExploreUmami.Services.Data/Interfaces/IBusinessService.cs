@@ -20,5 +20,7 @@ namespace ExploreUmami.Services.Data.Interfaces
         Task<BusinessFormModel> GetBusinessToEditAsync(string businessId);
 
         Task<bool> IsUserOwnerOfBusinessByIdsAsync(string userId, string businessId);
+
+        Task EditBusinessByIdAsync(string businessId, BusinessFormModel business);
     }
 }

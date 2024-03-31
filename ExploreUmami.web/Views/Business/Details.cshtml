@@ -8,11 +8,12 @@
 
 <div class="container" style="display:inline">
     <div class="row">
-        <div class="col-4">
-            <img class="card-img-top" style="width: 20rem;"
+        <div class="details-img col-6">
+            <img class="card-img-top" style="width: 69vh;"
                  src="@Model.ImageUrl" alt="House Image">
         </div>
-        <div class="card col-8 border-0">
+        
+        <div class="card col-6 border-0">
             <p>@Model.Description</p>
             <p><b>Located in:</b> @Model.Address, @Model.Prefecture</p>
             <p><b>Business Number:</b> @Model.PhoneNumber</p>
@@ -27,6 +28,10 @@
                     <p class="card-text"><b>Phone Number:</b> @Model.Owner.PhoneNumber</p>
                 </div>
             </div>
+        </div>
+        <div class="buttons mt-3 text-center align-content-end">
+            <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+            <a asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Delete</a>
         </div>
     </div>
 </div>

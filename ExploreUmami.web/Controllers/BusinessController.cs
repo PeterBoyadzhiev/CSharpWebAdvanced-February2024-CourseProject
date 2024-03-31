@@ -57,13 +57,23 @@ namespace ExploreUmami.Web.Controllers
                 return RedirectToAction("Switch", "BusinessOwner");
             }
 
-            BusinessFormModel model = new BusinessFormModel
+            try
             {
-                Categories = await this.categoryService.GetAllCategoriesAsync(),
-                Prefectures = await this.prefectureService.GetAllPrefecturesAsync(),
-            };
+                BusinessFormModel model = new BusinessFormModel
+                {
+                    Categories = await this.categoryService.GetAllCategoriesAsync(),
+                    Prefectures = await this.prefectureService.GetAllPrefecturesAsync(),
+                };
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                this.TempData["Error"] = "Unexpected error occurred!";
+                return RedirectToAction("All", "Business");
+            }
+
+            
         }
 
         [HttpPost]
@@ -83,7 +93,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!categoryExists)
             {
-                ModelState.AddModelError(nameof(model.CategoryId),"Category does not exist");
+                this.TempData["Error"] = "Category does not exist";
 
                 model.Categories = await this.categoryService.GetAllCategoriesAsync();
                 model.Prefectures = await this.prefectureService.GetAllPrefecturesAsync();
@@ -93,7 +103,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!prefectureExists)
             {
-                ModelState.AddModelError(nameof(model.PrefectureId), "Prefecture does not exist");
+                this.TempData["Error"] = "Prefecture does not exist";
 
                 model.Categories = await this.categoryService.GetAllCategoriesAsync();
                 model.Prefectures = await this.prefectureService.GetAllPrefecturesAsync();
@@ -117,7 +127,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                ModelState.AddModelError(string.Empty, "Unexpected error occurred while adding business");
+                this.TempData["Error"] = "Unexpected error occurred while adding business";
 
                 model.Categories = await this.categoryService.GetAllCategoriesAsync();
                 model.Prefectures = await this.prefectureService.GetAllPrefecturesAsync();
@@ -136,18 +146,25 @@ namespace ExploreUmami.Web.Controllers
             string? userId = this.User.GetId();
             bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
 
-            if (isOwner)
+            try
             {
-                string? agentId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
-                businesses.AddRange(await this.businessService.AllBusinessesByOwnerIdAsync(agentId!));
+                if (isOwner)
+                {
+                    string? agentId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
+                    businesses.AddRange(await this.businessService.AllBusinessesByOwnerIdAsync(agentId!));
+                }
+                else
+                {
+                    businesses.AddRange(await this.businessService.AllBusinessesByReviewerIdAsync(userId));
+                }
+
+                return View(businesses);
             }
-            else
+            catch (Exception)
             {
-                businesses.AddRange(await this.businessService.AllBusinessesByReviewerIdAsync(userId));
+                this.TempData["Error"] = "Unexpected error occurred while editing business";
+                return RedirectToAction("All", "Business");
             }
-
-            return View(businesses);
-
         }
 
         [HttpGet]
@@ -162,9 +179,19 @@ namespace ExploreUmami.Web.Controllers
                 return this.RedirectToAction("All", "Business");
             }
 
-            BusinessDetailsViewModel model = await this.businessService.GetBusinessDetailsByIdAsync(id);
+            try
+            {
+                BusinessDetailsViewModel model = await this.businessService.GetBusinessDetailsByIdAsync(id);
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                this.TempData["Error"] = "Unexpected error occurred!";
+                return RedirectToAction("All", "Business");
+            }
+
+            
         }
 
         [HttpGet]
@@ -200,12 +227,102 @@ namespace ExploreUmami.Web.Controllers
 
             }
 
-            BusinessFormModel model = await this.businessService.GetBusinessToEditAsync(id);
+            try
+            {
+                BusinessFormModel model = await this.businessService.GetBusinessToEditAsync(id);
 
-            model.Categories = await this.categoryService.GetAllCategoriesAsync();
-            model.Prefectures = await this.prefectureService.GetAllPrefecturesAsync();
+                model.Categories = await this.categoryService.GetAllCategoriesAsync();
+                model.Prefectures = await this.prefectureService.GetAllPrefecturesAsync();
 
-            return View(model);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                this.TempData["Error"] = "Unexpected error occurred while editing business";
+                return RedirectToAction("All", "Business");
+            }
+
+            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, BusinessFormModel model)
+        {
+            bool businessExists = await this.businessService.ExistsByIdAsync(id);
+
+            if (!businessExists)
+            {
+                this.TempData["Error"] = "Business does not exist!";
+                return this.RedirectToAction("All", "Business");
+            }
+
+            bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(this.User.GetId());
+
+            if (!isOwner)
+            {
+                this.TempData["Error"] = "You must be a business owner to edit a business!";
+
+                return RedirectToAction("Switch", "BusinessOwner");
+            }
+
+            string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(this.User.GetId()!);
+
+            bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, id);
+
+            if (!isUserOwner)
+            {
+                this.TempData["Error"] = "You must be the owner of the business to edit!";
+
+                return RedirectToAction("MyBusinesses", "Business");
+
+            }
+
+            bool categoryExists = await this.categoryService.CategoryExistsByIdAsync(model.CategoryId);
+            bool prefectureExists = await this.prefectureService.PrefectureExistsByIdAsync(model.PrefectureId);
+
+            if (!categoryExists)
+            {
+                this.TempData["Error"] = "Category does not exist";
+
+                model.Categories = await this.categoryService.GetAllCategoriesAsync();
+                model.Prefectures = await this.prefectureService.GetAllPrefecturesAsync();
+
+                return View(model);
+            }
+
+            if (!prefectureExists)
+            {
+                this.TempData["Error"] = "Prefecture does not exist";
+
+                model.Categories = await this.categoryService.GetAllCategoriesAsync();
+                model.Prefectures = await this.prefectureService.GetAllPrefecturesAsync();
+
+                return View(model);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.Categories = await this.categoryService.GetAllCategoriesAsync();
+                model.Prefectures = await this.prefectureService.GetAllPrefecturesAsync();
+
+                return View(model);
+            }
+
+            try
+            {
+                await this.businessService.EditBusinessByIdAsync(id, model);
+            }
+            catch (Exception)
+            {
+                this.TempData["Error"] = "Unexpected error occurred while editing business";
+
+                model.Categories = await this.categoryService.GetAllCategoriesAsync();
+                model.Prefectures = await this.prefectureService.GetAllPrefecturesAsync();
+
+                return View(model);
+            }
+
+            return RedirectToAction("Details", "Business", new { id });
         }
 
         public IActionResult BusinessPerCountry() 

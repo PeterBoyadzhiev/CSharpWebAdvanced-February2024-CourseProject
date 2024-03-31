@@ -176,8 +176,8 @@ namespace ExploreUmami.Services.Data
         {
             return await this.dbContext
                 .Businesses
-                .Where(b => b.IsActive)
-                .AnyAsync(b => b.Id.ToString() == businessId);
+                .Where(b => b.Id.ToString() == businessId && b.IsActive == true)
+                .AnyAsync();
         }
 
         public async Task<BusinessFormModel> GetBusinessToEditAsync(string businessId)
@@ -203,12 +203,30 @@ namespace ExploreUmami.Services.Data
 
         public async Task<bool> IsUserOwnerOfBusinessByIdsAsync(string userId, string businessId)
         {
-            Business business = await this.dbContext
-                .Businesses
-                .Where(b => b.IsActive)
-                .FirstAsync(b => b.Id.ToString() == businessId);
+            Business business = await this.dbContext.Businesses
+                .Where(b => b.Id.ToString() == businessId && b.IsActive == true)
+                .FirstAsync();
 
             return business.BusinessOwnerId == Guid.Parse(userId);
+        }
+
+        public async Task EditBusinessByIdAsync(string businessId, BusinessFormModel business)
+        {
+            Business businessToEdit = await this.dbContext
+                .Businesses
+                .Where(b => b.Id.ToString() == businessId && b.IsActive == true)
+                .FirstAsync();
+
+            businessToEdit.Title = business.Title;
+            businessToEdit.Description = business.Description;
+            businessToEdit.Address = business.Address;
+            businessToEdit.PhoneNumber = business.PhoneNumber;
+            businessToEdit.WebsiteUrl = business.WebsiteUrl;
+            businessToEdit.ImageUrl = business.ImageUrl;
+            businessToEdit.CategoryId = business.CategoryId;
+            businessToEdit.PrefectureId = business.PrefectureId;
+
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }
