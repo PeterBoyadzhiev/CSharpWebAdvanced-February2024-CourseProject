@@ -37,7 +37,7 @@ namespace ExploreUmami.Services.Data
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task<FilterAndPageModel> GetBusinessFilteredAsync(AllBusinessFilterModel filterModel)
+        public async Task<FilterAndPageModel> GetBusinessFilteredAsync(BusinessAllFilterModel filterModel)
         {
             IQueryable<Business> businessesQuery = this.dbContext
                 .Businesses
@@ -180,6 +180,15 @@ namespace ExploreUmami.Services.Data
                 .AnyAsync();
         }
 
+        public async Task<bool> IsUserOwnerOfBusinessByIdsAsync(string userId, string businessId)
+        {
+            Business business = await this.dbContext.Businesses
+                .Where(b => b.Id.ToString() == businessId && b.IsActive == true)
+                .FirstAsync();
+
+            return business.BusinessOwnerId == Guid.Parse(userId);
+        }
+
         public async Task<BusinessFormModel> GetBusinessToEditAsync(string businessId)
         {
             Business business = await this.dbContext
@@ -201,15 +210,6 @@ namespace ExploreUmami.Services.Data
             };
         }
 
-        public async Task<bool> IsUserOwnerOfBusinessByIdsAsync(string userId, string businessId)
-        {
-            Business business = await this.dbContext.Businesses
-                .Where(b => b.Id.ToString() == businessId && b.IsActive == true)
-                .FirstAsync();
-
-            return business.BusinessOwnerId == Guid.Parse(userId);
-        }
-
         public async Task EditBusinessByIdAsync(string businessId, BusinessFormModel business)
         {
             Business businessToEdit = await this.dbContext
@@ -228,5 +228,35 @@ namespace ExploreUmami.Services.Data
 
             await this.dbContext.SaveChangesAsync();
         }
+        public async Task<BusinessDeleteViewModel> GetBusinessToDeleteAsync(string businessId)
+        {
+            Business business = await this.dbContext
+                .Businesses
+                .Include(b => b.Prefecture)
+                .Where(b => b.Id.ToString() == businessId && b.IsActive == true)
+                .FirstAsync();
+
+            return new BusinessDeleteViewModel()
+            {
+                Title = business.Title,
+                Address = business.Address,
+                ImageUrl = business.ImageUrl,
+                Prefecture = business.Prefecture.Name,
+            };
+        }
+
+        public async Task DeleteBusinessByIdAsync(string businessId)
+        {
+            Business businessToDelete = await this.dbContext
+                .Businesses
+                .Where(b => b.Id.ToString() == businessId && b.IsActive == true)
+                .FirstAsync();
+
+            businessToDelete.IsActive = false;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        
     }
 }

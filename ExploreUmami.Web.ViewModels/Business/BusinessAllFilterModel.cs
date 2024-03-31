@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExploreUmami.Web.ViewModels.Business
 {
-    public class AllBusinessFilterModel
+    public class BusinessAllFilterModel
     {
-        public AllBusinessFilterModel()
+        public BusinessAllFilterModel()
         {
             this.CurrentPage = 1;
             this.BusinessPerPage = 3;

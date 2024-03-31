@@ -32,7 +32,7 @@ namespace ExploreUmami.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All([FromQuery]AllBusinessFilterModel filterModel)
+        public async Task<IActionResult> All([FromQuery]BusinessAllFilterModel filterModel)
         {
             FilterAndPageModel serviceModel = await this.businessService
                 .GetBusinessFilteredAsync(filterModel);
@@ -124,6 +124,8 @@ namespace ExploreUmami.Web.Controllers
                 string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(this.User.GetId()!);
 
                 await this.businessService.AddBusinessAsync(model, ownerId!);
+
+                this.TempData["Success"] = "Business added successfully!";
             }
             catch (Exception)
             {
@@ -135,7 +137,7 @@ namespace ExploreUmami.Web.Controllers
                 return View(model);
             }  
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(MyBusinesses));
         }
 
         [HttpGet]
@@ -162,7 +164,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData["Error"] = "Unexpected error occurred while editing business";
+                this.TempData["Error"] = "Unexpected error occurred!";
                 return RedirectToAction("All", "Business");
             }
         }
@@ -311,6 +313,7 @@ namespace ExploreUmami.Web.Controllers
             try
             {
                 await this.businessService.EditBusinessByIdAsync(id, model);
+                this.TempData["Success"] = "Business edited successfully!";
             }
             catch (Exception)
             {
@@ -325,9 +328,100 @@ namespace ExploreUmami.Web.Controllers
             return RedirectToAction("Details", "Business", new { id });
         }
 
-        public IActionResult BusinessPerCountry() 
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool businessExists = await this.businessService.ExistsByIdAsync(id);
+
+            if (!businessExists)
+            {
+                this.TempData["Error"] = "Business does not exist!";
+                return this.RedirectToAction("All", "Business");
+            }
+
+            bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(this.User.GetId());
+
+            if (!isOwner)
+            {
+                this.TempData["Error"] = "You must be a business owner to delete a business!";
+
+                return RedirectToAction("Switch", "BusinessOwner");
+            }
+
+            string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(this.User.GetId()!);
+
+            bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, id);
+
+            if (!isUserOwner)
+            {
+                this.TempData["Error"] = "You must be the owner of the business to delete!";
+
+                return RedirectToAction("MyBusinesses", "Business");
+
+            }
+
+            try
+            {
+                BusinessDeleteViewModel model = await this.businessService.GetBusinessToDeleteAsync(id);
+                return View(model);
+            }
+            catch (Exception)
+            {
+                this.TempData["Error"] = "Unexpected error occurred while deleting business";
+                return RedirectToAction("All", "Business");
+            }   
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id, BusinessDeleteViewModel model)
+        {
+            bool businessExists = await this.businessService.ExistsByIdAsync(id);
+
+            if (!businessExists)
+            {
+                this.TempData["Error"] = "Business does not exist!";
+                return this.RedirectToAction("All", "Business");
+            }
+
+            bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(this.User.GetId());
+
+            if (!isOwner)
+            {
+                this.TempData["Error"] = "You must be a business owner to delete a business!";
+
+                return RedirectToAction("Switch", "BusinessOwner");
+            }
+
+            string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(this.User.GetId()!);
+
+            bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, id);
+
+            if (!isUserOwner)
+            {
+                this.TempData["Error"] = "You must be the owner of the business to delete!";
+
+                return RedirectToAction("MyBusinesses", "Business");
+
+            }
+
+            try
+            {
+                await this.businessService.DeleteBusinessByIdAsync(id);
+                this.TempData["Success"] = "Business deleted successfully!";
+            }
+            catch (Exception)
+            {
+                this.TempData["Error"] = "Unexpected error occurred while deleting business";
+                return RedirectToAction("All", "Business");
+            }
+
+            return RedirectToAction("MyBusinesses", "Business");
+        }
+
+        public IActionResult AllByPrefecture() 
         { 
-            return View(); 
+            //TO DO
+            return View();
         }
     }
 }

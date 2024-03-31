@@ -3,8 +3,8 @@
         
         el.addEventListener('click', function (path) {
             const elValue = path.target.attributes.title.value;
-            const country = elValue.toLowerCase();
-            document.location.href = `/business/per-country/${country}`;
+            const prefecture = elValue;
+            document.location.href = `/Business/AllByPrefecture/${prefecture}`;
         })
     }) 
 })
