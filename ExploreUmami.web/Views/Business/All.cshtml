@@ -60,9 +60,9 @@
                     <option value="9">9</option>
                 </select>
             </div>
-            <div class="form-group mt-4 p-2">
-                <input type="submit" value="Apply" class="btn btn-primary" />
-            </div>
+        </div>
+        <div class="col-md-3">
+            <input type="submit" value="Apply" class="btn btn-primary apply-button" />
         </div>
     </div>
 </form>
@@ -78,7 +78,7 @@
         Model.BusinessPerPage);
 }
 
-<div class="row">
+<div class="row mt-3">
     @foreach (var business in Model.Businesses)
     {
         <partial name="_BusinessPartial" model="@business" />
