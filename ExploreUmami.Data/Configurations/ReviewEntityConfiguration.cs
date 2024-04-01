@@ -23,6 +23,10 @@ namespace ExploreUmami.Data.Configurations
 
             builder.HasIndex(r => new { r.BusinessId, r.ReviewerId }).IsUnique();
 
+            builder
+                .Property(b => b.TimeStamp)
+                .HasDefaultValueSql("GETDATE()");
+
             builder.HasData(GenerateReviews());
         }
 
@@ -35,7 +39,8 @@ namespace ExploreUmami.Data.Configurations
             review = new Review
             {
                 Id = -1,
-                Content = "Great food!",
+                Subject = "Great food!",
+                Content = "The food was incredible, best chefs in the prefecture",
                 Rating = 5,
                 BusinessId = Guid.Parse("6EEC121F-F98E-4008-9551-2D8A4B38DA98"),
                 ReviewerId = Guid.Parse("AB13755F-EAEF-4FB4-86A1-9C4609641C83")
@@ -45,7 +50,8 @@ namespace ExploreUmami.Data.Configurations
             review = new Review
             {
                 Id = -2,
-                Content = "Great coffee!",
+                Subject = "Great coffee!",
+                Content = "The coffee was amazing, I had a very pleasant coffee experience",
                 Rating = 5,
                 BusinessId = Guid.Parse("8F87F835-3DEB-43B4-AA01-852C5D287984"),
                 ReviewerId = Guid.Parse("AB13755F-EAEF-4FB4-86A1-9C4609641C83")

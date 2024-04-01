@@ -5,6 +5,7 @@ using ExploreUmami.Services.Data.Models.Business;
 using ExploreUmami.Web.ViewModels.Business;
 using ExploreUmami.Web.ViewModels.Business.Enums;
 using ExploreUmami.Web.ViewModels.BusinessOwner;
+using ExploreUmami.Web.ViewModels.Review;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExploreUmami.Services.Data
@@ -148,8 +149,13 @@ namespace ExploreUmami.Services.Data
                 .Include(b => b.Prefecture)
                 .Include(b => b.BusinessOwner)
                 .ThenInclude(bo => bo.User)
-                .Include(b => b.Reviews) // TO DO
+                .Include(b => b.Reviews)
+                .ThenInclude(b => b.Reviewer)// TO DO
                 .FirstAsync(b => b.Id.ToString() == businessId);
+
+            var averageRating = business.Reviews.Any()
+                ? business.Reviews.Average(r => r.Rating)
+                : 0.0;
 
             return new BusinessDetailsViewModel()
             {
@@ -162,13 +168,23 @@ namespace ExploreUmami.Services.Data
                 ImageUrl = business.ImageUrl,
                 Category = business.Category.Name,
                 Prefecture = business.Prefecture.Name,
+                AverageRating = averageRating,
                 Owner = new OwnerInfoModel()
                 { 
                     FullName = business.BusinessOwner.FirstName + " " + business.BusinessOwner.LastName,
                     PhoneNumber = business.BusinessOwner.PhoneNumber,
                     Email = business.BusinessOwner.User.Email,
-                }
-                
+                },
+                Reviews = business.Reviews
+                    .Select(r => new ReviewInfoModel()
+                    {
+                        Subject = r.Subject,
+                        Content = r.Content,
+                        Rating = r.Rating,
+                        TimeStamp = r.TimeStamp,
+                        Reviewer = r.Reviewer!.UserName,
+                    })
+                    .ToArray(),
             };
         }
 

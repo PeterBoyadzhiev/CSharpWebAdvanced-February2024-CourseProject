@@ -9,10 +9,9 @@
 <div class="container" style="display:inline">
     <div class="row">
         <div class="details-img col-6">
-            <img class="card-img-top" style="width: 69vh;"
-                 src="@Model.ImageUrl" alt="House Image">
+            <img class="card-img-top" style="width: 69vh;" src="@Model.ImageUrl" alt="House Image">
         </div>
-        
+
         <div class="card col-6 border-0">
             <p>@Model.Description</p>
             <p><b>Located in:</b> @Model.Address, @Model.Prefecture</p>
@@ -24,14 +23,40 @@
                 <div class="card-body">
                     <h5 class="card-title">Owner Contact Info</h5>
                     <p class="card-text"><b>Full Name:</b> @Model.Owner.FullName</p>
-                    <p class="card-text"><b>Email:</b>  @Model.Owner.Email</p>
+                    <p class="card-text"><b>Email:</b> @Model.Owner.Email</p>
                     <p class="card-text"><b>Phone Number:</b> @Model.Owner.PhoneNumber</p>
                 </div>
             </div>
         </div>
-        <div class="buttons mt-3 text-center align-content-end">
-            <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
-            <a asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Delete</a>
+
+        <div class="col-12 mt-3">
+            <h3>Reviews</h3>
+            @if (Model.Reviews.Any())
+            {
+                <p>Average Rating: @Model.AverageRating Stars</p>
+                <ul class="list-group">
+                    @foreach (var review in Model.Reviews)
+                    {
+                        <li class="list-group-item">
+                            <p class="mb-1">@review.Rating Stars</p>
+                            <h4>@review.Subject</h4>
+                            <p>@review.Content</p>
+                            <div class="d-flex w-100 justify-content-end">
+                                <small>Posted by <b>@review.Reviewer</b> at @review.TimeStamp.ToString("dd MMM yyyy")</small>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>No reviews yet. Be the first to leave one!</p>
+            }
         </div>
+    </div>
+
+    <div class="buttons mt-3 text-center align-content-end">
+        <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+        <a asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Delete</a>
     </div>
 </div>

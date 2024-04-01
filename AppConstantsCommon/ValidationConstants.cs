@@ -27,6 +27,8 @@
 
         public static class Review
         {
+            public const int SubjectMinLength = 3;
+            public const int SubjectMaxLength = 15;
             public const int ContentMinLength = 10;
             public const int ContentMaxLength = 500;
             public const double MinRating = 1;

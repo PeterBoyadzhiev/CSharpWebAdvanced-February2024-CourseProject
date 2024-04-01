@@ -12,12 +12,18 @@ namespace ExploreUmami.Data.Models
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(SubjectMaxLength)]
+        public string Subject { get; set; } = null!;
+
+        [Required]
         [MaxLength(ContentMaxLength)]
         public string Content { get; set; } = null!;
 
         [Required]
         [Range(MinRating, MaxRating)]
         public double Rating { get; set; }
+
+        public DateTime TimeStamp { get; set; }
 
         [ForeignKey(nameof(Business))]
         public Guid BusinessId { get; set; }
