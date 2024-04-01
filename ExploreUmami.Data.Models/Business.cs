@@ -10,6 +10,8 @@ namespace ExploreUmami.Data.Models
         {
             Id = Guid.NewGuid();
             Reviews = new HashSet<Review>();
+            Reservations = new HashSet<Reservation>();
+            UserVisits = new HashSet<UserVisit>();
         }
 
         [Key]
@@ -64,6 +66,10 @@ namespace ExploreUmami.Data.Models
 
         public virtual ApplicationUser? Visitor { get; set; } = null!;
 
-        public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+        public virtual ICollection<Review> Reviews { get; set; }
+
+        public virtual ICollection<Reservation> Reservations { get; set; }
+
+        public virtual ICollection<UserVisit> UserVisits { get; set; }
     }
 }

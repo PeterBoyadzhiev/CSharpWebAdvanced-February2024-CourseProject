@@ -4,6 +4,7 @@ using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Web.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace ExploreUmami.Web
 {
     public class Program
@@ -28,6 +29,7 @@ namespace ExploreUmami.Web
                 .AddEntityFrameworkStores<ExploreUmamiDbContext>();
 
             builder.Services.AddApplicationServices(typeof(IBusinessService));
+
 
             builder.Services.AddControllersWithViews();
 

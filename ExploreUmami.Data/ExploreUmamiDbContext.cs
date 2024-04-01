@@ -24,6 +24,11 @@ namespace ExploreUmami.Data
 
         public DbSet<Prefecture> Prefectures { get; set; } = null!;
 
+        public DbSet<UserVisit> UserVisits { get; set; } = null!;
+
+        public DbSet<Reservation> Reservations { get; set; } = null!;
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             Assembly configAssembly = Assembly.GetAssembly(typeof(ExploreUmamiDbContext)) ?? Assembly.GetExecutingAssembly();

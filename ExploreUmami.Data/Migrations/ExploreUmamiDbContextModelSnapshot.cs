@@ -92,15 +92,15 @@ namespace ExploreUmami.Data.Migrations
                         {
                             Id = new Guid("b43c3753-de4e-4417-b2ad-1c029c7b9795"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fe5a8fef-380e-4b67-9c4b-1b476f33ba63",
+                            ConcurrencyStamp = "821c5827-1cc1-4c5a-ac48-7d672eee00c8",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMW12Bp2ZTGqleQwNoJjE7aJRtdTcy+amrdY6LMx818NKZBjUSWFRJIpaXzAUldflg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGZkWjgYJLEEpf1yNXYykg+Q42G4sH73AkOgq+L0SHY6v5j1efA/38pVramIEsYV+w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "52582ADCF188CAE35A66D6D12CC000C1",
+                            SecurityStamp = "34D1D89F2574512BF056629BD5AC756C",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         },
@@ -108,15 +108,15 @@ namespace ExploreUmami.Data.Migrations
                         {
                             Id = new Guid("1ae80037-f648-442e-a309-4b94a3d1315c"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0beefa76-6028-4f48-b496-0e28190d012d",
+                            ConcurrencyStamp = "eb6a2b3d-65a3-468e-a690-3ed14d6e0b3f",
                             Email = "businessowner@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "BUSINESSOWNER@GMAIL.COM",
                             NormalizedUserName = "BUSINESSOWNER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBE77Mairr3+rYArXpSe8x3VesaUWGpzLhkWpVivEXIwTrcdQZG3uJwqdYYnaTL9KA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJQzzOEpb/3pGmlXAhHCRFbVwxZkmmDN8mZUk/MPF497BfCMNqwfjpOCsKuetY98pg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "52582ADCF188CAE35A66D6D12CC000C1",
+                            SecurityStamp = "34D1D89F2574512BF056629BD5AC756C",
                             TwoFactorEnabled = false,
                             UserName = "businessowner@gmail.com"
                         },
@@ -124,17 +124,33 @@ namespace ExploreUmami.Data.Migrations
                         {
                             Id = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5fa74847-f020-4ae5-b9c9-b6ce59a52c80",
+                            ConcurrencyStamp = "d580a8f0-87b0-4906-bd39-6fdc7da210b7",
                             Email = "reviewer@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "REVIEWER@GMAIL.COM",
                             NormalizedUserName = "REVIEWER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDsWGN/g90th67PEhPSVgpamgEXvYySHHpDva+yJT6Yt3ibB52R8nvLQNzIbb3LC5Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECici/LsPhG2DFyf0ZrsIrOEiMtL2ZbFP6iK/BpDEsL0hnPKMwUHlq56/J8pj1N/Lw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "52582ADCF188CAE35A66D6D12CC000C1",
+                            SecurityStamp = "34D1D89F2574512BF056629BD5AC756C",
                             TwoFactorEnabled = false,
                             UserName = "reviewer@gmail.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "190a9a1f-964b-491f-be32-bc3e1310ee80",
+                            Email = "reviewer2@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "REVIEWER2@GMAIL.COM",
+                            NormalizedUserName = "REVIEWER2@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAENsgis3dIi/RHSfYODm1hKHrIK6zvsUQo9I5fHlm36Xu07xQKCZXz3IDnHuvqz8Ndg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "34D1D89F2574512BF056629BD5AC756C",
+                            TwoFactorEnabled = false,
+                            UserName = "reviewer2@gmail.com"
                         });
                 });
 
@@ -240,7 +256,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("41b439ca-43e6-4480-98e9-2beb4c65f8a7"),
+                            Id = new Guid("f68f2054-7a02-4108-b132-e2dfaa1934cc"),
                             Address = "789 Oak Street",
                             BusinessOwnerId = new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"),
                             CategoryId = 3,
@@ -254,7 +270,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("fdf21eeb-0450-41f7-89fc-b404805fa67f"),
+                            Id = new Guid("8d8bd86c-b010-4ffb-bed6-3769430090fb"),
                             Address = "1012 Pine Street",
                             BusinessOwnerId = new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"),
                             CategoryId = 4,
@@ -268,7 +284,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1da9f903-a4cf-4bb4-92d4-4fc20ca96428"),
+                            Id = new Guid("96254630-e94b-44e5-994f-6249793798f9"),
                             Address = "1314 Cedar Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 5,
@@ -282,7 +298,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("072cab63-3101-4aa7-b586-f79d71321eef"),
+                            Id = new Guid("741a4801-c894-4c5e-882f-d8c836cab5e9"),
                             Address = "1516 Maple Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 6,
@@ -296,7 +312,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c17cec40-b1f9-4ea2-a6fe-3e0ad6a032cc"),
+                            Id = new Guid("8caae1b6-53af-4c6b-82ca-71acbcaa302d"),
                             Address = "1718 Walnut Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 7,
@@ -310,7 +326,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c4af5f91-cf80-413d-b337-48c6a71e1bdc"),
+                            Id = new Guid("806ec82d-8dc8-41de-a931-db83908fbe4d"),
                             Address = "1920 Cherry Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 8,
@@ -705,6 +721,68 @@ namespace ExploreUmami.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ExploreUmami.Data.Models.Reservation", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BusinessId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ReservationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("Pending");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserVisitId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusinessId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reservations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ccbf170d-f0a7-4dbf-8bdf-6f101548f833"),
+                            BusinessId = new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"),
+                            ReservationDate = new DateTime(2024, 4, 1, 20, 24, 34, 393, DateTimeKind.Utc).AddTicks(2987),
+                            Status = "Pending",
+                            UserId = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"),
+                            UserVisitId = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c85")
+                        },
+                        new
+                        {
+                            Id = new Guid("266a74bb-e01c-4bfc-86a6-d5aaee18574f"),
+                            BusinessId = new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"),
+                            ReservationDate = new DateTime(2024, 4, 1, 20, 24, 34, 393, DateTimeKind.Utc).AddTicks(2998),
+                            Status = "Confirmed",
+                            UserId = new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846"),
+                            UserVisitId = new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1847")
+                        },
+                        new
+                        {
+                            Id = new Guid("d3d3d3d3-3d3d-3d3d-3d3d-3d3d3d3d3d3d"),
+                            BusinessId = new Guid("8f87f835-3deb-43b4-aa01-852c5d287984"),
+                            ReservationDate = new DateTime(2024, 4, 1, 20, 24, 34, 393, DateTimeKind.Utc).AddTicks(3002),
+                            Status = "Completed",
+                            UserId = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"),
+                            UserVisitId = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c84")
+                        });
+                });
+
             modelBuilder.Entity("ExploreUmami.Data.Models.Review", b =>
                 {
                     b.Property<int>("Id")
@@ -767,6 +845,64 @@ namespace ExploreUmami.Data.Migrations
                             ReviewerId = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"),
                             Subject = "Great coffee!",
                             TimeStamp = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("ExploreUmami.Data.Models.UserVisit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BusinessId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ReservationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("VisitDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BusinessId");
+
+                    b.HasIndex("ReservationId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserVisits");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c85"),
+                            BusinessId = new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"),
+                            ReservationId = new Guid("ccbf170d-f0a7-4dbf-8bdf-6f101548f833"),
+                            UserId = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"),
+                            VisitDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1847"),
+                            BusinessId = new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"),
+                            ReservationId = new Guid("266a74bb-e01c-4bfc-86a6-d5aaee18574f"),
+                            UserId = new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846"),
+                            VisitDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c84"),
+                            BusinessId = new Guid("8f87f835-3deb-43b4-aa01-852c5d287984"),
+                            ReservationId = new Guid("d3d3d3d3-3d3d-3d3d-3d3d-3d3d3d3d3d3d"),
+                            UserId = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"),
+                            VisitDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -926,7 +1062,7 @@ namespace ExploreUmami.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("ExploreUmami.Data.Models.ApplicationUser", "Visitor")
-                        .WithMany("VisitedBusinesses")
+                        .WithMany()
                         .HasForeignKey("VisitorId");
 
                     b.Navigation("BusinessOwner");
@@ -949,6 +1085,25 @@ namespace ExploreUmami.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("ExploreUmami.Data.Models.Reservation", b =>
+                {
+                    b.HasOne("ExploreUmami.Data.Models.Business", "Business")
+                        .WithMany("Reservations")
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ExploreUmami.Data.Models.ApplicationUser", "User")
+                        .WithMany("Reservations")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Business");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ExploreUmami.Data.Models.Review", b =>
                 {
                     b.HasOne("ExploreUmami.Data.Models.Business", "Business")
@@ -965,6 +1120,33 @@ namespace ExploreUmami.Data.Migrations
                     b.Navigation("Business");
 
                     b.Navigation("Reviewer");
+                });
+
+            modelBuilder.Entity("ExploreUmami.Data.Models.UserVisit", b =>
+                {
+                    b.HasOne("ExploreUmami.Data.Models.Business", "Business")
+                        .WithMany("UserVisits")
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ExploreUmami.Data.Models.Reservation", "Reservation")
+                        .WithOne("UserVisit")
+                        .HasForeignKey("ExploreUmami.Data.Models.UserVisit", "ReservationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ExploreUmami.Data.Models.ApplicationUser", "User")
+                        .WithMany("UserVisits")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Business");
+
+                    b.Navigation("Reservation");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -1020,14 +1202,20 @@ namespace ExploreUmami.Data.Migrations
 
             modelBuilder.Entity("ExploreUmami.Data.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Reservations");
+
                     b.Navigation("Reviews");
 
-                    b.Navigation("VisitedBusinesses");
+                    b.Navigation("UserVisits");
                 });
 
             modelBuilder.Entity("ExploreUmami.Data.Models.Business", b =>
                 {
+                    b.Navigation("Reservations");
+
                     b.Navigation("Reviews");
+
+                    b.Navigation("UserVisits");
                 });
 
             modelBuilder.Entity("ExploreUmami.Data.Models.BusinessOwner", b =>
@@ -1043,6 +1231,12 @@ namespace ExploreUmami.Data.Migrations
             modelBuilder.Entity("ExploreUmami.Data.Models.Prefecture", b =>
                 {
                     b.Navigation("Businesses");
+                });
+
+            modelBuilder.Entity("ExploreUmami.Data.Models.Reservation", b =>
+                {
+                    b.Navigation("UserVisit")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

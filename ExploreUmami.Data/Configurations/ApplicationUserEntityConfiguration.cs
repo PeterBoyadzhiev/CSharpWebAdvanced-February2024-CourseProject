@@ -70,6 +70,20 @@ namespace ExploreUmami.Data.Configurations
             applicationUser.SecurityStamp = securityStamp;
             applicationUsers.Add(applicationUser);
 
+            applicationUser = new ApplicationUser
+            {
+                Id = Guid.Parse("8F5D89A1-DDA8-4400-BF47-690AE86F1846"),
+                UserName = "reviewer2@gmail.com",
+                NormalizedUserName = "REVIEWER2@GMAIL.COM",
+                Email = "reviewer2@gmail.com",
+                NormalizedEmail = "REVIEWER2@GMAIL.COM"
+
+            };
+
+            applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "123456");
+            applicationUser.SecurityStamp = securityStamp;
+            applicationUsers.Add(applicationUser);
+
             return applicationUsers.ToArray();
         }
     }  

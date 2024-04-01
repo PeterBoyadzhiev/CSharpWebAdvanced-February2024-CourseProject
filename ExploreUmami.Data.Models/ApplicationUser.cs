@@ -8,12 +8,14 @@ namespace ExploreUmami.Data.Models
         {
             Id = Guid.NewGuid();
             Reviews = new HashSet<Review>();
-            VisitedBusinesses = new HashSet<Business>();
+            Reservations = new HashSet<Reservation>();
+            UserVisits = new HashSet<UserVisit>();
         }
 
         public ICollection<Review> Reviews { get; set; }
 
-        public ICollection<Business> VisitedBusinesses { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
 
+        public ICollection<UserVisit> UserVisits { get; set; }
     }
 }
