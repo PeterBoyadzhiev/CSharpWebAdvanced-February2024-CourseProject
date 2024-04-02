@@ -1,6 +1,6 @@
 ﻿namespace ExploreUmami.Web.ViewModels.UserVisit
 {
-    internal class UserVisitDetailsViewModel
+    public class UserVisitDetailsViewModel
     {
         public Guid Id { get; set; }
 

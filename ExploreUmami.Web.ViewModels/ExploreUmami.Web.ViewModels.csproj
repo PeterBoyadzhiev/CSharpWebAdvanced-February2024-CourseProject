@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AppConstantsCommon\ExploreUmami.Common.csproj" />
+    <ProjectReference Include="..\ExploreUmami.Data.Models\ExploreUmami.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>

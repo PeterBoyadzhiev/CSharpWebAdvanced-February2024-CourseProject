@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ExploreUmami.Services.Data.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExploreUmami.Web.Controllers
@@ -6,9 +7,17 @@ namespace ExploreUmami.Web.Controllers
     [Authorize]
     public class ReservationController : Controller
     {
-        public IActionResult Index()
+        private readonly IReservationService reservationService; // Assuming an interface for reservation logic
+
+        public ReservationController(IReservationService reservationService)
         {
-            return View();
+            this.reservationService = reservationService;
+        }
+
+        public async Task<IActionResult> All()
+        {
+            var allReservations = await reservationService.GetReservationsAsync();
+            return View(allReservations);
         }
     }
 }
