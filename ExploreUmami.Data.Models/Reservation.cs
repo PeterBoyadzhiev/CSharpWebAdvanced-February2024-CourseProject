@@ -1,6 +1,7 @@
 ﻿using ExploreUmami.Data.Models.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static ExploreUmami.Common.ValidationConstants.Reservation;
 
 namespace ExploreUmami.Data.Models
 {
@@ -13,6 +14,9 @@ namespace ExploreUmami.Data.Models
 
         [Key]
         public Guid Id { get; set; }
+
+        [MaxLength(NotesMaxLength)]
+        public string? Notes { get; set; }
 
         [Required]
         [ForeignKey(nameof(Business))]
@@ -31,11 +35,5 @@ namespace ExploreUmami.Data.Models
 
         [Required]
         public ReservationStatus Status { get; set; }
-
-        [Required]
-        [ForeignKey(nameof(UserVisit))]
-        public Guid UserVisitId { get; set; }
-
-        public UserVisit UserVisit { get; set; } = null!;
     }
 }

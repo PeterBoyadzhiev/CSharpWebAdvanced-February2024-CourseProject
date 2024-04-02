@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static ExploreUmami.Common.ValidationConstants.UserVisit;
 
 namespace ExploreUmami.Data.Models
 {
@@ -12,6 +13,9 @@ namespace ExploreUmami.Data.Models
 
         [Key]
         public Guid Id { get; set; }
+
+        [MaxLength(NotesMaxLength)]
+        public string? Notes { get; set; }
 
         [Required]
         [ForeignKey(nameof(User))]

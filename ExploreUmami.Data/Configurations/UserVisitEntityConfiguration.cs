@@ -24,12 +24,6 @@ namespace ExploreUmami.Data.Configurations
                 .HasForeignKey(uv => uv.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-                .HasOne(uv => uv.Reservation)
-                .WithOne(r => r.UserVisit)
-                .HasForeignKey<UserVisit>(uv => uv.ReservationId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             builder.HasData(GenerateUserVisits());
         }
 

@@ -53,5 +53,17 @@
             public const int NameMinLength = 3;
             public const int NameMaxLength = 20;
         }
+
+        public static class Reservation
+        {
+            public const int NotesMinLength = 10;
+            public const int NotesMaxLength = 500;
+        }
+
+        public static class UserVisit
+        {
+            public const int NotesMinLength = 10;
+            public const int NotesMaxLength = 500;
+        }
     }
 }
