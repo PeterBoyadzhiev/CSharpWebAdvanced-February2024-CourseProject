@@ -34,7 +34,7 @@ namespace ExploreUmami.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery]BusinessAllFilterModel filterModel)
         {
-            FilterAndPageModel serviceModel = await this.businessService
+            BusinessFilterAndPageModel serviceModel = await this.businessService
                 .GetBusinessFilteredAsync(filterModel);
 
             filterModel.Categories = await this.categoryService.AllCategoryNamesAsync();
@@ -152,8 +152,8 @@ namespace ExploreUmami.Web.Controllers
             {
                 if (isOwner)
                 {
-                    string? agentId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
-                    businesses.AddRange(await this.businessService.AllBusinessesByOwnerIdAsync(agentId!));
+                    string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
+                    businesses.AddRange(await this.businessService.AllBusinessesByOwnerIdAsync(ownerId!));
                 }
                 else
                 {

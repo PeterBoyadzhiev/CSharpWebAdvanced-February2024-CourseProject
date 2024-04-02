@@ -48,29 +48,100 @@ namespace ExploreUmami.Services.Data
             });
         }
 
-        public Task<ReservationDetailsViewModel> GetReservationByIdAsync(string id)
+        public async Task<IEnumerable<ReservationDetailsViewModel>> GetReservationsForBusinessAsync(string businessId)
         {
-            throw new NotImplementedException();
+            var reservations = await this.dbContext
+                                   .Reservations
+                                   .Where(r => r.BusinessId == Guid.Parse(businessId))
+                                   .Include(r => r.User)
+                                   .Include(r => r.Business)
+                                   .Select(r => new ReservationDetailsViewModel
+                                   {
+                                       Id = r.Id,
+                                       Business = new BusinessDetailsReservationViewModel
+                                       {
+                                           Id = r.Business.Id.ToString(),
+                                           Title = r.Business.Title,
+                                           Address = r.Business.Address,
+                                           PhoneNumber = r.Business.PhoneNumber,
+                                           ImageUrl = r.Business.ImageUrl,
+                                       },
+                                       User = new UserDetailsViewModel
+                                       {
+                                           Id = r.User.Id,
+                                           UserName = r.User.UserName,
+                                       },
+                                       ReservationDate = r.ReservationDate,
+                                       Status = r.Status,
+                                       Notes = r.Notes,
+                                   })
+                                   .ToArrayAsync();
+
+            return reservations;
         }
 
-        public Task<ReservationDetailsViewModel> CreateReservationAsync(CreateReservationViewModel model)
+        public async Task<IEnumerable<ReservationDetailsViewModel>> AllReservationsByUserIdAsync(string userId)
         {
-            throw new NotImplementedException();
+            IEnumerable<ReservationDetailsViewModel> reservations = await this.dbContext
+                .Reservations
+                .Where(r => r.UserId == Guid.Parse(userId))
+                .Include(r => r.User)
+                .Include(r => r.Business)
+                .Select(r => new ReservationDetailsViewModel
+                {
+                    Id = r.Id,
+                    Business = new BusinessDetailsReservationViewModel
+                    {
+                        Id = r.Business.Id.ToString(),
+                        Title = r.Business.Title,
+                        Address = r.Business.Address,
+                        PhoneNumber = r.Business.PhoneNumber,
+                        ImageUrl = r.Business.ImageUrl,
+                    },
+                    User = new UserDetailsViewModel
+                    {
+                        Id = r.User.Id,
+                        UserName = r.User.UserName,
+                    },
+                    ReservationDate = r.ReservationDate,
+                    Status = r.Status,
+                    Notes = r.Notes,
+                })
+                .ToArrayAsync();
+
+            return reservations;
         }
 
-        public Task UpdateReservationAsync(UpdateReservationViewModel model)
+        public async Task<IEnumerable<ReservationDetailsViewModel>> AllReservationsByOwnerIdAsync(string ownerId)
         {
-            throw new NotImplementedException();
-        }
+            IEnumerable<ReservationDetailsViewModel> reservations = await this.dbContext
+                .Reservations
+                .Where(r => r.Business.BusinessOwnerId == Guid.Parse(ownerId))
+                .Include(r => r.User)
+                .Include(r => r.Business)
+                .Select(r => new ReservationDetailsViewModel
+                {
+                    Id = r.Id,
+                    Business = new BusinessDetailsReservationViewModel
+                    {
+                        Id = r.Business.Id.ToString(),
+                        Title = r.Business.Title,
+                        Address = r.Business.Address,
+                        PhoneNumber = r.Business.PhoneNumber,
+                        ImageUrl = r.Business.ImageUrl,
+                    },
+                    User = new UserDetailsViewModel
+                    {
+                        Id = r.User.Id,
+                        UserName = r.User.UserName,
+                    },
+                    ReservationDate = r.ReservationDate,
+                    Status = r.Status,
+                    Notes = r.Notes,
+                })
+                .ToArrayAsync();
 
-        public Task CancelReservationAsync(Guid reservationId, string cancellationReason)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateReservationStatusAsync(Guid reservationId, ReservationStatus newStatus)
-        {
-            throw new NotImplementedException();
+            return reservations;
         }
     }
 }

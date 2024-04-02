@@ -38,7 +38,7 @@ namespace ExploreUmami.Services.Data
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task<FilterAndPageModel> GetBusinessFilteredAsync(BusinessAllFilterModel filterModel)
+        public async Task<BusinessFilterAndPageModel> GetBusinessFilteredAsync(BusinessAllFilterModel filterModel)
         {
             IQueryable<Business> businessesQuery = this.dbContext
                 .Businesses
@@ -97,7 +97,7 @@ namespace ExploreUmami.Services.Data
 
             int totalBusinesses = await businessesQuery.CountAsync();
 
-            return new FilterAndPageModel
+            return new BusinessFilterAndPageModel
             {
                 TotalBusinessesCount = totalBusinesses,
                 Businesses = businesses,
@@ -105,8 +105,7 @@ namespace ExploreUmami.Services.Data
         }
 
         public async Task<IEnumerable<BusinessAllViewModel>> AllBusinessesByOwnerIdAsync(string ownerId)
-        {
-            
+        {   
             IEnumerable<BusinessAllViewModel> businesses = await this.dbContext
                 .Businesses
                 .Where(b => b.IsActive == true && b.BusinessOwnerId == Guid.Parse(ownerId))
@@ -123,8 +122,7 @@ namespace ExploreUmami.Services.Data
         }
 
         public async Task<IEnumerable<BusinessAllViewModel>> AllBusinessesByReviewerIdAsync(string reviewerId)
-        {
-            
+        {   
             IEnumerable<BusinessAllViewModel> businesses = await this.dbContext
                 .Businesses
                 .Where(b => b.Reviews.Any(r => r.ReviewerId == Guid.Parse(reviewerId)))

@@ -7,7 +7,7 @@ namespace ExploreUmami.Services.Data.Interfaces
     {
         Task AddBusinessAsync(BusinessFormModel business, string ownerId);
 
-        Task<FilterAndPageModel> GetBusinessFilteredAsync(BusinessAllFilterModel filterModel);
+        Task<BusinessFilterAndPageModel> GetBusinessFilteredAsync(BusinessAllFilterModel filterModel);
 
         Task<IEnumerable<BusinessAllViewModel>> AllBusinessesByOwnerIdAsync(string ownerId);
 

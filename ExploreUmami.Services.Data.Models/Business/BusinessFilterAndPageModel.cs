@@ -1,15 +1,10 @@
 ﻿using ExploreUmami.Web.ViewModels.Business;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExploreUmami.Services.Data.Models.Business
 {
-    public class FilterAndPageModel
+    public class BusinessFilterAndPageModel
     {
-        public FilterAndPageModel()
+        public BusinessFilterAndPageModel()
         {
             this.Businesses = new HashSet<BusinessAllViewModel>();
         }
