@@ -13,6 +13,8 @@ namespace ExploreUmami.Services.Data.Interfaces
 
         Task<ReservationFilterAndPageModel> GetReservationsByFilterForUserAsync(ReservationFilterViewModel filterModel, string userId);
 
+        Task MakeReservationAsync(MakeReservationFormModel model, string userId, string businessId);
 
+        //Task<bool> UserHasIncomplete
     }
 }

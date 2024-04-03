@@ -1,11 +1,6 @@
 ﻿using ExploreUmami.Web.ViewModels.BusinessOwner;
 using ExploreUmami.Web.ViewModels.Review;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExploreUmami.Web.ViewModels.Business
 {

@@ -1,4 +1,5 @@
 ﻿using ExploreUmami.Data;
+using ExploreUmami.Data.Models;
 using ExploreUmami.Data.Models.Enums;
 using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Services.Data.Models.Reservation;
@@ -188,6 +189,21 @@ namespace ExploreUmami.Services.Data
                 Reservations = reservations,
                 TotalReservationsCount = totalReservations,
             };
+        }
+
+        public async Task MakeReservationAsync(MakeReservationFormModel model, string userId, string businessId)
+        {
+            Reservation reservation = new Reservation
+            {
+                BusinessId = Guid.Parse(businessId),
+                UserId = Guid.Parse(userId),
+                ReservationDate = model.ReservationDate,
+                Status = ReservationStatus.Pending,
+                Notes = model.Notes,
+            };
+
+            await this.dbContext.Reservations.AddAsync(reservation);
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }

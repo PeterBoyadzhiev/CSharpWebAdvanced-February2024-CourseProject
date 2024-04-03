@@ -14,14 +14,20 @@ namespace ExploreUmami.Web.Controllers
         private readonly IReservationService reservationService;
         private readonly IBusinessOwnerService businessOwnerService;
         private readonly IBusinessService businessService;
+        private readonly ICategoryService categoryService;
+        private readonly IPrefectureService prefectureService;
 
         public ReservationController(IReservationService reservationService,
             IBusinessOwnerService businessOwnerService,
-            IBusinessService businessService)
+            IBusinessService businessService,
+            ICategoryService categoryService,
+            IPrefectureService prefectureService)
         {
             this.reservationService = reservationService;
             this.businessOwnerService = businessOwnerService;
             this.businessService = businessService;
+            this.categoryService = categoryService;
+            this.prefectureService = prefectureService;
         }
 
         //[HttpGet]
@@ -74,6 +80,91 @@ namespace ExploreUmami.Web.Controllers
             filterModel.TotalReservations = serviceModel.TotalReservationsCount;
 
             return View(filterModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Make(string businessId)
+        {
+            bool businessExists = await this.businessService.ExistsByIdAsync(businessId);
+
+            if (!businessExists)
+            {
+                this.TempData["Error"] = "Business does not exist!";
+                return this.RedirectToAction("All", "Business");
+            }
+
+            bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(this.User.GetId());
+
+            if (isOwner)
+            {
+                this.TempData["Error"] = "You cannot make a reservation for your own business!";
+                return RedirectToAction("All", "Reservation");
+            }
+
+            try
+            {
+                BusinessDetailsReservationViewModel businessModel = await this.businessService.GetBusinessDetailsForReservationAsync(businessId);
+
+                MakeReservationFormModel reservationModel = new MakeReservationFormModel
+                {
+                    Business = businessModel,
+                };
+
+                return View(reservationModel);
+            }
+            catch (Exception)
+            {
+                this.TempData["Error"] = "Unexpected error occurred!";
+                return RedirectToAction("All", "Reservation");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Make(MakeReservationFormModel model, string businessId)
+        {
+
+            if (model.ReservationDate < DateTime.Today.AddDays(1))
+            {
+                TempData["Error"] = "Reservations must be made at least one day in advance.";
+                return View(model);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                bool businessExists = await this.businessService.ExistsByIdAsync(businessId);
+
+                if (!businessExists)
+                {
+                    this.TempData["Error"] = "Business does not exist!";
+                    return this.RedirectToAction("All", "Business");
+                }
+
+                string userId = this.User.GetId();
+                bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
+
+                if (isOwner)
+                {
+                    this.TempData["Error"] = "You cannot make a reservation for your own business!";
+                    return RedirectToAction("All", "Reservation");
+                }
+
+                await this.reservationService.MakeReservationAsync(model, userId, businessId);
+
+                this.TempData["Success"] = "Reservation made successfully!";
+                return RedirectToAction("All", "Reservation");
+            }
+            catch (Exception)
+            {
+                this.TempData["Error"] = "Unexpected error occurred!";
+                return RedirectToAction("All", "Reservation");
+            }
+
+            
         }
     }
 }

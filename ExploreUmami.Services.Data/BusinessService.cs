@@ -271,6 +271,24 @@ namespace ExploreUmami.Services.Data
             await this.dbContext.SaveChangesAsync();
         }
 
-        
+        public async Task<BusinessDetailsReservationViewModel> GetBusinessDetailsForReservationAsync(string businessId)
+        {
+            BusinessDetailsReservationViewModel business = await this.dbContext
+                .Businesses
+                .Where(b => b.Id.ToString() == businessId)
+                .Select(b => new BusinessDetailsReservationViewModel
+                {
+                    Id = b.Id.ToString(),
+                    Title = b.Title,
+                    Description = b.Description,
+                    Address = b.Address,
+                    PhoneNumber = b.PhoneNumber,
+                    ImageUrl = b.ImageUrl,
+
+                })
+                .FirstAsync();
+
+            return business;
+        }
     }
 }
