@@ -205,5 +205,10 @@ namespace ExploreUmami.Services.Data
             await this.dbContext.Reservations.AddAsync(reservation);
             await this.dbContext.SaveChangesAsync();
         }
+
+        public Task<bool> UserHasIncompleteReservationAsync(string userId)
+        {
+            return this.dbContext.Reservations.AnyAsync(r => r.UserId == Guid.Parse(userId) && (r.Status == ReservationStatus.Pending || r.Status == ReservationStatus.Confirmed));
+        }
     }
 }

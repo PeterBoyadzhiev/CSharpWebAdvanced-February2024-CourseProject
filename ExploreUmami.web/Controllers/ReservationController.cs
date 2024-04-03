@@ -153,6 +153,14 @@ namespace ExploreUmami.Web.Controllers
                     return RedirectToAction("All", "Reservation");
                 }
 
+                bool hasIncompleteReservation = await this.reservationService.UserHasIncompleteReservationAsync(userId);
+
+                if (hasIncompleteReservation)
+                {
+                    this.TempData["Error"] = "You already have a pending reservation for this business!";
+                    return RedirectToAction("All", "Reservation");
+                }
+
                 await this.reservationService.MakeReservationAsync(model, userId, businessId);
 
                 this.TempData["Success"] = "Reservation made successfully!";
