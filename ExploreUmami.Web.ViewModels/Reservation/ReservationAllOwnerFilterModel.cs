@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExploreUmami.Web.ViewModels.Reservation
 {
-    public class ReservationAllFilterModel
+    public class ReservationAllOwnerFilterModel
     {
-        public ReservationAllFilterModel()
+        public ReservationAllOwnerFilterModel()
         {
             this.ReservationsPerPage = 3;
             this.CurrentPage = 1;

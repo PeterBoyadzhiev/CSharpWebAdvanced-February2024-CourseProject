@@ -1,0 +1,20 @@
+﻿@model ReservationDetailsViewModel
+
+<div class="row mt-3">
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <img class="card-img-top" src="@Model.Business.ImageUrl" alt="@Model.Business.Title Image" style="height: 200px;">
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h2>Model Details</h2>
+        <p><b>ID:</b> @Model.Id</p>
+        <p><b>Business Name:</b> @Model.Business.Title</p>
+        <p><b>Model Date:</b> @Model.ReservationDate.ToString("yyyy-MM-dd")</p>
+        <p><b>Status:</b> @Model.Status</p>
+        <h2>User Information</h2>
+        <p><b>User Name:</b> @Model.User.UserName</p>
+        <p><b>Notes:</b> @Model.Notes</p>
+    </div>
+</div>
+<hr />

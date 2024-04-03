@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ExploreUmami.Web.ViewModels.Business
+﻿namespace ExploreUmami.Web.ViewModels.Business
 {
     public class BusinessAllViewModel
     {

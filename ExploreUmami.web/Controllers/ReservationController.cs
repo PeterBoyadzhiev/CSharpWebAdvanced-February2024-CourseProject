@@ -1,4 +1,5 @@
 ﻿using ExploreUmami.Services.Data.Interfaces;
+using ExploreUmami.Services.Data.Models.Reservation;
 using ExploreUmami.Web.Infrastructure.Extensions;
 using ExploreUmami.Web.ViewModels.Business;
 using ExploreUmami.Web.ViewModels.Reservation;
@@ -23,32 +24,56 @@ namespace ExploreUmami.Web.Controllers
             this.businessService = businessService;
         }
 
-        public async Task<IActionResult> All()
-        {
-            List<ReservationDetailsViewModel> reservations = new List<ReservationDetailsViewModel>();
+        //[HttpGet]
+        //public async Task<IActionResult> All([FromQuery] ReservationAllUserFilterModel filterModel)
+        //{
+        //    List<ReservationDetailsViewModel> reservations = new List<ReservationDetailsViewModel>();
 
+        //    string? userId = this.User.GetId();
+        //    bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
+
+        //    try
+        //    {
+        //        if (isOwner)
+        //        {
+        //            string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
+        //            reservations.AddRange(await this.reservationService.AllReservationsByOwnerIdAsync(ownerId!));
+        //        }
+        //        else
+        //        {
+        //            reservations.AddRange(await this.reservationService.AllReservationsByUserIdAsync(userId));
+        //        }
+
+        //        return View(reservations);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        this.TempData["Error"] = "Unexpected error occurred!";
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //}
+
+        [HttpGet]
+        public async Task<IActionResult> All([FromQuery] ReservationFilterViewModel filterModel)
+        {
             string? userId = this.User.GetId();
             bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
+            ReservationFilterAndPageModel serviceModel = new ReservationFilterAndPageModel();
 
-            try
+            if (isOwner)
             {
-                if (isOwner)
-                {
-                    string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
-                    reservations.AddRange(await this.reservationService.AllReservationsByOwnerIdAsync(ownerId!));
-                }
-                else
-                {
-                    reservations.AddRange(await this.reservationService.AllReservationsByUserIdAsync(userId));
-                }
+                string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
+                serviceModel = await this.reservationService.GetReservationsByFilterForOwnerAsync(filterModel, ownerId!);
+            }
+            else
+            {
+                serviceModel = await this.reservationService.GetReservationsByFilterForUserAsync(filterModel, userId);
+            }
 
-                return View(reservations);
-            }
-            catch (Exception)
-            {
-                this.TempData["Error"] = "Unexpected error occurred!";
-                return RedirectToAction("Index", "Home");
-            }
+            filterModel.Reservations = serviceModel.Reservations;
+            filterModel.TotalReservations = serviceModel.TotalReservationsCount;
+
+            return View(filterModel);
         }
     }
 }
