@@ -7,65 +7,72 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<form method="get">
-    <div class="row">
-        <div class="form-group col-md-3">
-            <label asp-for="Prefecture"></label>
-            <select asp-for="Prefecture" class="form-control">
-                <option value="">All</option>
-                @foreach (var prefecture in Model.Prefectures)
-                {
-                    <option value="@prefecture">@prefecture</option>
-                }
-            </select>
-        </div>
-
-        <div class="form-group col-md-3">
-            <div class="form-group">
-                <label asp-for="Category"></label>
-                <select asp-for="Category" class="form-control">
+@if (Model.Businesses.Count() == 0)
+{
+    <h3 class="text-center">No businesses to show.</h3>
+}
+else
+{
+    <form method="get">
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label asp-for="Prefecture"></label>
+                <select asp-for="Prefecture" class="form-control">
                     <option value="">All</option>
-                    @foreach (var category in Model.Categories)
+                    @foreach (var prefecture in Model.Prefectures)
                     {
-                        <option value="@category">@category</option>
+                        <option value="@prefecture">@prefecture</option>
                     }
                 </select>
             </div>
 
-        </div>
+            <div class="form-group col-md-3">
+                <div class="form-group">
+                    <label asp-for="Category"></label>
+                    <select asp-for="Category" class="form-control">
+                        <option value="">All</option>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category">@category</option>
+                        }
+                    </select>
+                </div>
 
-        <div class="form-group col-md-3">
-            <div class="form-group">
-                <label asp-for="BusinessSorting"></label>
-                <select asp-for="BusinessSorting" class="form-control">
-                    <option value="0">Highest Rating</option>
-                    <option value="1">Lowest Rating</option>
-                    <option value="2">Latest</option>
-                    <option value="3">Oldest</option>
-                </select>
+            </div>
+
+            <div class="form-group col-md-3">
+                <div class="form-group">
+                    <label asp-for="BusinessSorting"></label>
+                    <select asp-for="BusinessSorting" class="form-control">
+                        <option value="0">Highest Rating</option>
+                        <option value="1">Lowest Rating</option>
+                        <option value="2">Latest</option>
+                        <option value="3">Oldest</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="SearchTerm"></label>
+                    <input asp-for="SearchTerm" class="form-control" placeholder="...">
+                </div>
+            </div>
+            <div class="col-md-3 mt-2">
+                <div class="form-group">
+                    <label asp-for="BusinessPerPage">Businesses per Page:</label>
+                    <select asp-for="BusinessPerPage" class="form-control">
+                        <option value="3">3</option>
+                        <option value="6">6</option>
+                        <option value="9">9</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <input type="submit" value="Apply" class="btn btn-primary apply-button" />
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="form-group">
-                <label asp-for="SearchTerm"></label>
-                <input asp-for="SearchTerm" class="form-control" placeholder="...">
-            </div>
-        </div>
-        <div class="col-md-3 mt-2">
-            <div class="form-group">
-                <label asp-for="BusinessPerPage">Businesses per Page:</label>
-                <select asp-for="BusinessPerPage" class="form-control">
-                    <option value="3">3</option>
-                    <option value="6">6</option>
-                    <option value="9">9</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <input type="submit" value="Apply" class="btn btn-primary apply-button" />
-        </div>
-    </div>
-</form>
+    </form>
+}
 
 @{
     int previousPage = Model.CurrentPage - 1;

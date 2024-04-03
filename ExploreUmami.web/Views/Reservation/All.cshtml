@@ -5,41 +5,50 @@
     ViewData["Title"] = "All Reservations";
 }
 
+
+
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
 
-<form method="get">
-    <div class="row">
-        <div class="form-group col-md-3">
-            <label asp-for="SearchTerm"></label>
-            <input asp-for="SearchTerm" class="form-control" placeholder="...">
-        </div>
+@if (Model.Reservations.Count() == 0)
+{
+    <h3 class="text-center">No reservations to show.</h3>
+}
+else
+{
+    <form method="get">
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label asp-for="SearchTerm"></label>
+                <input asp-for="SearchTerm" class="form-control" placeholder="...">
+            </div>
 
-        <div class="form-group col-md-3">
-            <label asp-for="Status">Status</label>
-            <select asp-for="Status" class="form-control">
-                <option value="">All</option>
-                <option value="@(ReservationStatus.Pending)">Pending</option>
-                <option value="@(ReservationStatus.Confirmed)">Confirmed</option>
-                <option value="@(ReservationStatus.Completed)">Completed</option>
-                <option value="@(ReservationStatus.Cancelled)">Cancelled</option>
-            </select>
-        </div>
+            <div class="form-group col-md-3">
+                <label asp-for="Status">Status</label>
+                <select asp-for="Status" class="form-control">
+                    <option value="">All</option>
+                    <option value="@(ReservationStatus.Pending)">Pending</option>
+                    <option value="@(ReservationStatus.Confirmed)">Confirmed</option>
+                    <option value="@(ReservationStatus.Completed)">Completed</option>
+                    <option value="@(ReservationStatus.Cancelled)">Cancelled</option>
+                </select>
+            </div>
 
-        <div class="col-md-3">
-            <label asp-for="ReservationsPerPage">Reservations per Page:</label>
-            <select asp-for="ReservationsPerPage" class="form-control">
-                <option value="3">3</option>
-                <option value="6">6</option>
-                <option value="9">9</option>
-            </select>
-        </div>
+            <div class="col-md-3">
+                <label asp-for="ReservationsPerPage">Reservations per Page:</label>
+                <select asp-for="ReservationsPerPage" class="form-control">
+                    <option value="3">3</option>
+                    <option value="6">6</option>
+                    <option value="9">9</option>
+                </select>
+            </div>
 
-        <div class="col-md-3 mt-4">
-            <input type="submit" value="Apply" class="btn btn-primary reservation-apply-button" />
+            <div class="col-md-3 mt-4">
+                <input type="submit" value="Apply" class="btn btn-primary reservation-apply-button" />
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+}
 
 @{
     int previousPage = Model.CurrentPage - 1;

@@ -1,10 +1,47 @@
-﻿@model ReservationDetailsViewModel
+﻿@using ExploreUmami.Data.Models.Enums;
+@model ReservationDetailsViewModel
 
 <div class="row mt-3">
     <div class="col-md-4 mb-3">
         <div class="card">
             <img class="card-img-top" src="@Model.Business.ImageUrl" alt="@Model.Business.Title Image" style="height: 200px;">
         </div>
+        
+                @switch (Model.Status) @* TODO:Roles *@
+                {
+                    case ReservationStatus.Pending:
+                        <form asp-action="ChangeStatus" method="post">
+                            <input type="hidden" name="reservationId" asp-for="Id" />
+                            <div class="form-group">
+                                <label for="status">Change Status:</label>
+                                <select id="status" name="status" class="form-control">
+                                    <option value="@ReservationStatus.Confirmed" as>Confirmed</option>
+                                    <option value="@ReservationStatus.Completed">Completed</option>
+                                    <option value="@ReservationStatus.Cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Change Status</button>
+                        </form>
+                        break;
+                    case ReservationStatus.Confirmed:
+                        <form asp-action="ChangeStatus" method="post">
+                            <input type="hidden" name="reservationId" asp-for="Id" />
+                            <div class="form-group">
+                                <label for="status">Change Status:</label>
+                                <select id="status" name="status" class="form-control">
+                                    <option value="@ReservationStatus.Pending">Pending</option>
+                                    <option value="@ReservationStatus.Completed">Completed</option>
+                                    <option value="@ReservationStatus.Cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Change Status</button>
+                        </form>
+                        break;
+                    case ReservationStatus.Completed:
+                        break;
+                    case ReservationStatus.Cancelled:
+                        break;
+                }
     </div>
     <div class="col-md-8">
         <h2>Reservation Details</h2>
@@ -15,6 +52,7 @@
         <h2>User Information</h2>
         <p><b>User Name:</b> @Model.User.UserName</p>
         <p><b>Notes:</b> @Model.Notes</p>
+            
     </div>
 </div>
 <hr />

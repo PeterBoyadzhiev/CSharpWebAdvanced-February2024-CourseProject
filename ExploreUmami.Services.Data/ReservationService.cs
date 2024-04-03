@@ -95,8 +95,13 @@ namespace ExploreUmami.Services.Data
 
             if (!string.IsNullOrWhiteSpace(filterModel.SearchTerm))
             {
-                query = query.Where(r => r.User.UserName.Contains(filterModel.SearchTerm) ||
-                                                        r.Business.Title.Contains(filterModel.SearchTerm));
+
+                string wildCardSearchTerm = $"%{filterModel.SearchTerm.ToLower()}%";
+
+                query = query
+                    .Where(r => EF.Functions.Like(r.Business.Title, wildCardSearchTerm) ||
+                                EF.Functions.Like(r.User.UserName, wildCardSearchTerm) ||
+                                EF.Functions.Like(r.Id.ToString(), wildCardSearchTerm));
             }
 
             if (filterModel.Status != null)
@@ -208,7 +213,37 @@ namespace ExploreUmami.Services.Data
 
         public Task<bool> UserHasIncompleteReservationAsync(string userId)
         {
-            return this.dbContext.Reservations.AnyAsync(r => r.UserId == Guid.Parse(userId) && (r.Status == ReservationStatus.Pending || r.Status == ReservationStatus.Confirmed));
+            return this.dbContext.Reservations
+                .AnyAsync(r => r.UserId == Guid.Parse(userId) && 
+                (r.Status == ReservationStatus.Pending ||
+                r.Status == ReservationStatus.Confirmed));
+        }
+
+        public async Task ChangeReservationStatusByIdAsync(string reservationId, string status)
+        {
+            Reservation reservation = await this.dbContext.Reservations
+                .FirstAsync(r => r.Id == Guid.Parse(reservationId));
+
+            reservation.Status = (ReservationStatus)Enum.Parse(typeof(ReservationStatus), status);
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<ReservationDetailsViewModel> GetReservationByIdAsync(string reservationId)
+        {
+            ReservationDetailsViewModel reservation = await this.dbContext
+                .Reservations
+                .Where(r => r.Id == Guid.Parse(reservationId))
+                .Select(r => new ReservationDetailsViewModel
+                {
+                    Id = r.Id,
+                    ReservationDate = r.ReservationDate,
+                    Status = r.Status,
+                    Notes = r.Notes,
+                })
+                .FirstAsync();
+
+            return reservation;
         }
     }
 }
