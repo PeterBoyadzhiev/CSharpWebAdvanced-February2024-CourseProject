@@ -17,28 +17,30 @@
             <p>@Model.Business.Description</p>
             <p><b>Located at:</b> @Model.Business.Address</p>
             <p><b>Business Number:</b> @Model.Business.PhoneNumber</p>
+
+            <form method="post">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="content">
+                            <div class="form-group">
+                                <label asp-for="ReservationDate">Date & Time</label>
+                                <input asp-for="ReservationDate" type="text" class="form-control" id="datetimepicker" placeholder="MM/DD/YYYY" />
+                                <span asp-validation-for="ReservationDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-12">
+                        <label asp-for="Notes">Notes:</label>
+                        <textarea asp-for="Notes" class="form-control" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="form-group text-center mt-3">
+                    <input type="submit" value="Make Reservation" class="btn btn-primary" />
+                </div>
+            </form>
         </div>
+
+
     </div>
 </div>
 
-<form method="post">
-    <div class="row">
-        <div class="form-group col-md-6">
-            <label asp-for="ReservationDate">Reservation Date:</label>
-            <input asp-for="ReservationDate" type="date" class="form-control" />
-            <span asp-validation-for="ReservationDate" class="text-danger"></span>
-        </div>
-        <div class="form-group col-md-6">
-            <label asp-for="Notes">Notes:</label>
-            <textarea asp-for="Notes" class="form-control" rows="5"></textarea>
-        </div>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Make Reservation" class="btn btn-primary" />
-    </div>
-</form>
-
-@section Scripts {
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-}

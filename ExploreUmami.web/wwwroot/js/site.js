@@ -6,5 +6,14 @@
             const prefecture = elValue;
             document.location.href = `/Business/AllByPrefecture/${prefecture}`;
         })
-    }) 
+    })
+
+    $("#datetimepicker").flatpickr(
+        {
+            enableTime: true,
+            minTime: "09:00",
+            maxTime: "22:00"
+        }
+    );
 })
+

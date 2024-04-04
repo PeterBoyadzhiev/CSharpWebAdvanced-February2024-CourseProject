@@ -256,12 +256,12 @@ namespace ExploreUmami.Services.Data
                 .FirstAsync();
         }
 
-        public async Task<ReservationCancelViewModel> GetReservationForCancelByIdAsync(string reservationId)
+        public async Task<ReservationCompleteOrCancelViewModel> GetReservationForCancelOrCompleteByIdAsync(string reservationId)
         {
-            ReservationCancelViewModel reservation = await this.dbContext
+            ReservationCompleteOrCancelViewModel reservation = await this.dbContext
                 .Reservations
                 .Where(r => r.Id == Guid.Parse(reservationId))
-                .Select(r => new ReservationCancelViewModel
+                .Select(r => new ReservationCompleteOrCancelViewModel
                 {
                     Id = r.Id,
                     ReservationDate = r.ReservationDate,

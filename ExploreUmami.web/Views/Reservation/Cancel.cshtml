@@ -1,11 +1,11 @@
-﻿@model ReservationCancelViewModel
+﻿@model ReservationCompleteOrCancelViewModel
 
 <div class="row mt-3">
     <div class="col-md-6 mx-auto">
         <h2 class="text-center">Cancel Reservation Confirmation</h2>
         <hr/>
         <p>
-            Are you sure you want to cancel this reservation on @Model.ReservationDate.ToString("dd MMM yyyy") at @Model.ReservationDate.ToString("hh:mm")?</p>
+            Are you sure you want to cancel this reservation on @Model.ReservationDate.ToString("dd MMM yyyy") at @Model.ReservationDate.ToString("HH:mm")?</p>
         <form method="post">
             <div class="form-group mt-2">
                 <label asp-for="Notes">Reason for Cancellation (Optional):</label>

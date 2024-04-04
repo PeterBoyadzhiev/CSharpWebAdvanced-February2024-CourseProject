@@ -3,7 +3,7 @@ using static ExploreUmami.Common.ValidationConstants.Reservation;
 
 namespace ExploreUmami.Web.ViewModels.Reservation
 {
-    public class ReservationCancelViewModel
+    public class ReservationCompleteOrCancelViewModel
     {
         [Required]
         public Guid Id { get; set; }

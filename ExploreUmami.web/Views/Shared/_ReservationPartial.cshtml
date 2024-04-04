@@ -12,7 +12,7 @@
         <h2>Reservation Details</h2>
         <p><b>ID:</b> @Model.Id</p>
         <p><b>Business Name:</b> @Model.Business.Title</p>
-        <p><b>Reservation Date:</b> @Model.ReservationDate.ToString("yyyy-MM-dd")</p>
+        <p><b>Reservation Date:</b> @Model.ReservationDate.ToString("yyyy-MMM-dd HH:mm")</p>
         <p><b>Status:</b> @Model.Status</p>
         <h2>User Information</h2>
         <p><b>User Name:</b> @Model.User.UserName</p>
@@ -41,7 +41,7 @@
             </div>
                 <div class="row mt-3 justify-content-between">
                 <div class="col-md-6">
-                    <form asp-action="Complete" method="post">
+                    <form asp-action="Complete" method="get">
                         <input type="hidden" name="reservationId" asp-for="Id" />
                         <button type="submit" class="btn btn-success">Complete Reservation</button>
                     </form>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="row mt-3 justify-content-between">
                     <div class="col-md-6">
-                        <form asp-action="Complete" method="post">
+                        <form asp-action="Complete" method="get">
                             <input type="hidden" name="reservationId" asp-for="Id" />
                             <button type="submit" class="btn btn-success">Complete Reservation</button>
                         </form>

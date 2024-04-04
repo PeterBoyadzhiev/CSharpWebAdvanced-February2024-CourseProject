@@ -13,7 +13,7 @@ namespace ExploreUmami.Services.Data
             this.dbContext = dbContext;
         }
 
-        public async Task AddUserVisitForCompletedReservationAsync(string reservationId)
+        public async Task AddUserVisitForCompletedReservationAsync(Guid reservationId, string? notes)
         {
             Reservation? reservation = await this.dbContext.Reservations.FindAsync(reservationId);
 
@@ -28,7 +28,7 @@ namespace ExploreUmami.Services.Data
                 BusinessId = reservation.BusinessId,
                 ReservationId = reservation.Id,
                 VisitDate = DateTime.UtcNow,
-                Notes = string.Empty
+                Notes = notes
             };
 
             await this.dbContext.UserVisits.AddAsync(userVisit);
