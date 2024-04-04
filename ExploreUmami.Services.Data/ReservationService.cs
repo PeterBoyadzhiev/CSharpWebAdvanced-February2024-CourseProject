@@ -91,6 +91,7 @@ namespace ExploreUmami.Services.Data
                 .Where(r => r.Business.BusinessOwnerId == Guid.Parse(ownerId))
                 .Include(r => r.User)
                 .Include(r => r.Business)
+                .OrderByDescending(r => r.Status)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filterModel.SearchTerm))
@@ -149,6 +150,7 @@ namespace ExploreUmami.Services.Data
                 .Where(r => r.UserId == Guid.Parse(userId))
                 .Include(r => r.User)
                 .Include(r => r.Business)
+                .OrderByDescending(r => r.Status)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filterModel.SearchTerm))
@@ -240,6 +242,30 @@ namespace ExploreUmami.Services.Data
                     ReservationDate = r.ReservationDate,
                     Status = r.Status,
                     Notes = r.Notes,
+                })
+                .FirstAsync();
+
+            return reservation;
+        }
+
+        public async Task<string> GetBusinessIdByReservationIdAsync(string reservationId)
+        { 
+            return await this.dbContext.Reservations
+                .Where(r => r.Id == Guid.Parse(reservationId))
+                .Select(r => r.BusinessId.ToString())
+                .FirstAsync();
+        }
+
+        public async Task<ReservationCancelViewModel> GetReservationForCancelByIdAsync(string reservationId)
+        {
+            ReservationCancelViewModel reservation = await this.dbContext
+                .Reservations
+                .Where(r => r.Id == Guid.Parse(reservationId))
+                .Select(r => new ReservationCancelViewModel
+                {
+                    Id = r.Id,
+                    ReservationDate = r.ReservationDate,
+                    Notes = string.Empty,
                 })
                 .FirstAsync();
 

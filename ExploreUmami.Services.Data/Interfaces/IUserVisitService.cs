@@ -2,5 +2,6 @@
 {
     public interface IUserVisitService
     {
+        Task AddUserVisitForCompletedReservationAsync(string reservationId);
     }
 }

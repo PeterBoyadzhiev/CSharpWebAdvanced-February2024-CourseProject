@@ -32,34 +32,6 @@ namespace ExploreUmami.Web.Controllers
             this.prefectureService = prefectureService;
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> All([FromQuery] ReservationAllUserFilterModel filterModel)
-        //{
-        //    List<ReservationDetailsViewModel> reservations = new List<ReservationDetailsViewModel>();
-
-        //    string? userId = this.User.GetId();
-        //    bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
-
-        //    try
-        //    {
-        //        if (isOwner)
-        //        {
-        //            string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
-        //            reservations.AddRange(await this.reservationService.AllReservationsByOwnerIdAsync(ownerId!));
-        //        }
-        //        else
-        //        {
-        //            reservations.AddRange(await this.reservationService.AllReservationsByUserIdAsync(userId));
-        //        }
-
-        //        return View(reservations);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        this.TempData["Error"] = "Unexpected error occurred!";
-        //        return RedirectToAction("Index", "Home");
-        //    }
-        //}
 
         [HttpGet]
         public async Task<IActionResult> All([FromQuery] ReservationFilterViewModel filterModel)
@@ -180,13 +152,38 @@ namespace ExploreUmami.Web.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(reservationId))
+                {
+                    TempData["Error"] = "Reservation not found!";
+                    return RedirectToAction("All", "Reservation");
+                }
+                if (status != ReservationStatus.Pending.ToString() ||
+                    status != ReservationStatus.Confirmed.ToString() ||
+                    status != ReservationStatus.Completed.ToString() ||
+                    status != ReservationStatus.Cancelled.ToString())
+                {
+                    TempData["Error"] = "Invalid reservation status provided.";
+                    return RedirectToAction("All", "Reservation");
+                }
+
                 string currentUserId = this.User.GetId();
                 bool isBusinessOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(currentUserId);
 
                 ReservationDetailsViewModel reservation = await this.reservationService.GetReservationByIdAsync(reservationId);
 
+                string businessId = await this.reservationService.GetBusinessIdByReservationIdAsync(reservationId);
+
                 if (isBusinessOwner)
                 {
+                    string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(currentUserId);
+                    bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, businessId);
+
+                    if (!isOwnerOfBusiness)
+                    {
+                        TempData["Error"] = "You are not authorized to change the reservation status of this reservation.";
+                        return RedirectToAction("All", "Reservation");
+                    }                    
+
                     if (Enum.TryParse(status, out ReservationStatus newStatus))
                     {
                         await this.reservationService.ChangeReservationStatusByIdAsync(reservationId, status);
@@ -205,13 +202,108 @@ namespace ExploreUmami.Web.Controllers
                     }
                     else
                     {
-                        TempData["Error"] = "You are not authorized to change the reservation status to this.";
+                        TempData["Error"] = "You are not authorized to change the reservation to this status.";
                         return RedirectToAction("All", "Reservation");
                     }
                 }
 
                 TempData["Success"] = "Reservation status changed successfully!";
                 return RedirectToAction("All", "Reservation");
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "Unexpected error occurred!";
+                return RedirectToAction("All", "Reservation");
+            }
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Cancel(string reservationId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(reservationId))
+                {
+                    TempData["Error"] = "Reservation not found!";
+                    return RedirectToAction("All", "Reservation");
+                }
+
+                string currentUserId = this.User.GetId();
+                bool isBusinessOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(currentUserId);
+
+                ReservationCancelViewModel reservation = await this.reservationService.GetReservationForCancelByIdAsync(reservationId);
+
+                string businessId = await this.reservationService.GetBusinessIdByReservationIdAsync(reservationId);
+
+                if (isBusinessOwner)
+                {
+                    string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(currentUserId);
+                    bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, businessId);
+
+                    if (!isOwnerOfBusiness)
+                    {
+                        TempData["Error"] = "You are not authorized to cancel this reservation.";
+                        return RedirectToAction("All", "Reservation");
+                    }
+                }
+
+                return View(reservation);
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "Unexpected error occurred!";
+                return RedirectToAction("All", "Reservation");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Cancel(ReservationCancelViewModel model, string reservationId)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                if (string.IsNullOrEmpty(reservationId))
+                {
+                    TempData["Error"] = "Reservation not found!";
+                    return RedirectToAction("All", "Reservation");
+                }
+
+                if (model.Answer)
+                {
+                    string currentUserId = this.User.GetId();
+                    bool isBusinessOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(currentUserId);
+
+                    ReservationDetailsViewModel reservation = await this.reservationService.GetReservationByIdAsync(reservationId);
+
+                    string businessId = await this.reservationService.GetBusinessIdByReservationIdAsync(reservationId);
+
+                    if (isBusinessOwner)
+                    {
+                        string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(currentUserId);
+                        bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, businessId);
+
+                        if (!isOwnerOfBusiness)
+                        {
+                            TempData["Error"] = "You are not authorized to cancel this reservation.";
+                            return RedirectToAction("All", "Reservation");
+                        }
+                    }
+
+                    await this.reservationService.ChangeReservationStatusByIdAsync(reservationId, ReservationStatus.Cancelled.ToString());
+
+                    TempData["Success"] = "Reservation cancelled successfully!";
+                    return RedirectToAction("All", "Reservation");
+                }
+                else
+                {
+                    return RedirectToAction("All", "Reservation");
+                }
+                
             }
             catch (Exception)
             {

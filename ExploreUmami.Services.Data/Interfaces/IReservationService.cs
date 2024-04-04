@@ -20,5 +20,9 @@ namespace ExploreUmami.Services.Data.Interfaces
         Task<ReservationDetailsViewModel> GetReservationByIdAsync(string reservationId);
 
         Task ChangeReservationStatusByIdAsync(string reservationId, string status);
+
+        Task<string> GetBusinessIdByReservationIdAsync(string reservationId);
+
+        Task<ReservationCancelViewModel> GetReservationForCancelByIdAsync(string reservationId);
     }
 }
