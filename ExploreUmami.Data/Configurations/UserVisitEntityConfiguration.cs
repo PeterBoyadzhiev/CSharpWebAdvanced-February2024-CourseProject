@@ -10,7 +10,7 @@ namespace ExploreUmami.Data.Configurations
         {
             builder
                 .Property(b => b.VisitDate)
-                .HasDefaultValueSql("GETDATE()"); //TODO: Logic for setting the date of the visit upon visit status "Completed"
+                .HasDefaultValueSql("GETDATE()");
 
             builder
                 .HasOne(uv => uv.Business)

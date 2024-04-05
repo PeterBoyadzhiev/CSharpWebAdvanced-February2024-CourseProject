@@ -1,0 +1,40 @@
+﻿@model IEnumerable<UserVisitDetailsViewModel>
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <h1 class="text-center">Your Visited Businesses</h1>
+    <hr />
+        @if (Model.Any())
+        {
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Visit Date</th>
+                        <th>Business</th>
+                        <th>Notes</th>
+                        <th>Review</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var visit in Model)
+                    {
+                        <tr>
+                            <td>@visit.VisitDate.ToString("yyyy-MM-dd HH:mm")</td>
+                            <td>
+                                <a asp-controller="Business" asp-action="Details">@visit.Business.Title</a>
+                            </td>
+                            <td>@visit.Notes</td>
+                            <td>
+                                <a asp-controller="Review" asp-action="Add" class="btn btn-primary">Write a Review</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>You haven't visited any businesses yet.</p>
+        }
+    </div>
+</div>

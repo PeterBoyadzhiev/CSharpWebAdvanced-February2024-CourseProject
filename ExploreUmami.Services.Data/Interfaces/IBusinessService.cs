@@ -11,8 +11,6 @@ namespace ExploreUmami.Services.Data.Interfaces
 
         Task<IEnumerable<BusinessAllViewModel>> AllBusinessesByOwnerIdAsync(string ownerId);
 
-        Task<IEnumerable<BusinessAllViewModel>> AllBusinessesByReviewerIdAsync(string reviewerId);
-
         Task<BusinessDetailsViewModel> GetBusinessDetailsByIdAsync(string businessId);
 
         Task<bool> ExistsByIdAsync(string businessId);

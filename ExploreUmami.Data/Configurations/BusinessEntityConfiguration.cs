@@ -71,7 +71,7 @@ namespace ExploreUmami.Data.Configurations
                 CategoryId = 2,
                 PrefectureId = 2,
                 IsActive = true,
-                BusinessOwnerId = Guid.Parse("C805DDB6-BCF7-47A3-8744-3EC84036CAA0")
+                BusinessOwnerId = Guid.Parse("E826FF19-1946-4237-B266-E326CBEAD8FF")
             };
             businesses.Add(business);
 
@@ -113,7 +113,7 @@ namespace ExploreUmami.Data.Configurations
                 ImageUrl = "https://dummyimage.com/400x200",
                 CategoryId = 5,
                 PrefectureId = 5,
-                BusinessOwnerId = Guid.Parse("E826FF19-1946-4237-B266-E326CBEAD8FF")
+                BusinessOwnerId = Guid.Parse("C805DDB6-BCF7-47A3-8744-3EC84036CAA0")
             };
             businesses.Add(business);
 

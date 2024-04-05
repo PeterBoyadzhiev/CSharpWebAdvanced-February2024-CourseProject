@@ -30,11 +30,26 @@ namespace ExploreUmami.Data.Configurations
 
             applicationUser = new ApplicationUser
             {
-                Id = Guid.Parse("B43C3753-DE4E-4417-B2AD-1C029C7B9795"),
+                Id = Guid.Parse("DED2ED0C-9D4F-4D1D-9BE1-A0B183548BFC"),
                 UserName = "admin@gmail.com",
                 NormalizedUserName = "ADMIN@GMAIL.COM",
                 Email = "admin@gmail.com",
                 NormalizedEmail = "ADMIN@GMAIL.COM"
+
+            };
+
+            applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "123456");
+            applicationUser.SecurityStamp = securityStamp;
+
+            applicationUsers.Add(applicationUser);
+
+            applicationUser = new ApplicationUser
+            {
+                Id = Guid.Parse("B43C3753-DE4E-4417-B2AD-1C029C7B9795"),
+                UserName = "businessowner2@gmail.com",
+                NormalizedUserName = "BUSINESSOWNER2@GMAIL.COM",
+                Email = "businessowner2@gmail.com",
+                NormalizedEmail = "BUSINESSOWNER2@GMAIL.COM"
 
             };
 

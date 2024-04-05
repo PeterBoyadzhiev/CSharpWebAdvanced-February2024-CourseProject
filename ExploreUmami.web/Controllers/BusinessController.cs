@@ -157,7 +157,8 @@ namespace ExploreUmami.Web.Controllers
                 }
                 else
                 {
-                    businesses.AddRange(await this.businessService.AllBusinessesByReviewerIdAsync(userId));
+                    TempData["Error"] = "You must be a business owner to view your businesses! Become a business owner.";
+                    return RedirectToAction("Switch", "BusinessOwner");
                 }
 
                 return View(businesses);

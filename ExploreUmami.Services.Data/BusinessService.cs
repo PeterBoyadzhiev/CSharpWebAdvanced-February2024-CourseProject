@@ -121,24 +121,6 @@ namespace ExploreUmami.Services.Data
             return businesses;
         }
 
-        public async Task<IEnumerable<BusinessAllViewModel>> AllBusinessesByReviewerIdAsync(string reviewerId)
-        {   
-            IEnumerable<BusinessAllViewModel> businesses = await this.dbContext
-                .Businesses
-                .Where(b => b.Reviews.Any(r => r.ReviewerId == Guid.Parse(reviewerId)))
-                .Select(b => new BusinessAllViewModel
-                {
-                    Id = b.Id.ToString(),
-                    Title = b.Title,
-                    Description = b.Description,
-                    ImageUrl = b.ImageUrl,
-                })
-                .ToArrayAsync();
-
-            return businesses;
-
-        }
-
         public async Task<BusinessDetailsViewModel> GetBusinessDetailsByIdAsync(string businessId)
         {
             Business business = await this.dbContext
@@ -148,7 +130,7 @@ namespace ExploreUmami.Services.Data
                 .Include(b => b.BusinessOwner)
                 .ThenInclude(bo => bo.User)
                 .Include(b => b.Reviews)
-                .ThenInclude(b => b.Reviewer)// TO DO
+                .ThenInclude(b => b.Reviewer)// TODO
                 .FirstAsync(b => b.Id.ToString() == businessId);
 
             var averageRating = business.Reviews.Any()

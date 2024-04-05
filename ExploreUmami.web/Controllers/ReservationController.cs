@@ -134,7 +134,7 @@ namespace ExploreUmami.Web.Controllers
 
                 if (hasIncompleteReservation)
                 {
-                    this.TempData["Error"] = "You already have a pending reservation for this business!";
+                    this.TempData["Error"] = "You already have an outstanding reservation for this business!";
                     return RedirectToAction("All", "Reservation");
                 }
 
