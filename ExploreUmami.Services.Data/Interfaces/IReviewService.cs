@@ -8,6 +8,8 @@ namespace ExploreUmami.Services.Data.Interfaces
 
         Task AddReviewAsync(AddReviewModel model, string businessId, string reviewerId);
 
+        Task<bool> ReviewExistsByUserForBusinessAsync(string reviewerId, string businessId);
 
+        Task<bool> UserHasReviewForVisitAsync(string userId, string visitId);
     }
 }

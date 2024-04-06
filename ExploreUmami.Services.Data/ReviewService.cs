@@ -46,5 +46,19 @@ namespace ExploreUmami.Services.Data
             await this.dbContext.Reviews.AddAsync(review);
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task<bool> ReviewExistsByUserForBusinessAsync(string reviewerId, string businessId)
+        {
+            return await this.dbContext.Reviews
+                .AnyAsync(r => r.ReviewerId.ToString() == reviewerId && r.BusinessId.ToString() == businessId);
+        }
+
+        public async Task<bool> UserHasReviewForVisitAsync(string userId, string visitId)
+        {
+            return await dbContext.UserVisits
+                .Include(uv => uv.Business)
+                .ThenInclude(uv => uv.Reviews)
+                .AnyAsync(uv => uv.UserId.ToString() == userId && uv.Id.ToString() == visitId && uv.Business.Reviews.Any());
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace ExploreUmami.Web.ViewModels.Reservation
         public string? Notes { get; set; }
 
         [Required]
-        public DateTime ReservationDate { get; set; } = DateTime.Today.AddDays(1);
+        public DateTime ReservationDate { get; set; }
 
         public BusinessDetailsReservationViewModel? Business { get; set; }
     }

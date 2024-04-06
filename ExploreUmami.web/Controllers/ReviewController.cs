@@ -56,19 +56,28 @@ namespace ExploreUmami.Web.Controllers
                 return RedirectToAction("MyBusinesses", "Business");
             }
 
+            bool reviewExists = await reviewService.ReviewExistsByUserForBusinessAsync(userId, id);
+
             try
             {
+                if (reviewExists)
+                {
+                    this.TempData["Error"] = "You have already added a review for this business.";
+                    return RedirectToAction("Visited", "UserVisit");
+                }
+
                 if (hasVisited)
                 {
                     await reviewService.AddReviewAsync(model, id, userId);
 
                     this.TempData["Success"] = "Review added successfully!";
-                    return RedirectToAction("Visited", "UserVisit"); // Or desired redirect location
+                    return RedirectToAction("Visited", "UserVisit");
                 }
+                
                 else
                 {
                     this.TempData["Error"] = "You have not visited this business and cannot add a review.";
-                    return RedirectToAction("Visited", "UserVisit"); // Or desired redirect location
+                    return RedirectToAction("Visited", "UserVisit");
                 }
             }
             catch (Exception)

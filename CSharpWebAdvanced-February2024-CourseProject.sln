@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreUmami.Services.Data"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreUmami.Web.Infrastructure", "ExploreUmami.Web.Infrastructure\ExploreUmami.Web.Infrastructure.csproj", "{0EF5C102-38DF-4058-8FC8-586E689EA36B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExploreUmami.Services.Data.Models", "ExploreUmami.Services.Data.Models\ExploreUmami.Services.Data.Models.csproj", "{38C14F71-AC10-4ABA-85ED-BE056EA5F955}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreUmami.Services.Data.Models", "ExploreUmami.Services.Data.Models\ExploreUmami.Services.Data.Models.csproj", "{38C14F71-AC10-4ABA-85ED-BE056EA5F955}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

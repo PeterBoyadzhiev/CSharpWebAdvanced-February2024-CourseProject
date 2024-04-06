@@ -92,6 +92,7 @@ namespace ExploreUmami.Services.Data
                 .Include(r => r.User)
                 .Include(r => r.Business)
                 .OrderByDescending(r => r.Status)
+                .ThenByDescending(r => r.ReservationDate)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filterModel.SearchTerm))

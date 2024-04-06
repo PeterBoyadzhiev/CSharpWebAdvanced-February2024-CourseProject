@@ -10,13 +10,13 @@
 <div class="container" style="display:inline">
     <div class="row">
         <div class="details-img col-6">
-            <img class="card-img-top" style="width: 69vh;" src="@Model.Business.ImageUrl" alt="Business Image">
+            <img class="card-img-top" style="width: 69vh;" src="@Model.Business?.ImageUrl" alt="Business Image">
         </div>
 
         <div class="card col-6 border-0">
-            <p>@Model.Business.Description</p>
-            <p><b>Located at:</b> @Model.Business.Address</p>
-            <p><b>Business Number:</b> @Model.Business.PhoneNumber</p>
+            <p>@Model.Business?.Description</p>
+            <p><b>Located at:</b> @Model.Business?.Address</p>
+            <p><b>Business Number:</b> @Model.Business?.PhoneNumber</p>
 
             <form method="post">
                 <div class="row">
@@ -24,7 +24,7 @@
                         <div class="content">
                             <div class="form-group">
                                 <label asp-for="ReservationDate">Date & Time</label>
-                                <input asp-for="ReservationDate" type="text" class="form-control" id="datetimepicker" placeholder="MM/DD/YYYY" />
+                                <input asp-for="ReservationDate" type="text" class="form-control" id="datetimepicker"/>
                                 <span asp-validation-for="ReservationDate" class="text-danger"></span>
                             </div>
                         </div>

@@ -6,7 +6,7 @@ namespace ExploreUmami.Web.ViewModels.UserVisit
 {
     public class UserVisitDetailsViewModel
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; } = null!;
 
         public DateTime VisitDate { get; set; }
 
@@ -17,5 +17,7 @@ namespace ExploreUmami.Web.ViewModels.UserVisit
         public UserDetailsViewModel User { get; set; } = null!;
 
         public VisitsReviewViewModel Review { get; set; } = null!;
+
+        public bool HasReview { get; set; }
     }
 }

@@ -12,7 +12,8 @@
         {
             enableTime: true,
             minTime: "09:00",
-            maxTime: "22:00"
+            maxTime: "22:00",
+            defaultDate: Date.now(),
         }
     );
 })

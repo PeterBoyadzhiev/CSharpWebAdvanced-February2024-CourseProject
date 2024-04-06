@@ -1,4 +1,5 @@
-﻿using ExploreUmami.Services.Data.Interfaces;
+﻿using ExploreUmami.Services.Data;
+using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Web.Infrastructure.Extensions;
 using ExploreUmami.Web.ViewModels.UserVisit;
 using Microsoft.AspNetCore.Authorization;
@@ -33,6 +34,14 @@ namespace ExploreUmami.Web.Controllers
                 string? userId = this.User.GetId();
 
                 IEnumerable<UserVisitDetailsViewModel> model = await this.userVisitService.GetUserVisitsAsync(userId);
+
+                foreach (var visit in model)
+                {
+                    visit.HasReview = await reviewService.UserHasReviewForVisitAsync(userId, visit.Id);
+                    bool hasVisited = await userVisitService.UserHasVisitAsync(userId, visit.Business.Id);
+                }
+
+                
 
                 bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
 
@@ -69,7 +78,7 @@ namespace ExploreUmami.Web.Controllers
                 if (!isOwner)
                 {
                     TempData["Error"] = "You are not a business owner!";
-                    return RedirectToAction("Switch", "BusinessOwner");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 return this.View(model);
@@ -78,10 +87,7 @@ namespace ExploreUmami.Web.Controllers
             {
                 this.TempData["Error"] = "Unexpected error occurred!";
                 return RedirectToAction("Index", "Home");
-            }
-            
-
-            
+            } 
         }
     }
 }

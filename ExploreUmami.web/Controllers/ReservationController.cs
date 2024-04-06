@@ -103,11 +103,15 @@ namespace ExploreUmami.Web.Controllers
             if (model.ReservationDate < DateTime.Today.AddDays(1))
             {
                 TempData["Error"] = "Reservations must be made at least one day in advance.";
+                BusinessDetailsReservationViewModel businessModel = await this.businessService.GetBusinessDetailsForReservationAsync(businessId);
+                model.Business = businessModel;
                 return View(model);
             }
 
             if (!ModelState.IsValid)
             {
+                BusinessDetailsReservationViewModel businessModel = await this.businessService.GetBusinessDetailsForReservationAsync(businessId);
+                model.Business = businessModel;
                 return View(model);
             }
 
