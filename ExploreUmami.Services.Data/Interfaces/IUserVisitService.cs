@@ -7,8 +7,10 @@ namespace ExploreUmami.Services.Data.Interfaces
     {
         Task AddUserVisitForCompletedReservationAsync(Guid reservationId, string? notes);
 
-        Task<IEnumerable<UserVisitDetailsViewModel>> GetUserVisitsAsync();
+        Task<IEnumerable<UserVisitDetailsViewModel>> GetUserVisitsAsync(string userId);
 
         Task<IEnumerable<UserVisitDetailsViewModel>> GetBusinessVisitsPerOwnerAsync(string ownerId);
+
+        Task<bool> UserHasVisitAsync(string userId, string businessId);
     }
 }

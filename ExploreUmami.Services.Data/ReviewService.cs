@@ -1,4 +1,5 @@
 ﻿using ExploreUmami.Data;
+using ExploreUmami.Data.Models;
 using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Web.ViewModels.Review;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,22 @@ namespace ExploreUmami.Services.Data
                 .FirstAsync();
 
             return review;
+        }
+
+        public async Task AddReviewAsync(AddReviewModel model, string businessId, string reviewerId)
+        {
+            Review review = new Review
+            {
+                BusinessId = Guid.Parse(businessId),
+                ReviewerId = Guid.Parse(reviewerId),
+                Subject = model.Subject,
+                Content = model.Content,
+                Rating = model.Rating,
+                TimeStamp = DateTime.UtcNow,
+            };
+
+            await this.dbContext.Reviews.AddAsync(review);
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }

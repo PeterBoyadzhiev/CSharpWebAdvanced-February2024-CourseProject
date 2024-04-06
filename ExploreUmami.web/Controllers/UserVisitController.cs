@@ -1,10 +1,8 @@
-﻿using ExploreUmami.Services.Data;
-using ExploreUmami.Services.Data.Interfaces;
+﻿using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Web.Infrastructure.Extensions;
 using ExploreUmami.Web.ViewModels.UserVisit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace ExploreUmami.Web.Controllers
 {
@@ -30,38 +28,58 @@ namespace ExploreUmami.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Visited()
         {
-            IEnumerable<UserVisitDetailsViewModel> model = await this.userVisitService.GetUserVisitsAsync();
-
-            string? userId = this.User.GetId();
-            bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
-
-            if (isOwner)
+            try
             {
-                TempData["Error"] = "You are a business owner and do not have visited businesses.";
-                return RedirectToAction("MyBusinesses", "Business");
-            }
+                string? userId = this.User.GetId();
 
-            return this.View(model);
+                IEnumerable<UserVisitDetailsViewModel> model = await this.userVisitService.GetUserVisitsAsync(userId);
+
+                bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
+
+                if (isOwner)
+                {
+                    TempData["Error"] = "You are a business owner and do not have visited businesses.";
+                    return RedirectToAction("MyBusinesses", "Business");
+                }
+
+                return this.View(model);
+            }
+            catch (Exception)
+            {
+                this.TempData["Error"] = "Unexpected error occurred!";
+                return RedirectToAction("Index", "Home");
+            }
+            
+            
         }
 
         [HttpGet]
         public async Task<IActionResult> Visits()
         {
-            string? userId = this.User.GetId();
-            string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
-            bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
-
-
-            IEnumerable<UserVisitDetailsViewModel> model = await this.userVisitService.GetBusinessVisitsPerOwnerAsync(ownerId!);
-
-
-            if (!isOwner)
+            try
             {
-                TempData["Error"] = "You are not a business owner!";
-                return RedirectToAction("Switch", "BusinessOwner");
-            }
+                string? userId = this.User.GetId();
+                string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
+                bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
 
-            return this.View(model);
+
+                IEnumerable<UserVisitDetailsViewModel> model = await this.userVisitService.GetBusinessVisitsPerOwnerAsync(ownerId!);
+
+
+                if (!isOwner)
+                {
+                    TempData["Error"] = "You are not a business owner!";
+                    return RedirectToAction("Switch", "BusinessOwner");
+                }
+
+                return this.View(model);
+            }
+            catch (Exception)
+            {
+                this.TempData["Error"] = "Unexpected error occurred!";
+                return RedirectToAction("Index", "Home");
+            }
+            
 
             
         }

@@ -130,7 +130,7 @@ namespace ExploreUmami.Web.Controllers
                     return RedirectToAction("All", "Reservation");
                 }
 
-                bool hasIncompleteReservation = await this.reservationService.UserHasIncompleteReservationAsync(userId);
+                bool hasIncompleteReservation = await this.reservationService.UserHasIncompleteReservationAsync(userId, businessId);
 
                 if (hasIncompleteReservation)
                 {
@@ -160,9 +160,9 @@ namespace ExploreUmami.Web.Controllers
                     TempData["Error"] = "Reservation not found!";
                     return RedirectToAction("All", "Reservation");
                 }
-                if (status != ReservationStatus.Pending.ToString() ||
-                    status != ReservationStatus.Confirmed.ToString() ||
-                    status != ReservationStatus.Completed.ToString() ||
+                if (status != ReservationStatus.Pending.ToString() &&
+                    status != ReservationStatus.Confirmed.ToString() &&
+                    status != ReservationStatus.Completed.ToString() &&
                     status != ReservationStatus.Cancelled.ToString())
                 {
                     TempData["Error"] = "Invalid reservation status provided.";
@@ -362,6 +362,8 @@ namespace ExploreUmami.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Complete(ReservationCompleteOrCancelViewModel model, string reservationId)
         {
+
+
             try
             {
                 if (!ModelState.IsValid)

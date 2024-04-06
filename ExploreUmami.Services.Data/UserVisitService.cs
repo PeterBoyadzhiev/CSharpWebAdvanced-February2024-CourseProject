@@ -40,11 +40,13 @@ namespace ExploreUmami.Services.Data
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<UserVisitDetailsViewModel>> GetUserVisitsAsync()
+        public async Task<IEnumerable<UserVisitDetailsViewModel>> GetUserVisitsAsync(string userId)
         {
 
             return await this.dbContext.UserVisits
                 .Include(uv => uv.Business)
+                .Include(uv => uv.User)
+                .Where(uv => uv.UserId.ToString() == userId)
                 .Include(uv => uv.Reservation)
                 .Select(uv => new UserVisitDetailsViewModel
                 {
@@ -108,16 +110,22 @@ namespace ExploreUmami.Services.Data
                     },
                     Review = new VisitsReviewViewModel
                     {
-                        Subject = uv.Business.Reviews.FirstOrDefault().Subject,
-                        Content = uv.Business.Reviews.FirstOrDefault().Content,
-                        Rating = uv.Business.Reviews.FirstOrDefault().Rating,
-                        TimeStamp = uv.Business.Reviews.FirstOrDefault().TimeStamp,
+                        Subject = uv.Business.Reviews.First().Subject,
+                        Content = uv.Business.Reviews.First().Content,
+                        Rating = uv.Business.Reviews.First().Rating,
+                        TimeStamp = uv.Business.Reviews.First().TimeStamp,
                     }
                 })
                 .OrderByDescending(uv => uv.VisitDate)
                 .ToListAsync();
 
             return visits;
+        }
+
+        public async Task<bool> UserHasVisitAsync(string userId, string businessId)
+        {
+            return await this.dbContext.UserVisits
+                .AnyAsync(uv => uv.UserId.ToString() == userId && uv.BusinessId.ToString() == businessId);
         }
     }
 }

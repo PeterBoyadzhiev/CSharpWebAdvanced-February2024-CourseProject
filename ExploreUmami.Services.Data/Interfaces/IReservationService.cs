@@ -15,7 +15,7 @@ namespace ExploreUmami.Services.Data.Interfaces
 
         Task MakeReservationAsync(MakeReservationFormModel model, string userId, string businessId);
 
-        Task<bool> UserHasIncompleteReservationAsync(string userId);
+        Task<bool> UserHasIncompleteReservationAsync(string userId, string businessId);
 
         Task<ReservationDetailsViewModel> GetReservationByIdAsync(string reservationId);
 
