@@ -272,5 +272,24 @@ namespace ExploreUmami.Services.Data
 
             return business;
         }
+
+        public async Task<IEnumerable<BusinessAllViewModel>> GetBusinessesPerPrefectureAsync(string prefecture)
+        {
+            IEnumerable<BusinessAllViewModel> businesses = await this.dbContext
+                .Businesses
+                .Where(b => b.Prefecture.Name == prefecture && b.IsActive == true)
+                .OrderByDescending(b => b.CreatedOn)
+                .ThenBy(b => b.Title)
+                .Select(b => new BusinessAllViewModel
+                {
+                    Id = b.Id.ToString(),
+                    Title = b.Title,
+                    Description = b.Description,
+                    ImageUrl = b.ImageUrl,
+                })
+                .ToArrayAsync();
+
+            return businesses;
+        }
     }
 }

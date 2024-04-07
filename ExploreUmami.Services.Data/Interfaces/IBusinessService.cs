@@ -26,5 +26,7 @@ namespace ExploreUmami.Services.Data.Interfaces
         Task DeleteBusinessByIdAsync(string businessId);
 
         Task<BusinessDetailsReservationViewModel> GetBusinessDetailsForReservationAsync(string businessId);
+
+        Task<IEnumerable<BusinessAllViewModel>> GetBusinessesPerPrefectureAsync(string prefecture);
     }
 }

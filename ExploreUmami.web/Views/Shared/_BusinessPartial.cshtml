@@ -2,7 +2,7 @@
 
 <div class="col-md-4 mb-3">
     <div class="card">
-        <img class="card-img-top" src="@Model.ImageUrl" alt="@Model.Title" style="height: 200px;">
+        <img class="card-img-top img-fluid img-thumbnail" src="@Model.ImageUrl" alt="@Model.Title">
         <div class="card-body">
             <h5 class="card-title">
                 @Model.Title
@@ -11,7 +11,7 @@
             <a asp-controller="Business" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary">Details</a>
             <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
             <a asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Delete</a>
-            <a asp-controller="Reservation" asp-action="Make" asp-route-businessId="@Model.Id" class="btn btn-primary">Make Reservation</a>
+            <a asp-controller="Reservation" asp-action="Make" asp-route-id="@Model.Id" class="btn btn-primary">Make Reservation</a>
         </div>
     </div>
 </div>

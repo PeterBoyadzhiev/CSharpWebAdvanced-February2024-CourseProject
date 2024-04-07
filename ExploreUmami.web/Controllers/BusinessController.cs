@@ -419,10 +419,19 @@ namespace ExploreUmami.Web.Controllers
             return RedirectToAction("MyBusinesses", "Business");
         }
 
-        public IActionResult AllByPrefecture() 
-        { 
-            //TO DO
-            return View();
+        public async Task<IActionResult> ByPrefecture(string name) 
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                this.TempData["Error"] = "Invalid Prefecture!";
+                return this.RedirectToAction("Index", "Home");
+            }
+
+            IEnumerable<BusinessAllViewModel> model = await this.businessService.GetBusinessesPerPrefectureAsync(name);
+
+            ViewData["Prefecture"] = name;
+
+            return this.View(model);
         }
     }
 }

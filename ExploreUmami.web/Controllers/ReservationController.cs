@@ -60,9 +60,9 @@ namespace ExploreUmami.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Make(string businessId)
+        public async Task<IActionResult> Make(string id)
         {
-            bool businessExists = await this.businessService.ExistsByIdAsync(businessId);
+            bool businessExists = await this.businessService.ExistsByIdAsync(id);
 
             if (!businessExists)
             {
@@ -80,7 +80,7 @@ namespace ExploreUmami.Web.Controllers
 
             try
             {
-                BusinessDetailsReservationViewModel businessModel = await this.businessService.GetBusinessDetailsForReservationAsync(businessId);
+                BusinessDetailsReservationViewModel businessModel = await this.businessService.GetBusinessDetailsForReservationAsync(id);
 
                 MakeReservationFormModel reservationModel = new MakeReservationFormModel
                 {

@@ -58,7 +58,7 @@ namespace ExploreUmami.Services.Data
             return await dbContext.UserVisits
                 .Include(uv => uv.Business)
                 .ThenInclude(uv => uv.Reviews)
-                .AnyAsync(uv => uv.UserId.ToString() == userId && uv.Id.ToString() == visitId && uv.Business.Reviews.Any());
+                .AnyAsync(uv => uv.UserId.ToString() == userId && uv.Id.ToString() == visitId && uv.Business.Reviews.Any(r => r.ReviewerId.ToString() == userId));
         }
     }
 }

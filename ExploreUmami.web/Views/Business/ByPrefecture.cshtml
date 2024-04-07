@@ -1,0 +1,22 @@
+﻿@model IEnumerable<BusinessAllViewModel>
+
+@{
+    ViewData["Title"] = "All Businesses";
+}
+
+<h2 class="text-center">@ViewData["Title"] in @ViewData["Prefecture"]</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <h3 class="text-center">No businesses to show.</h3>
+}
+else
+{
+    <div class="row mt-3">
+        @foreach (var business in Model)
+        {
+            <partial name="_BusinessPartial" model="@business" />
+        }
+    </div>
+}

@@ -4,7 +4,7 @@
         el.addEventListener('click', function (path) {
             const elValue = path.target.attributes.title.value;
             const prefecture = elValue;
-            document.location.href = `/Business/AllByPrefecture/${prefecture}`;
+            document.location.href = `/Business/ByPrefecture?name=${prefecture}`;
         })
     })
 

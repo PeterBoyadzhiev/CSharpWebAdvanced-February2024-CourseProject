@@ -137,14 +137,5 @@ namespace ExploreUmami.Services.Data
             return await this.dbContext.UserVisits
                 .AnyAsync(uv => uv.UserId.ToString() == userId && uv.BusinessId.ToString() == businessId);
         }
-
-        //public async Task<bool> UserHasReviewForVisitAsync(string userId, string visitId)
-        //{
-
-        //    return await this.dbContext.UserVisits
-        //        .Include(uv => uv.Business)
-        //        .ThenInclude(uv => uv.Reviews)
-        //        .AnyAsync(uv => uv.UserId.ToString() == userId && uv.Id.ToString() == visitId && uv.Business.Reviews.Any());
-        //}
     }
 }
