@@ -4,34 +4,34 @@
     ViewData["Title"] = $"Make Reservation";
 }
 
-<h1 class="text-center">@ViewData["Title"]</h1>
+<h1 class="text-center">@ViewData["Title"] for @ViewData["BusinessName"]</h1>
 <hr />
 
 <div class="container" style="display:inline">
     <div class="row">
         <div class="details-img col-6">
-            <img class="card-img-top" style="width: 69vh;" src="@Model.Business?.ImageUrl" alt="Business Image">
+            <img class="card-img-top img-fluid img-thumbnail" src="@Model.Business.ImageUrl" alt="Business Image">
         </div>
 
         <div class="card col-6 border-0">
-            <p>@Model.Business?.Description</p>
-            <p><b>Located at:</b> @Model.Business?.Address</p>
-            <p><b>Business Number:</b> @Model.Business?.PhoneNumber</p>
+            <p>@Model.Business.Description</p>
+            <p><b>Located at:</b> @Model.Business.Address, @Model.Business.Prefecture</p>
+            <p><b>Business Number:</b> @Model.Business.PhoneNumber</p>
 
             <form method="post">
                 <div class="row">
                     <div class="col-4">
                         <div class="content">
-                            <div class="form-group">
+                            <div class="form-group mt-2">
                                 <label asp-for="ReservationDate">Date & Time</label>
-                                <input asp-for="ReservationDate" type="text" class="form-control" id="datetimepicker"/>
+                                <input asp-for="ReservationDate" type="text" class="form-control mt-1" id="datetimepicker" />
                                 <span asp-validation-for="ReservationDate" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group col-12">
-                        <label asp-for="Notes">Notes:</label>
-                        <textarea asp-for="Notes" class="form-control" rows="5"></textarea>
+                    <div class="form-group col-12 mt-2">
+                        <label asp-for="Notes">Leave a note (Optional):</label>
+                        <textarea asp-for="Notes" class="form-control mt-1" rows="5"></textarea>
                     </div>
                 </div>
                 <div class="form-group text-center mt-3">

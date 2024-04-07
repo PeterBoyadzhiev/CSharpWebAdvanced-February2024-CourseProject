@@ -27,7 +27,7 @@ namespace ExploreUmami.Web.ViewModels.Business
 
         [Required]
         [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength)]
-        [RegularExpression(PhoneNumberRegularExpression)]
+        [RegularExpression(PhoneNumberRegularExpression, ErrorMessage = PhoneNumberErrorMessage)]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; } = null!;
 

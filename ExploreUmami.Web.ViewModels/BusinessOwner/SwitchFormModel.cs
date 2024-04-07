@@ -8,7 +8,7 @@ namespace ExploreUmami.Web.ViewModels.BusinessOwner
         [Required]
         [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength)]
         [Phone]
-        [RegularExpression(PhoneNumberRegularExpression, ErrorMessage = "Please enter the phone number in the format XX-XXXX-XXXX")]
+        [RegularExpression(PhoneNumberRegularExpression, ErrorMessage = PhoneNumberErrorMessage)]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; } = string.Empty;
 

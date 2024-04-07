@@ -19,6 +19,7 @@
             public const int PhoneNumberMinLength = 10;
             public const int PhoneNumberMaxLength = 20;
             public const string PhoneNumberRegularExpression = @"^\d{2}-\d{4}-\d{4}$";
+            public const string PhoneNumberErrorMessage = "Phone number must be in the format 00-0000-0000";
             public const int WebsiteUrlMinLength = 10;
             public const int WebsiteUrlsiteMaxLength = 2048;
             public const int ImageUrlMinLength = 10;
@@ -40,12 +41,14 @@
             public const int PhoneNumberMinLength = 10;
             public const int PhoneNumberMaxLength = 20;
             public const string PhoneNumberRegularExpression = @"^\d{2}-\d{4}-\d{4}$";
+            public const string PhoneNumberErrorMessage = "Phone number must be in the format 00-0000-0000";
             public const int FirstNameMinLength = 2;
             public const int FirstNameMaxLength = 20;
             public const int LastNameMinLength = 2;
             public const int LastNameMaxLength = 20;
             public const int NameOfBusinessMinLength = 3;
             public const int NameOfBusinessMaxLength = 50;
+
         }
 
         public static class Prefecture

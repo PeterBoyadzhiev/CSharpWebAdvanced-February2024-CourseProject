@@ -266,7 +266,7 @@ namespace ExploreUmami.Services.Data
                     Address = b.Address,
                     PhoneNumber = b.PhoneNumber,
                     ImageUrl = b.ImageUrl,
-
+                    Prefecture = b.Prefecture.Name,
                 })
                 .FirstAsync();
 

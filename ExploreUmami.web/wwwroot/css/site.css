@@ -30,3 +30,19 @@ body{
 .apply-button{
     margin-top: 32px;
 }
+
+.img-thumbnail{
+    max-width: 100%;
+    max-height: 200px;
+}
+
+.card-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#details-full-img{
+    max-width: 100%;
+    max-height: 400px;
+}

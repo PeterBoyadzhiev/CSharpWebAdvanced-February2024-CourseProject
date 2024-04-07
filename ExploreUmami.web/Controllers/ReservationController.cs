@@ -87,6 +87,8 @@ namespace ExploreUmami.Web.Controllers
                     Business = businessModel,
                 };
 
+                ViewData["BusinessName"] = businessModel.Title;
+
                 return View(reservationModel);
             }
             catch (Exception)
@@ -97,27 +99,27 @@ namespace ExploreUmami.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Make(MakeReservationFormModel model, string businessId)
+        public async Task<IActionResult> Make(MakeReservationFormModel model, string id)
         {
 
             if (model.ReservationDate < DateTime.Today.AddDays(1))
             {
                 TempData["Error"] = "Reservations must be made at least one day in advance.";
-                BusinessDetailsReservationViewModel businessModel = await this.businessService.GetBusinessDetailsForReservationAsync(businessId);
+                BusinessDetailsReservationViewModel businessModel = await this.businessService.GetBusinessDetailsForReservationAsync(id);
                 model.Business = businessModel;
                 return View(model);
             }
 
             if (!ModelState.IsValid)
             {
-                BusinessDetailsReservationViewModel businessModel = await this.businessService.GetBusinessDetailsForReservationAsync(businessId);
+                BusinessDetailsReservationViewModel businessModel = await this.businessService.GetBusinessDetailsForReservationAsync(id);
                 model.Business = businessModel;
                 return View(model);
             }
 
             try
             {
-                bool businessExists = await this.businessService.ExistsByIdAsync(businessId);
+                bool businessExists = await this.businessService.ExistsByIdAsync(id);
 
                 if (!businessExists)
                 {
@@ -134,7 +136,7 @@ namespace ExploreUmami.Web.Controllers
                     return RedirectToAction("All", "Reservation");
                 }
 
-                bool hasIncompleteReservation = await this.reservationService.UserHasIncompleteReservationAsync(userId, businessId);
+                bool hasIncompleteReservation = await this.reservationService.UserHasIncompleteReservationAsync(userId, id);
 
                 if (hasIncompleteReservation)
                 {
@@ -142,7 +144,7 @@ namespace ExploreUmami.Web.Controllers
                     return RedirectToAction("All", "Reservation");
                 }
 
-                await this.reservationService.MakeReservationAsync(model, userId, businessId);
+                await this.reservationService.MakeReservationAsync(model, userId, id);
 
                 this.TempData["Success"] = "Reservation made successfully!";
                 return RedirectToAction("All", "Reservation");

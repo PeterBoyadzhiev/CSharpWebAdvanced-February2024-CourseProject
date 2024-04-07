@@ -9,14 +9,17 @@
 <div class="container" style="display:inline">
     <div class="row">
         <div class="details-img col-6">
-            <img class="card-img-top img-fluid" src="@Model.ImageUrl" alt="Business Image">
+            <img class="card-img-top img-fluid" id="details-full-img" src="@Model.ImageUrl" alt="Business Image">
         </div>
 
         <div class="card col-6 border-0">
             <p>@Model.Description</p>
             <p><b>Located at:</b> @Model.Address, @Model.Prefecture</p>
             <p><b>Business Number:</b> @Model.PhoneNumber</p>
-            <p><b>Website:</b> @Model.WebsiteUrl</p>
+            @if(Model.WebsiteUrl != null)
+            {
+                <p><b>Website:</b> @Model.WebsiteUrl</p>
+            }
             <p><b>Category:</b> @Model.Category</p>
             <p></p>
             <div class="card" style="width: 18rem;">
