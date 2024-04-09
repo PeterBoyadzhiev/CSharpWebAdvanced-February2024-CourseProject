@@ -31,7 +31,7 @@ namespace ExploreUmami.Data.Configurations
             ICollection<ApplicationUser> applicationUsers = new HashSet<ApplicationUser>();
 
             var hasher = new PasswordHasher<ApplicationUser>();
-            byte[] randomBytes = RandomNumberGenerator.GetBytes(16); // Generate 16 bytes
+            byte[] randomBytes = RandomNumberGenerator.GetBytes(16); //TODO take this out in a method and generate different security stamp for each user
             string securityStamp = BitConverter.ToString(randomBytes).Replace("-", "");
 
             ApplicationUser applicationUser;

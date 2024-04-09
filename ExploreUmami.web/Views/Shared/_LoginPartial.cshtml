@@ -6,6 +6,7 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
+    //TODO: Inject BusinessOwnerService and check if user is owner to hide the switch button
     <li class="nav-item">
         <a class="nav-link text-dark" asp-area="" asp-controller="BusinessOwner" asp-action="Switch">Switch to Owner</a>
     </li>
@@ -21,10 +22,10 @@
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
     </li>
 }
 </ul>

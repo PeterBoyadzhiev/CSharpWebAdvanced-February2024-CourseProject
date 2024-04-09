@@ -3,6 +3,7 @@ using ExploreUmami.Data.Models;
 using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Web.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace ExploreUmami.Web
@@ -30,6 +31,11 @@ namespace ExploreUmami.Web
 
             builder.Services.AddApplicationServices(typeof(IBusinessService));
 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/User/Login";
+                options.AccessDeniedPath = "/Home/Error/401";
+            });
 
             builder.Services.AddControllersWithViews();
 
