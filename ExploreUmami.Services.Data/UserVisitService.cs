@@ -84,10 +84,9 @@ namespace ExploreUmami.Services.Data
         {
             var visits = await this.dbContext.UserVisits
                 .Include(uv => uv.Business)
-                .ThenInclude(uv => uv.Reviews)
-                .Where(uv => uv.Business.BusinessOwnerId.ToString() == ownerId)
                 .Include(uv => uv.User)
-                .Where(r => r.Business.Reviews.Any())
+                .ThenInclude(u => u.Reviews)
+                .Where(uv => uv.Business.BusinessOwnerId.ToString() == ownerId && uv.User.Reviews.Any())
                 .Select(uv => new UserVisitDetailsViewModel
                 {
                     Id = uv.Id.ToString(),
@@ -104,27 +103,34 @@ namespace ExploreUmami.Services.Data
                         WebsiteUrl = uv.Business.WebsiteUrl ?? "null",
                         Description = uv.Business.Description,
                         ImageUrl = uv.Business.ImageUrl,
-                        Reviews = uv.Business.Reviews.Select(r => new ReviewInfoModel
-                        {
-                            Subject = r.Subject,
-                            Content = r.Content,
-                            Rating = r.Rating,
-                            TimeStamp = r.TimeStamp,
-                        }).ToList(),
                     },
                     User = new UserDetailsViewModel
                     {
                         Id = uv.User.Id,
                         UserName = uv.User.UserName,
                         Email = uv.User.Email,
+                        FullName = uv.User.FirstName + " " + uv.User.LastName,
+                        Reviews = uv.User.Reviews
+                            .Where(r => r.BusinessId == uv.BusinessId)
+                            .Select(r => new ReviewInfoModel
+                            {
+                                Subject = r.Subject,
+                                Content = r.Content,
+                                Rating = r.Rating,
+                                TimeStamp = r.TimeStamp,
+                            })
+                            .ToList(),
                     },
-                    Review = new VisitsReviewViewModel
-                    {
-                        Subject = uv.Business.Reviews.First().Subject,
-                        Content = uv.Business.Reviews.First().Content,
-                        Rating = uv.Business.Reviews.First().Rating,
-                        TimeStamp = uv.Business.Reviews.First().TimeStamp,
-                    }
+                    Review = uv.User.Reviews
+                        .Where(r => r.BusinessId == uv.BusinessId)
+                        .Select(r => new ReviewInfoModel
+                        {
+                            Subject = r.Subject,
+                            Content = r.Content,
+                            Rating = r.Rating,
+                            TimeStamp = r.TimeStamp,
+                        })
+                        .FirstOrDefault(),
                 })
                 .OrderByDescending(uv => uv.VisitDate)
                 .ToListAsync();

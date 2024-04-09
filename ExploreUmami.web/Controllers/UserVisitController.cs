@@ -71,21 +71,19 @@ namespace ExploreUmami.Web.Controllers
                 string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
                 bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
 
-
-                IEnumerable<UserVisitDetailsViewModel> model = await this.userVisitService.GetBusinessVisitsPerOwnerAsync(ownerId!);
-
-
                 if (!isOwner)
                 {
                     TempData["Error"] = "You are not a business owner!";
                     return RedirectToAction("Index", "Home");
                 }
 
+                IEnumerable<UserVisitDetailsViewModel> model = await this.userVisitService.GetBusinessVisitsPerOwnerAsync(ownerId!);
+
                 return this.View(model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                this.TempData["Error"] = "Unexpected error occurred!";
+                this.TempData["Error"] = $"Unexpected error occurred! {e.Message}";
                 return RedirectToAction("Index", "Home");
             } 
         }

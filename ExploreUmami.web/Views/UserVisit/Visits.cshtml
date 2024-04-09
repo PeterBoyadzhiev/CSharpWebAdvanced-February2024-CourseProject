@@ -21,19 +21,26 @@
                         <tr>
                             <td>@visit.VisitDate.ToString("yyyy-MM-dd HH:mm")</td>
                             <td>
-                                <a asp-controller="Business" asp-action="Details">@visit.Business.Title</a>
+                                <a asp-controller="Business" asp-action="Details" asp-route-id="@visit.Business.Id">@visit.Business.Title</a>
                             </td>
-                            <td>@visit.User.UserName
+                            <td>
+                                <p class ="m-1">@visit.User.FullName</p>
+                                <p class="m-1">@visit.User.UserName</p>
                             </td>
                             @if (visit.Review != null)
                             {
-                                <td>
-                                <p>@visit.Review.Rating Stars</p>
-                                <h4>@visit.Review.Subject</h4>
-                                <p>@visit.Review.Content</p>
+                                <td class="justify-content-center">
+                                    <p class="m-1">@visit.Review.Subject</p>
+                                    <p class="m-1">@visit.Review.Rating Stars</p>
+                                    <p class="m-1"><i>@visit.Review.Content</i></p>
                                 </td>
                             }
-
+                            else
+                            {
+                                <td>
+                                    <p class="m-1">The user has not left a review for this business yet.</p>
+                                </td>
+                            }
                         </tr>
                     }
                 </tbody>
@@ -41,7 +48,7 @@
         }
         else
         {
-            <p>You haven't visited any businesses yet.</p>
+            <h3 class="text-center">There are no reviews for your businesses</h3>
         }
     </div>
 </div>

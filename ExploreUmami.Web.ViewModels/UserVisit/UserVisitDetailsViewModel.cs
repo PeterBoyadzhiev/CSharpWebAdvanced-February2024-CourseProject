@@ -16,7 +16,7 @@ namespace ExploreUmami.Web.ViewModels.UserVisit
 
         public UserDetailsViewModel User { get; set; } = null!;
 
-        public VisitsReviewViewModel Review { get; set; } = null!;
+        public ReviewInfoModel? Review { get; set; }
 
         public bool HasReview { get; set; }
     }
