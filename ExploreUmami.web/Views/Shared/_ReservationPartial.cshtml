@@ -21,13 +21,13 @@
         <p><b>Business Name:</b> @Model.Business.Title</p>
         <p><b>Reservation Date:</b> @Model.ReservationDate.ToString("yyyy-MMM-dd HH:mm")</p>
         <p><b>Status:</b> @Model.Status</p>
+        <p><b>Notes:</b> @Model.Notes</p>
 
         @if (isOwner)
         {
             <h2>User Information</h2>
             <p><b>User Full Name:</b> @Model.User.FullName</p>
             <p><b>User Email:</b> @Model.User.UserName</p>
-            <p><b>Notes:</b> @Model.Notes</p>
         }
 
         

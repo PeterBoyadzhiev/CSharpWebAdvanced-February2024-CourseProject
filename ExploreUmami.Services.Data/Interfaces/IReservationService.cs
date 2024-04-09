@@ -21,6 +21,8 @@ namespace ExploreUmami.Services.Data.Interfaces
 
         Task ChangeReservationStatusByIdAsync(string reservationId, string status);
 
+        Task ChangeReservationStatusByIdAsync(string reservationId, string status, string? notes);
+
         Task<string> GetBusinessIdByReservationIdAsync(string reservationId);
 
         Task<ReservationCompleteOrCancelViewModel> GetReservationForCancelOrCompleteByIdAsync(string reservationId);

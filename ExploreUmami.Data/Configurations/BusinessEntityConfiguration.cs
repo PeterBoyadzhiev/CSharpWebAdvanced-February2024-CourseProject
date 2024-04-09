@@ -83,6 +83,7 @@ namespace ExploreUmami.Data.Configurations
 
             business = new Business
             {
+                Id = Guid.Parse("7C8605E4-9E6C-474F-8C3C-A837D631C8D4"),
                 Title = "Bar",
                 Description = "A place where you can drink alcohol",
                 Address = "789 Oak Street",
@@ -97,6 +98,7 @@ namespace ExploreUmami.Data.Configurations
 
             business = new Business
             {
+                Id = Guid.Parse("4222168E-C018-418E-812F-F8D41B322522"),
                 Title = "Bakery",
                 Description = "A place where you can buy bread",
                 Address = "1012 Pine Street",
@@ -111,6 +113,7 @@ namespace ExploreUmami.Data.Configurations
 
             business = new Business
             {
+                Id = Guid.Parse("E39D9DC4-519F-4C74-9F59-86083DF887C6"),
                 Title = "Fast Food",
                 Description = "A place where you can eat food quickly",
                 Address = "1314 Cedar Street",

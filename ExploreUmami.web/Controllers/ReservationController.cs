@@ -161,22 +161,22 @@ namespace ExploreUmami.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangeStatus(string reservationId, string status)
         {
+            if (string.IsNullOrEmpty(reservationId))
+            {
+                TempData["Error"] = "Reservation not found!";
+                return RedirectToAction("All", "Reservation");
+            }
+            if (status != ReservationStatus.Pending.ToString() &&
+                status != ReservationStatus.Confirmed.ToString() &&
+                status != ReservationStatus.Completed.ToString() &&
+                status != ReservationStatus.Cancelled.ToString())
+            {
+                TempData["Error"] = "Invalid reservation status provided.";
+                return RedirectToAction("All", "Reservation");
+            }
+
             try
             {
-                if (string.IsNullOrEmpty(reservationId))
-                {
-                    TempData["Error"] = "Reservation not found!";
-                    return RedirectToAction("All", "Reservation");
-                }
-                if (status != ReservationStatus.Pending.ToString() &&
-                    status != ReservationStatus.Confirmed.ToString() &&
-                    status != ReservationStatus.Completed.ToString() &&
-                    status != ReservationStatus.Cancelled.ToString())
-                {
-                    TempData["Error"] = "Invalid reservation status provided.";
-                    return RedirectToAction("All", "Reservation");
-                }
-
                 string currentUserId = this.User.GetId();
                 bool isBusinessOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(currentUserId);
 
@@ -184,6 +184,7 @@ namespace ExploreUmami.Web.Controllers
 
                 string businessId = await this.reservationService.GetBusinessIdByReservationIdAsync(reservationId);
 
+                
                 if (isBusinessOwner)
                 {
                     string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(currentUserId);
@@ -197,6 +198,16 @@ namespace ExploreUmami.Web.Controllers
 
                     if (Enum.TryParse(status, out ReservationStatus newStatus))
                     {
+                        if (status == ReservationStatus.Cancelled.ToString())
+                        {
+                            return RedirectToAction("Cancel", "Reservation", new { reservationId });
+                        }
+
+                        if (status == ReservationStatus.Completed.ToString())
+                        {
+                            return RedirectToAction("Complete", "Reservation", new { reservationId });
+                        }
+
                         await this.reservationService.ChangeReservationStatusByIdAsync(reservationId, status);
                     }
                     else
@@ -209,7 +220,7 @@ namespace ExploreUmami.Web.Controllers
                 {
                     if (status == ReservationStatus.Cancelled.ToString())
                     {
-                        await this.reservationService.ChangeReservationStatusByIdAsync(reservationId, status);
+                        return RedirectToAction("Cancel", "Reservation", new { reservationId });
                     }
                     else
                     {
@@ -305,7 +316,7 @@ namespace ExploreUmami.Web.Controllers
                         }
                     }
 
-                    await this.reservationService.ChangeReservationStatusByIdAsync(reservationId, ReservationStatus.Cancelled.ToString());
+                    await this.reservationService.ChangeReservationStatusByIdAsync(reservationId, ReservationStatus.Cancelled.ToString(), model.Notes ?? "");
 
                     TempData["Success"] = "Reservation cancelled successfully!";
                     return RedirectToAction("All", "Reservation");
@@ -404,7 +415,7 @@ namespace ExploreUmami.Web.Controllers
                         }
                     }
 
-                    await this.reservationService.ChangeReservationStatusByIdAsync(reservationId, ReservationStatus.Completed.ToString());
+                    await this.reservationService.ChangeReservationStatusByIdAsync(reservationId, ReservationStatus.Completed.ToString(), model.Notes ?? "");
                     await this.userVisitService.AddUserVisitForCompletedReservationAsync(Guid.Parse(reservationId), model.Notes);
 
                     TempData["Success"] = "Reservation completed successfully!";

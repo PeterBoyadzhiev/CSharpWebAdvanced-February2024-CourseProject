@@ -235,6 +235,17 @@ namespace ExploreUmami.Services.Data
             await this.dbContext.SaveChangesAsync();
         }
 
+        public async Task ChangeReservationStatusByIdAsync(string reservationId, string status, string? notes)
+        {
+            Reservation reservation = await this.dbContext.Reservations
+                .FirstAsync(r => r.Id == Guid.Parse(reservationId));
+
+            reservation.Status = (ReservationStatus)Enum.Parse(typeof(ReservationStatus), status);
+            reservation.Notes = notes;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
         public async Task<ReservationDetailsViewModel> GetReservationByIdAsync(string reservationId)
         {
             ReservationDetailsViewModel reservation = await this.dbContext
