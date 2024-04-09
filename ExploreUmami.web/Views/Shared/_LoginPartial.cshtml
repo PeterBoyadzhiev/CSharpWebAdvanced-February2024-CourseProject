@@ -1,17 +1,28 @@
 ﻿@using ExploreUmami.Data.Models
 @using Microsoft.AspNetCore.Identity
+
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+
+@inject IApplicationUserService ApplicationUserService
+@inject IBusinessOwnerService BusinessOwnerService
+
+@{
+    bool isOwner = await this.BusinessOwnerService.IsOwnerByUserIdAsync(User.GetId());
+    string userFullName = await this.ApplicationUserService.GetUserFullNameByEmailAsync(User.Identity?.Name!);
+}
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    //TODO: Inject BusinessOwnerService and check if user is owner to hide the switch button
+    if (!isOwner)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="BusinessOwner" asp-action="Switch">Switch to Owner</a>
+            </li>
+        }
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="" asp-controller="BusinessOwner" asp-action="Switch">Switch to Owner</a>
-    </li>
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @User.Identity?.Name!</a>
+        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @userFullName</a>
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

@@ -10,6 +10,6 @@ namespace ExploreUmami.Web.ViewModels.Reservation
         [Required]
         public DateTime ReservationDate { get; set; }
 
-        public BusinessDetailsReservationViewModel Business { get; set; } = null!;
+        public BusinessDetailsReservationViewModel? Business { get; set; }
     }
 }

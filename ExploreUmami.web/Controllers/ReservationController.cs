@@ -101,19 +101,21 @@ namespace ExploreUmami.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Make(MakeReservationFormModel model, string id)
         {
+            model.Business = await this.businessService.GetBusinessDetailsForReservationAsync(id);
 
             if (model.ReservationDate < DateTime.Today.AddDays(1))
             {
                 TempData["Error"] = "Reservations must be made at least one day in advance.";
-                BusinessDetailsReservationViewModel businessModel = await this.businessService.GetBusinessDetailsForReservationAsync(id);
-                model.Business = businessModel;
+                model.Business = await this.businessService.GetBusinessDetailsForReservationAsync(id);
+                ViewData["BusinessName"] = model.Business.Title;
                 return View(model);
             }
 
             if (!ModelState.IsValid)
             {
-                BusinessDetailsReservationViewModel businessModel = await this.businessService.GetBusinessDetailsForReservationAsync(id);
-                model.Business = businessModel;
+
+                model.Business = await this.businessService.GetBusinessDetailsForReservationAsync(id);
+                ViewData["BusinessName"] = model.Business.Title;
                 return View(model);
             }
 
@@ -368,8 +370,6 @@ namespace ExploreUmami.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Complete(ReservationCompleteOrCancelViewModel model, string reservationId)
         {
-
-
             try
             {
                 if (!ModelState.IsValid)

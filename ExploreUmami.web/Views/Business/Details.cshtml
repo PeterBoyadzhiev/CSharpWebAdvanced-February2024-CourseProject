@@ -1,4 +1,14 @@
-﻿@model BusinessDetailsViewModel;
+﻿@inject IBusinessOwnerService BusinessOwnerService
+@inject IReviewService ReviewService
+@inject IUserVisitService UserVisitService
+
+@{
+    bool isOwner = await this.BusinessOwnerService.IsOwnerByUserIdAsync(User.GetId());
+    bool hasVisited = await this.UserVisitService.UserHasVisitAsync(User.GetId(), Model.Id);
+    bool isReviewed = await this.ReviewService.ReviewExistsByUserForBusinessAsync(User.GetId(), Model.Id);
+}
+
+@model BusinessDetailsViewModel;
 @{
     ViewBag.Title = Model.Title;
 }
@@ -57,10 +67,18 @@
             }
         </div>
     </div>
-
     <div class="buttons mt-3 text-center align-content-end">
-        <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
-        <a asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Delete</a>
-        <a asp-controller="Review" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-primary">Review</a>
+        @if (isOwner)
+        {
+            <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+            <a asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Delete</a>
+        }  
+        @if (hasVisited)
+        {
+            if (!isReviewed)
+            {
+                <a asp-controller="Review" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-primary">Review</a>
+            }      
+        } 
     </div>
 </div>

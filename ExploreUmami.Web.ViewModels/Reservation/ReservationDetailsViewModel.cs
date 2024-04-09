@@ -19,6 +19,6 @@ namespace ExploreUmami.Web.ViewModels.Reservation
 
         public string? Notes { get; set; }
 
-        public UserVisitDetailsViewModel? UserVisit { get; set; } = null;
+        public UserVisitDetailsViewModel? UserVisit { get; set; }
     }
 }

@@ -419,6 +419,7 @@ namespace ExploreUmami.Web.Controllers
             return RedirectToAction("MyBusinesses", "Business");
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> ByPrefecture(string name) 
         {
             if (string.IsNullOrWhiteSpace(name))

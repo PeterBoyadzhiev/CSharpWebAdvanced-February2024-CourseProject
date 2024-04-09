@@ -1,4 +1,11 @@
-﻿@using ExploreUmami.Data.Models.Enums;
+﻿@inject IApplicationUserService ApplicationUserService
+@inject IBusinessOwnerService BusinessOwnerService
+
+@{
+    bool isOwner = await this.BusinessOwnerService.IsOwnerByUserIdAsync(User.GetId());
+    string userFullName = await this.ApplicationUserService.GetUserFullNameByEmailAsync(User.Identity?.Name!);
+}
+
 @model ReservationDetailsViewModel
 
 <div class="row mt-3">
@@ -14,39 +21,52 @@
         <p><b>Business Name:</b> @Model.Business.Title</p>
         <p><b>Reservation Date:</b> @Model.ReservationDate.ToString("yyyy-MMM-dd HH:mm")</p>
         <p><b>Status:</b> @Model.Status</p>
-        <h2>User Information</h2>
-        <p><b>User Name:</b> @Model.User.UserName</p>
-        <p><b>Notes:</b> @Model.Notes</p>  
+
+        @if (isOwner)
+        {
+            <h2>User Information</h2>
+            <p><b>User Full Name:</b> @Model.User.FullName</p>
+            <p><b>User Email:</b> @Model.User.UserName</p>
+            <p><b>Notes:</b> @Model.Notes</p>
+        }
+
+        
     </div>
 
     <div class="col-md-4">
         @switch (Model.Status) 
         {
             case ReservationStatus.Pending:
+
             <div class="row">
-                <form asp-action="ChangeStatus" method="post">
-                    <div class="d-flex justify-content-between">
-                        <input type="hidden" name="reservationId" asp-for="Id" />
-                        <div class="form-group col-md-4">
-                            <select id="status" name="status" class="form-control">
-                                <option value="@ReservationStatus.Confirmed">Confirmed</option>
-                                <option value="@ReservationStatus.Completed">Completed</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary col-md-12">Change Status</button>
-                        </div>
+
+            @if (isOwner)
+                {
+                    <div class="col-12 mb-2">
+                        <form asp-action="ChangeStatus" method="post">
+                            <div class="d-flex justify-content-between">
+                                <input type="hidden" name="reservationId" asp-for="Id" />
+                                <div class="form-group col-4">
+                                    <select id="status" name="status" class="form-control">
+                                        <option value="@ReservationStatus.Confirmed">Confirmed</option>
+                                        <option value="@ReservationStatus.Completed">Completed</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-primary col-md-12">Change Status</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </form>
-            </div>
-                <div class="row mt-3 justify-content-between">
-                <div class="col-md-6">
-                    <form asp-action="Complete" method="get">
-                        <input type="hidden" name="reservationId" asp-for="Id" />
-                        <button type="submit" class="btn btn-success">Complete Reservation</button>
-                    </form>
-                </div>
-                <div class="col-md-6">
+                    <div class="col-6 mb-2">
+                        <form asp-action="Complete" method="get">
+                            <input type="hidden" name="reservationId" asp-for="Id" />
+                            <button type="submit" class="btn btn-success">Complete Reservation</button>
+                        </form>
+                    </div>
+                }
+
+                    <div class="col-6 mb-2">
                     <form asp-action="Cancel" method="get">
                         <input type="hidden" name="reservationId" asp-for="Id" />
                         <button type="submit" class="btn btn-danger">Cancel Reservation</button>
@@ -55,30 +75,36 @@
             </div>
             break;
             case ReservationStatus.Confirmed:
+
                 <div class="row">
-                    <form asp-action="ChangeStatus" method="post">
-                        <div class="d-flex justify-content-between">
-                            <input type="hidden" name="reservationId" asp-for="Id" />
-                            <div class="form-group col-md-4">
-                                <select id="status" name="status" class="form-control">
-                                    <option value="@ReservationStatus.Pending">Pending</option>
-                                    <option value="@ReservationStatus.Completed">Completed</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary col-md-12">Change Status</button>
-                            </div>
+
+                    @if (isOwner)
+                    {
+                        <div class="col-12 mb-2">
+                            <form asp-action="ChangeStatus" method="post">
+                                <div class="d-flex justify-content-between">
+                                    <input type="hidden" name="reservationId" asp-for="Id" />
+                                    <div class="form-group col-4">
+                                        <select id="status" name="status" class="form-control">
+                                            <option value="@ReservationStatus.Pending">Pending</option>
+                                            <option value="@ReservationStatus.Completed">Completed</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="submit" class="btn btn-primary col-md-12">Change Status</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                </div>
-                <div class="row mt-3 justify-content-between">
-                    <div class="col-md-6">
-                        <form asp-action="Complete" method="get">
-                            <input type="hidden" name="reservationId" asp-for="Id" />
-                            <button type="submit" class="btn btn-success">Complete Reservation</button>
-                        </form>
-                    </div>
-                    <div class="col-md-6">
+                        <div class="col-6 mb-2">
+                            <form asp-action="Complete" method="get">
+                                <input type="hidden" name="reservationId" asp-for="Id" />
+                                <button type="submit" class="btn btn-success">Complete Reservation</button>
+                            </form>
+                        </div>
+                    }
+
+                    <div class="col-6 mb-2">
                         <form asp-action="Cancel" method="get">
                             <input type="hidden" name="reservationId" asp-for="Id" />
                             <button type="submit" class="btn btn-danger">Cancel Reservation</button>

@@ -131,6 +131,7 @@ namespace ExploreUmami.Services.Data
                     {
                         Id = r.User.Id,
                         UserName = r.User.UserName,
+                        FullName = r.User.FirstName + " " + r.User.LastName,
                     },
                     ReservationDate = r.ReservationDate,
                     Status = r.Status,
@@ -185,6 +186,7 @@ namespace ExploreUmami.Services.Data
                     {
                         Id = r.User.Id,
                         UserName = r.User.UserName,
+                        FullName = r.User.FirstName + " " + r.User.LastName,
                     },
                     ReservationDate = r.ReservationDate,
                     Status = r.Status,

@@ -1,5 +1,4 @@
-﻿@using ExploreUmami.Data.Models.Enums;
-@model ReservationFilterViewModel
+﻿@model ReservationFilterViewModel
 
 @{
     ViewData["Title"] = "All Reservations";
@@ -10,12 +9,6 @@
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
 
-@if (Model.Reservations.Count() == 0)
-{
-    <h3 class="text-center">No reservations to show.</h3>
-}
-else
-{
     <form method="get">
         <div class="row">
             <div class="form-group col-md-3">
@@ -48,7 +41,6 @@ else
             </div>
         </div>
     </form>
-}
 
 @{
     int previousPage = Model.CurrentPage - 1;
@@ -58,6 +50,11 @@ else
     }
 
     int maxPage = (int)Math.Ceiling((double)Model.TotalReservations / Model.ReservationsPerPage);
+}
+
+@if (Model.Reservations.Count() == 0)
+{
+    <h3 class="text-center mt-2">No reservations to show.</h3>
 }
 
 <div class="row mt-3">
