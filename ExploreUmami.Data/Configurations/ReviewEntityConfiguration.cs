@@ -13,13 +13,13 @@ namespace ExploreUmami.Data.Configurations
                 .HasOne(r => r.Business)
                 .WithMany(b => b.Reviews)
                 .HasForeignKey(r => r.BusinessId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .HasOne(r => r.Reviewer)
                 .WithMany(u => u.Reviews)
                 .HasForeignKey(r => r.ReviewerId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasIndex(r => new { r.BusinessId, r.ReviewerId }).IsUnique();
 

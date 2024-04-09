@@ -18,13 +18,13 @@ namespace ExploreUmami.Data.Configurations
                 .HasOne(r => r.Business)
                 .WithMany(b => b.Reservations)
                 .HasForeignKey(r => r.BusinessId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .HasOne(r => r.User)
                 .WithMany(u => u.Reservations)
                 .HasForeignKey(r => r.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasData(GenerateReservations());
         }

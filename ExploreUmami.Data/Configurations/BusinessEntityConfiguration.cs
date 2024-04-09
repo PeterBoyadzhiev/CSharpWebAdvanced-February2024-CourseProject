@@ -12,19 +12,25 @@ namespace ExploreUmami.Data.Configurations
                 .HasOne(b => b.Category)
                 .WithMany(c => c.Businesses)
                 .HasForeignKey(b => b.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .HasOne(b => b.Prefecture)
                 .WithMany(p => p.Businesses)
                 .HasForeignKey(b => b.PrefectureId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .HasOne(b => b.BusinessOwner)
                 .WithMany(bo => bo.OwnedBusinesses)
                 .HasForeignKey(b => b.BusinessOwnerId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder
+                .HasMany(b => b.Reservations)
+                .WithOne(r => r.Business)
+                .HasForeignKey(r => r.BusinessId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .Property(b => b.CreatedOn)

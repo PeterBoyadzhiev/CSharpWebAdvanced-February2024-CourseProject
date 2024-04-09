@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using static ExploreUmami.Common.ValidationConstants.ApplicationUser;
 
 namespace ExploreUmami.Data.Models
 {
@@ -11,6 +13,14 @@ namespace ExploreUmami.Data.Models
             Reservations = new HashSet<Reservation>();
             UserVisits = new HashSet<UserVisit>();
         }
+
+        [Required]
+        [MaxLength(FirstNameMaxLength)]
+        public string FirstName { get; set; } = null!;
+
+        [Required]
+        [MaxLength(LastNameMaxLength)]
+        public string LastName { get; set; } = null!;
 
         public ICollection<Review> Reviews { get; set; }
 

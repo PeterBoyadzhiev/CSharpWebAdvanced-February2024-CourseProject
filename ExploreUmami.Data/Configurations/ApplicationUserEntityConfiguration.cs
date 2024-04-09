@@ -15,6 +15,14 @@ namespace ExploreUmami.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
+            builder
+                .Property(u => u.FirstName)
+                .HasDefaultValue("John");
+
+            builder
+                .Property(u => u.LastName)
+                .HasDefaultValue("Doe");
+
             builder.HasData(GenerateUsers());
         }
 
@@ -34,22 +42,9 @@ namespace ExploreUmami.Data.Configurations
                 UserName = "admin@gmail.com",
                 NormalizedUserName = "ADMIN@GMAIL.COM",
                 Email = "admin@gmail.com",
-                NormalizedEmail = "ADMIN@GMAIL.COM"
-
-            };
-
-            applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "123456");
-            applicationUser.SecurityStamp = securityStamp;
-
-            applicationUsers.Add(applicationUser);
-
-            applicationUser = new ApplicationUser
-            {
-                Id = Guid.Parse("B43C3753-DE4E-4417-B2AD-1C029C7B9795"),
-                UserName = "businessowner2@gmail.com",
-                NormalizedUserName = "BUSINESSOWNER2@GMAIL.COM",
-                Email = "businessowner2@gmail.com",
-                NormalizedEmail = "BUSINESSOWNER2@GMAIL.COM"
+                NormalizedEmail = "ADMIN@GMAIL.COM",
+                FirstName = "Admin",
+                LastName = "Adminson"
 
             };
 
@@ -69,6 +64,23 @@ namespace ExploreUmami.Data.Configurations
 
             applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "123456");
             applicationUser.SecurityStamp = securityStamp;
+
+            applicationUsers.Add(applicationUser);
+
+            applicationUser = new ApplicationUser
+            {
+                Id = Guid.Parse("B43C3753-DE4E-4417-B2AD-1C029C7B9795"),
+                UserName = "businessowner2@gmail.com",
+                NormalizedUserName = "BUSINESSOWNER2@GMAIL.COM",
+                Email = "businessowner2@gmail.com",
+                NormalizedEmail = "BUSINESSOWNER2@GMAIL.COM",
+                FirstName = "Jane",
+                LastName = "Doe"
+
+            };
+
+            applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "123456");
+            applicationUser.SecurityStamp = securityStamp;
             applicationUsers.Add(applicationUser);
 
             applicationUser = new ApplicationUser
@@ -77,7 +89,9 @@ namespace ExploreUmami.Data.Configurations
                 UserName = "reviewer@gmail.com",
                 NormalizedUserName = "REVIEWER@GMAIL.COM",
                 Email = "reviewer@gmail.com",
-                NormalizedEmail = "REVIEWER@GMAIL.COM"
+                NormalizedEmail = "REVIEWER@GMAIL.COM",
+                FirstName = "Jovani",
+                LastName = "Dawson"
 
             };
 
@@ -91,8 +105,9 @@ namespace ExploreUmami.Data.Configurations
                 UserName = "reviewer2@gmail.com",
                 NormalizedUserName = "REVIEWER2@GMAIL.COM",
                 Email = "reviewer2@gmail.com",
-                NormalizedEmail = "REVIEWER2@GMAIL.COM"
-
+                NormalizedEmail = "REVIEWER2@GMAIL.COM",
+                FirstName = "Janette",
+                LastName = "Dane"
             };
 
             applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "123456");

@@ -16,13 +16,13 @@ namespace ExploreUmami.Data.Configurations
                 .HasOne(uv => uv.Business)
                 .WithMany(b => b.UserVisits)
                 .HasForeignKey(uv => uv.BusinessId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .HasOne(uv => uv.User)
                 .WithMany(u => u.UserVisits)
                 .HasForeignKey(uv => uv.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasData(GenerateUserVisits());
         }
