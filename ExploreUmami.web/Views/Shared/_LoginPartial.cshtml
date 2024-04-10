@@ -7,15 +7,18 @@
 @inject IApplicationUserService ApplicationUserService
 @inject IBusinessOwnerService BusinessOwnerService
 
+@using static ExploreUmami.Common.AppConstantsGeneral;
+
 @{
     bool isOwner = await this.BusinessOwnerService.IsOwnerByUserIdAsync(User.GetId());
     string userFullName = await this.ApplicationUserService.GetUserFullNameByEmailAsync(User.Identity?.Name!);
+    bool isAdmin = User.IsInRole(AdminRoleName);
 }
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    if (!isOwner)
+    if (!isOwner && !isAdmin)
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="BusinessOwner" asp-action="Switch">Switch to Owner</a>

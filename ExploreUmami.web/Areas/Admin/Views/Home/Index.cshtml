@@ -1,0 +1,24 @@
+﻿@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Explore Umami";
+}
+
+<div class="text-center">
+    <h1>Hello, Admin</h1>
+    <h2 class="display-4">Welcome to @ViewData["Title"]</h2>
+    <hr/>
+    <h3>This is your administrative area. You can approve added businesses to make them visible to other people, edit them before approving or delete them.
+        You can also grant administrative permissions to other users.
+    </h3>
+</div>
+<hr/>
+<div>
+ <h4 class="text-center">Latest businesses for approval:</h4>
+    <div class="row">
+        @foreach (var business in Model.BusinessesToApprove)
+        {
+            <partial name="_BusinessPartial" model="@business" />
+        }
+    </div>
+</div>

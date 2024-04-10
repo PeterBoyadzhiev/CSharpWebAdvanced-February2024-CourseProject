@@ -2,6 +2,7 @@
 using ExploreUmami.Web.ViewModels.Home;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using static ExploreUmami.Common.AppConstantsGeneral;
 
 namespace ExploreUmami.Web.Controllers
 {
@@ -16,6 +17,10 @@ namespace ExploreUmami.Web.Controllers
 
         public IActionResult Index()
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Index", "Home", new { Area = AdminAreaName});
+            }
             return View();
         }
 

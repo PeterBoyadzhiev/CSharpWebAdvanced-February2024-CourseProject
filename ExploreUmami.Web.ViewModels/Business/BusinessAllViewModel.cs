@@ -10,6 +10,8 @@
 
         public string ImageUrl { get; set; } = null!;
 
+        public bool isActive { get; set; }
+
     }
 
 }

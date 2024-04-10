@@ -8,6 +8,8 @@ using ExploreUmami.Web.ViewModels.Reservation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+using static ExploreUmami.Common.AppConstantsGeneral;
+
 namespace ExploreUmami.Web.Controllers
 {
     [Authorize]
@@ -39,6 +41,11 @@ namespace ExploreUmami.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> All([FromQuery] ReservationFilterViewModel filterModel)
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+            }
+
             string? userId = this.User.GetId();
             bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
             ReservationFilterAndPageModel serviceModel;

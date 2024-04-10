@@ -38,7 +38,11 @@ namespace ExploreUmami.Data.Configurations
 
             builder
                 .Property(b => b.IsActive)
-                .HasDefaultValue(true);
+                .HasDefaultValue("True");
+
+            builder
+                .Property(b => b.IsConfirmed)
+                .HasDefaultValue("False");
 
             builder.HasData(GenerateBusinesses());
         }
@@ -61,6 +65,7 @@ namespace ExploreUmami.Data.Configurations
                 CategoryId = 1,
                 PrefectureId = 1,
                 IsActive = true,
+                IsConfirmed = true,
                 BusinessOwnerId = Guid.Parse("C805DDB6-BCF7-47A3-8744-3EC84036CAA0")
             };
             businesses.Add(business);
@@ -77,6 +82,7 @@ namespace ExploreUmami.Data.Configurations
                 CategoryId = 2,
                 PrefectureId = 2,
                 IsActive = true,
+                IsConfirmed = true,
                 BusinessOwnerId = Guid.Parse("E826FF19-1946-4237-B266-E326CBEAD8FF")
             };
             businesses.Add(business);
@@ -92,6 +98,8 @@ namespace ExploreUmami.Data.Configurations
                 ImageUrl = "https://dummyimage.com/400x200",
                 CategoryId = 3,
                 PrefectureId = 3,
+                IsActive = true,
+                IsConfirmed = true,
                 BusinessOwnerId = Guid.Parse("C805DDB6-BCF7-47A3-8744-3EC84036CAA0")
             };
             businesses.Add(business);
@@ -107,6 +115,8 @@ namespace ExploreUmami.Data.Configurations
                 ImageUrl = "https://dummyimage.com/400x200",
                 CategoryId = 4,
                 PrefectureId = 4,
+                IsActive = true,
+                IsConfirmed = true,
                 BusinessOwnerId = Guid.Parse("C805DDB6-BCF7-47A3-8744-3EC84036CAA0")
             };
             businesses.Add(business);
@@ -122,6 +132,8 @@ namespace ExploreUmami.Data.Configurations
                 ImageUrl = "https://dummyimage.com/400x200",
                 CategoryId = 5,
                 PrefectureId = 5,
+                IsActive = true,
+                IsConfirmed = true,
                 BusinessOwnerId = Guid.Parse("C805DDB6-BCF7-47A3-8744-3EC84036CAA0")
             };
             businesses.Add(business);
@@ -136,6 +148,8 @@ namespace ExploreUmami.Data.Configurations
                 ImageUrl = "https://dummyimage.com/400x200",
                 CategoryId = 6,
                 PrefectureId = 6,
+                IsActive = false,
+                IsConfirmed = true,
                 BusinessOwnerId = Guid.Parse("E826FF19-1946-4237-B266-E326CBEAD8FF")
             };
             businesses.Add(business);
@@ -150,6 +164,8 @@ namespace ExploreUmami.Data.Configurations
                 ImageUrl = "https://dummyimage.com/400x200",
                 CategoryId = 7,
                 PrefectureId = 1,
+                IsActive = true,
+                IsConfirmed = false,
                 BusinessOwnerId = Guid.Parse("E826FF19-1946-4237-B266-E326CBEAD8FF")
             };
             businesses.Add(business);
@@ -164,6 +180,8 @@ namespace ExploreUmami.Data.Configurations
                 ImageUrl = "https://dummyimage.com/400x200",
                 CategoryId = 8,
                 PrefectureId = 1,
+                IsActive = true,
+                IsConfirmed = false,
                 BusinessOwnerId = Guid.Parse("E826FF19-1946-4237-B266-E326CBEAD8FF")
             };
             businesses.Add(business);

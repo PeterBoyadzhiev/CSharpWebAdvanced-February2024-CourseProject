@@ -1,9 +1,10 @@
-﻿using ExploreUmami.Services.Data;
-using ExploreUmami.Services.Data.Interfaces;
+﻿using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Web.Infrastructure.Extensions;
 using ExploreUmami.Web.ViewModels.UserVisit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
+using static ExploreUmami.Common.AppConstantsGeneral;
 
 namespace ExploreUmami.Web.Controllers
 {
@@ -65,6 +66,11 @@ namespace ExploreUmami.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Visits()
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+            }
+
             try
             {
                 string? userId = this.User.GetId();

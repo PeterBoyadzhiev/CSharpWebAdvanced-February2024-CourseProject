@@ -37,7 +37,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Business" asp-action="All">All Businesses</a>
                             </li>
-                        @if (User.Identity?.IsAuthenticated ?? false)
+
+                            @if(!isAdmin)   
+                            {
+                            @if (User.Identity?.IsAuthenticated ?? false)
                             {
                                 @if (isOwner || isAdmin)
                                 {
@@ -57,10 +60,13 @@
                                         <a class="nav-link text-dark" asp-area="" asp-controller="UserVisit" asp-action="Visited">Visited Businesses</a>
                                     </li>
                                 }
-                                    <li>
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="All">All Reservations</a>
-                                    </li>         
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="All">All Reservations</a>
+                                </li>
                             }
+                        
+                            }
+                        
                         </ul>
                         <partial name="_LoginPartial" />
                     </div>

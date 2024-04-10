@@ -5,6 +5,9 @@ using ExploreUmami.Web.ViewModels.Business;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+using static ExploreUmami.Common.AppConstantsGeneral;
+
+
 namespace ExploreUmami.Web.Controllers
 {
     [Authorize]
@@ -31,6 +34,11 @@ namespace ExploreUmami.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery]BusinessAllFilterModel filterModel)
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("All", "Business", new { Area = AdminAreaName });
+            }
+
             BusinessFilterAndPageModel serviceModel = await this.businessService
                 .GetBusinessFilteredAsync(filterModel);
 
@@ -45,6 +53,11 @@ namespace ExploreUmami.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+            }
+
             bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(this.User.GetId());
 
             if (!isOwner)
@@ -149,6 +162,11 @@ namespace ExploreUmami.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> MyBusinesses()
         {
+            if (this.User.IsInRole(AdminRoleName))
+            {
+                return RedirectToAction("Index", "Home", new { Area = AdminAreaName });
+            }
+
             List<BusinessAllViewModel> businesses = new List<BusinessAllViewModel>();
 
             string? userId = this.User.GetId();
@@ -283,7 +301,7 @@ namespace ExploreUmami.Web.Controllers
             {
                 this.TempData["Error"] = "You must be the owner of the business to edit!";
 
-                return RedirectToAction("MyBusinesses", "Business");
+                return RedirectToAction("All", "Business");
 
             }
 

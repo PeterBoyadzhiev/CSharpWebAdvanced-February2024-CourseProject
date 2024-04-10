@@ -83,7 +83,7 @@ namespace ExploreUmami.Services.Data
             };
 
             IEnumerable<BusinessAllViewModel> businesses = await businessesQuery
-                .Where(b => b.IsActive == true)
+                .Where(b => b.IsActive == true && b.IsConfirmed == true)
                 .Skip((filterModel.CurrentPage - 1) * filterModel.BusinessPerPage)
                 .Take(filterModel.BusinessPerPage)
                 .Select(b => new BusinessAllViewModel
@@ -95,7 +95,9 @@ namespace ExploreUmami.Services.Data
                 })
                 .ToArrayAsync();
 
-            int totalBusinesses = await businessesQuery.CountAsync();
+            int totalBusinesses = await businessesQuery
+                .Where(b => b.IsActive == true && b.IsConfirmed == true)
+                .CountAsync();
 
             return new BusinessFilterAndPageModel
             {
@@ -108,7 +110,7 @@ namespace ExploreUmami.Services.Data
         {   
             IEnumerable<BusinessAllViewModel> businesses = await this.dbContext
                 .Businesses
-                .Where(b => b.IsActive == true && b.BusinessOwnerId == Guid.Parse(ownerId))
+                .Where(b => b.IsActive == true && b.IsConfirmed == true && b.BusinessOwnerId == Guid.Parse(ownerId))
                 .Select(b => new BusinessAllViewModel
                 {
                     Id = b.Id.ToString(),
@@ -291,6 +293,25 @@ namespace ExploreUmami.Services.Data
                 .ToArrayAsync();
 
             return businesses;
+        }
+
+        public async Task<IEnumerable<BusinessAllViewModel>> GetLastThreeBusinessesForApprovalAsync()
+        {
+            IEnumerable<BusinessAllViewModel> lastThreeHouses = await this.dbContext
+                .Businesses
+                .Where(b => b.IsActive && b.IsConfirmed == false)
+                .OrderByDescending(h => h.CreatedOn)
+                .Take(3)
+                .Select(h => new BusinessAllViewModel
+                {
+                    Id = h.Id.ToString(),
+                    Title = h.Title,
+                    Description = h.Description,
+                    ImageUrl = h.ImageUrl,
+                })
+                .ToArrayAsync();
+
+            return lastThreeHouses;
         }
     }
 }
