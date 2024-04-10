@@ -47,17 +47,6 @@ namespace ExploreUmami.Web.Controllers
 
             try
             {
-                bool ownerExists = await this.businessOwnerService
-                    .OwnerExistsByDetailsAsync(model.NameOfBusiness, model.PhoneNumber, model.FirstName, model.LastName);
-            }
-            catch (ArgumentException ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-                return View(model);
-            }
-
-            try
-            {
                 await this.businessOwnerService.AddOwnerAsync(userId, model);
             }
             catch (Exception)
@@ -66,7 +55,7 @@ namespace ExploreUmami.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction("Add", "BusinessOwner");
+            return RedirectToAction("MyBusinesses", "Business");
         }
     }
 }

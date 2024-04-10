@@ -81,9 +81,9 @@ namespace ExploreUmami.Web.Controllers
 
                 return this.View(model);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                this.TempData["Error"] = $"Unexpected error occurred! {e.Message}";
+                this.TempData["Error"] = "Unexpected error occurred!";
                 return RedirectToAction("Index", "Home");
             } 
         }

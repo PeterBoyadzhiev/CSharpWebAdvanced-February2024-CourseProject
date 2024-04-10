@@ -55,13 +55,15 @@ namespace ExploreUmami.Services.Data
 
         public async Task AddOwnerAsync(string userId, SwitchFormModel model)
         {
+            ApplicationUser user = await dbContext.Users.FirstAsync(x => x.Id == Guid.Parse(userId));
+
             BusinessOwner businessOwner = new BusinessOwner
             {
                 UserId = Guid.Parse(userId),
                 NameOfBusiness = model.NameOfBusiness,
                 PhoneNumber = model.PhoneNumber,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
+                FirstName = user.FirstName,
+                LastName = user.LastName
             };
 
             await dbContext.BusinessOwners.AddAsync(businessOwner);
