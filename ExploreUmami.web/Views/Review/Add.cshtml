@@ -1,9 +1,13 @@
 ﻿@using static ExploreUmami.Common.ValidationConstants;
 @model AddReviewModel
 
+@{
+    ViewData["Title"] = "Write a Review";
+}
+
 <div class="row">
     <div class="col-sm-12 col-md-8 offset-md-2">
-        <h1 class="text-center mb-4">Write a Review</h1>
+        <h1 class="text-center mb-4">@ViewData["Title"]</h1>
         <hr />
 
         <form asp-action="Add">

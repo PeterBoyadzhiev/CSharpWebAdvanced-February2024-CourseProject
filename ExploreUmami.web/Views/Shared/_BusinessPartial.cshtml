@@ -1,4 +1,13 @@
-﻿@model BusinessAllViewModel
+﻿@inject IBusinessOwnerService BusinessOwnerService
+@inject IBusinessService BusinessService
+
+@{
+    bool isOwner = await this.BusinessOwnerService.IsOwnerByUserIdAsync(User.GetId());
+
+    bool isOwnerOfBusiness = await this.BusinessService.IsUserOwnerOfBusinessByIdsAsync(User.GetId(), Model.Id);  
+}
+
+@model BusinessAllViewModel
 
 <div class="col-md-4 mb-3">
     <div class="card">
@@ -8,10 +17,22 @@
                 @Model.Title
             </h5>
             <p class="card-text">@Model.Description</p>
-            <a asp-controller="Business" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary">Details</a>
-            <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
-            <a asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Delete</a>
-            <a asp-controller="Reservation" asp-action="Make" asp-route-id="@Model.Id" class="btn btn-primary">Make Reservation</a>
+            <div class="text-center d-flex justify-content-sm-evenly">
+            <a asp-controller="Business" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary col-md-4">Details</a>
+
+            @if (isOwner)
+            {
+                if (isOwnerOfBusiness)
+                {
+                    <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary col-md-3">Edit</a>
+                    <a asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary col-md-4">Delete</a>
+                }  
+            }
+            else
+            {
+                <a asp-controller="Reservation" asp-action="Make" asp-route-id="@Model.Id" class="btn btn-primary col-md-6">Make Reservation</a>
+            }
+            </div>
         </div>
     </div>
 </div>

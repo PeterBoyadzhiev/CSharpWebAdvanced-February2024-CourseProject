@@ -187,8 +187,7 @@ namespace ExploreUmami.Web.Controllers
                 
                 if (isBusinessOwner)
                 {
-                    string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(currentUserId);
-                    bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, businessId);
+                    bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(this.User.GetId(), businessId);
 
                     if (!isOwnerOfBusiness)
                     {
@@ -260,8 +259,7 @@ namespace ExploreUmami.Web.Controllers
 
                 if (isBusinessOwner)
                 {
-                    string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(currentUserId);
-                    bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, businessId);
+                    bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(this.User.GetId(), businessId);
 
                     if (!isOwnerOfBusiness)
                     {
@@ -306,8 +304,7 @@ namespace ExploreUmami.Web.Controllers
 
                     if (isBusinessOwner)
                     {
-                        string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(currentUserId);
-                        bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, businessId);
+                        bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(this.User.GetId(), businessId);
 
                         if (!isOwnerOfBusiness)
                         {
@@ -354,8 +351,7 @@ namespace ExploreUmami.Web.Controllers
 
                 if (isBusinessOwner)
                 {
-                    string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(currentUserId);
-                    bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, businessId);
+                    bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(this.User.GetId(), businessId);
 
                     if (!isOwnerOfBusiness)
                     {
@@ -405,8 +401,7 @@ namespace ExploreUmami.Web.Controllers
 
                     if (isBusinessOwner)
                     {
-                        string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(currentUserId);
-                        bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, businessId);
+                        bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(this.User.GetId(), businessId);
 
                         if (!isOwnerOfBusiness)
                         {

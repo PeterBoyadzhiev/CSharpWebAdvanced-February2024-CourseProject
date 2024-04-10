@@ -10,10 +10,10 @@
 
 @model BusinessDetailsViewModel;
 @{
-    ViewBag.Title = Model.Title;
+    ViewData["Title"] = Model.Title;
 }
 
-<h2 class="text-center">@ViewBag.Title</h2>
+<h1 class="text-center">@ViewData["Title"]</h1>
 <hr />
 
 <div class="container" style="display:inline">

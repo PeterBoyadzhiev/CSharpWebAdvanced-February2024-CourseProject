@@ -179,10 +179,11 @@ namespace ExploreUmami.Services.Data
         public async Task<bool> IsUserOwnerOfBusinessByIdsAsync(string userId, string businessId)
         {
             Business business = await this.dbContext.Businesses
+                .Include(b => b.BusinessOwner)
                 .Where(b => b.Id.ToString() == businessId && b.IsActive == true)
                 .FirstAsync();
 
-            return business.BusinessOwnerId == Guid.Parse(userId);
+            return business.BusinessOwner.UserId == Guid.Parse(userId);
         }
 
         public async Task<BusinessFormModel> GetBusinessToEditAsync(string businessId)

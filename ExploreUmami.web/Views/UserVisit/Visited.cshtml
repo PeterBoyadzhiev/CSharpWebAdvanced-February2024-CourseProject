@@ -1,8 +1,12 @@
 ﻿@model IEnumerable<UserVisitDetailsViewModel>
 
+@{
+    ViewData["Title"] = "Your Visited Businesses";
+}
+
 <div class="row mt-3">
     <div class="col-md-12">
-        <h1 class="text-center">Your Visited Businesses</h1>
+        <h1 class="text-center">@ViewData["Title"]</h1>
         <hr />
         @if (Model.Any())
         {

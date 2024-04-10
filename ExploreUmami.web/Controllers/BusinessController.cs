@@ -218,9 +218,7 @@ namespace ExploreUmami.Web.Controllers
                 return RedirectToAction("Switch", "BusinessOwner");
             }
 
-            string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(this.User.GetId()!);
-
-            bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, id);
+            bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(this.User.GetId(), id);
 
             if (!isUserOwner)
             {
@@ -268,9 +266,7 @@ namespace ExploreUmami.Web.Controllers
                 return RedirectToAction("Switch", "BusinessOwner");
             }
 
-            string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(this.User.GetId()!);
-
-            bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, id);
+            bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(this.User.GetId(), id);
 
             if (!isUserOwner)
             {
@@ -349,9 +345,7 @@ namespace ExploreUmami.Web.Controllers
                 return RedirectToAction("Switch", "BusinessOwner");
             }
 
-            string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(this.User.GetId()!);
-
-            bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, id);
+            bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(this.User.GetId(), id);
 
             if (!isUserOwner)
             {
@@ -393,9 +387,7 @@ namespace ExploreUmami.Web.Controllers
                 return RedirectToAction("Switch", "BusinessOwner");
             }
 
-            string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(this.User.GetId()!);
-
-            bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(ownerId!, id);
+            bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(this.User.GetId(), id);
 
             if (!isUserOwner)
             {
