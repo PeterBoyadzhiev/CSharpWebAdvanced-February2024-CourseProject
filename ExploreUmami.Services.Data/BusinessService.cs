@@ -16,7 +16,7 @@ namespace ExploreUmami.Services.Data
 
         public BusinessService(ExploreUmamiDbContext dbContext)
         {
-             this.dbContext = dbContext;
+            this.dbContext = dbContext;
         }
 
         public async Task AddBusinessAsync(BusinessFormModel business, string ownerId)
@@ -44,7 +44,7 @@ namespace ExploreUmami.Services.Data
                 .Businesses
                 .AsQueryable();
 
-            if (!string.IsNullOrEmpty(filterModel.Category)) 
+            if (!string.IsNullOrEmpty(filterModel.Category))
             {
                 businessesQuery = businessesQuery
                     .Where(b => b.Category.Name == filterModel.Category);
@@ -178,7 +178,7 @@ namespace ExploreUmami.Services.Data
         }
 
         public async Task<IEnumerable<BusinessAllViewModel>> AllBusinessesByOwnerIdAsync(string ownerId)
-        {   
+        {
             IEnumerable<BusinessAllViewModel> businesses = await this.dbContext
                 .Businesses
                 .Where(b => b.IsActive == true && b.IsApproved == true && b.BusinessOwnerId == Guid.Parse(ownerId))
@@ -223,7 +223,7 @@ namespace ExploreUmami.Services.Data
                 Prefecture = business.Prefecture.Name,
                 AverageRating = averageRating,
                 Owner = new OwnerInfoModel()
-                { 
+                {
                     FullName = business.BusinessOwner.FirstName + " " + business.BusinessOwner.LastName,
                     PhoneNumber = business.BusinessOwner.PhoneNumber,
                     Email = business.BusinessOwner.User.Email,
@@ -368,7 +368,7 @@ namespace ExploreUmami.Services.Data
 
         public async Task<IEnumerable<BusinessAllViewModel>> GetLastThreeBusinessesForApprovalAsync()
         {
-            IEnumerable<BusinessAllViewModel> lastThreeHouses = await this.dbContext
+            IEnumerable<BusinessAllViewModel> lastThreeBusinesses = await this.dbContext
                 .Businesses
                 .Where(b => b.IsActive && b.IsApproved == false)
                 .OrderByDescending(h => h.CreatedOn)
@@ -384,7 +384,27 @@ namespace ExploreUmami.Services.Data
                 })
                 .ToArrayAsync();
 
-            return lastThreeHouses;
+            return lastThreeBusinesses;
+        }
+
+        public async Task<IEnumerable<BusinessAllViewModel>> GetBusinessesForApprovalAsync()
+        {
+            IEnumerable<BusinessAllViewModel> businesses = await this.dbContext
+                .Businesses
+                .Where(b => b.IsActive && b.IsApproved == false)
+                .OrderByDescending(h => h.CreatedOn)
+                .Select(h => new BusinessAllViewModel
+                {
+                    Id = h.Id.ToString(),
+                    Title = h.Title,
+                    Description = h.Description,
+                    ImageUrl = h.ImageUrl,
+                    isActive = h.IsActive,
+                    IsApproved = h.IsApproved,
+                })
+                .ToArrayAsync();
+
+            return businesses;
         }
     }
 }

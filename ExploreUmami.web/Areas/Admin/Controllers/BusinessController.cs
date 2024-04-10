@@ -21,6 +21,7 @@ namespace ExploreUmami.Web.Areas.Admin.Controllers
             this.prefectureService = prefectureService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> All([FromQuery] BusinessAllFilterModel filterModel)
         {
             BusinessFilterAndPageModel serviceModel = await this.businessService
@@ -32,6 +33,15 @@ namespace ExploreUmami.Web.Areas.Admin.Controllers
             filterModel.TotalBusinesses = serviceModel.TotalBusinessesCount;
 
             return View(filterModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ForApproval()
+        {
+            IEnumerable<BusinessAllViewModel> businesses = await this.businessService
+                .GetBusinessesForApprovalAsync();
+
+            return View(businesses);
         }
     }
 }
