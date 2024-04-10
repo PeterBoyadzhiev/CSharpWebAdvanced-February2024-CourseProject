@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ExploreUmami.Data.Migrations
 {
-    public partial class AddIsConfirmedPropertyToBusiness : Migration
+    public partial class AddIsApprovedPropertyToBusiness : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -36,7 +36,7 @@ namespace ExploreUmami.Data.Migrations
                 oldDefaultValue: true);
 
             migrationBuilder.AddColumn<bool>(
-                name: "IsConfirmed",
+                name: "IsApproved",
                 table: "Businesses",
                 type: "bit",
                 nullable: false,
@@ -81,40 +81,40 @@ namespace ExploreUmami.Data.Migrations
                 table: "Businesses",
                 keyColumn: "Id",
                 keyValue: new Guid("4222168e-c018-418e-812f-f8d41b322522"),
-                columns: new[] { "IsActive", "IsConfirmed" },
+                columns: new[] { "IsActive", "IsApproved" },
                 values: new object[] { true, true });
 
             migrationBuilder.UpdateData(
                 table: "Businesses",
                 keyColumn: "Id",
                 keyValue: new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"),
-                column: "IsConfirmed",
+                column: "IsApproved",
                 value: true);
 
             migrationBuilder.UpdateData(
                 table: "Businesses",
                 keyColumn: "Id",
                 keyValue: new Guid("7c8605e4-9e6c-474f-8c3c-a837d631c8d4"),
-                columns: new[] { "IsActive", "IsConfirmed" },
+                columns: new[] { "IsActive", "IsApproved" },
                 values: new object[] { true, true });
 
             migrationBuilder.UpdateData(
                 table: "Businesses",
                 keyColumn: "Id",
                 keyValue: new Guid("8f87f835-3deb-43b4-aa01-852c5d287984"),
-                column: "IsConfirmed",
+                column: "IsApproved",
                 value: true);
 
             migrationBuilder.UpdateData(
                 table: "Businesses",
                 keyColumn: "Id",
                 keyValue: new Guid("e39d9dc4-519f-4c74-9f59-86083df887c6"),
-                columns: new[] { "IsActive", "IsConfirmed" },
+                columns: new[] { "IsActive", "IsApproved" },
                 values: new object[] { true, true });
 
             migrationBuilder.InsertData(
                 table: "Businesses",
-                columns: new[] { "Id", "Address", "BusinessOwnerId", "CategoryId", "Description", "ImageUrl", "IsConfirmed", "PhoneNumber", "PrefectureId", "Title", "VisitorId", "WebsiteUrl" },
+                columns: new[] { "Id", "Address", "BusinessOwnerId", "CategoryId", "Description", "ImageUrl", "IsApproved", "PhoneNumber", "PrefectureId", "Title", "VisitorId", "WebsiteUrl" },
                 values: new object[] { new Guid("2a3e9757-aece-449a-be6b-4b7df91a2953"), "1516 Maple Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 6, "A place where you can eat food on the go", "https://dummyimage.com/400x200", true, "12-3456-7890", 6, "Food Truck", null, "https://www.foodtruck.com" });
 
             migrationBuilder.InsertData(
@@ -187,7 +187,7 @@ namespace ExploreUmami.Data.Migrations
                 keyValue: new Guid("8e9b72b9-36e8-4c6c-a84c-3ede1a67abdd"));
 
             migrationBuilder.DropColumn(
-                name: "IsConfirmed",
+                name: "IsApproved",
                 table: "Businesses");
 
             migrationBuilder.AlterColumn<bool>(

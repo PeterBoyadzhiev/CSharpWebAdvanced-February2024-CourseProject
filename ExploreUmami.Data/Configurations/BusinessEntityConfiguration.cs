@@ -41,7 +41,7 @@ namespace ExploreUmami.Data.Configurations
                 .HasDefaultValue("True");
 
             builder
-                .Property(b => b.IsConfirmed)
+                .Property(b => b.IsApproved)
                 .HasDefaultValue("False");
 
             builder.HasData(GenerateBusinesses());
@@ -65,7 +65,7 @@ namespace ExploreUmami.Data.Configurations
                 CategoryId = 1,
                 PrefectureId = 1,
                 IsActive = true,
-                IsConfirmed = true,
+                IsApproved = true,
                 BusinessOwnerId = Guid.Parse("C805DDB6-BCF7-47A3-8744-3EC84036CAA0")
             };
             businesses.Add(business);
@@ -82,7 +82,7 @@ namespace ExploreUmami.Data.Configurations
                 CategoryId = 2,
                 PrefectureId = 2,
                 IsActive = true,
-                IsConfirmed = true,
+                IsApproved = true,
                 BusinessOwnerId = Guid.Parse("E826FF19-1946-4237-B266-E326CBEAD8FF")
             };
             businesses.Add(business);
@@ -99,7 +99,7 @@ namespace ExploreUmami.Data.Configurations
                 CategoryId = 3,
                 PrefectureId = 3,
                 IsActive = true,
-                IsConfirmed = true,
+                IsApproved = true,
                 BusinessOwnerId = Guid.Parse("C805DDB6-BCF7-47A3-8744-3EC84036CAA0")
             };
             businesses.Add(business);
@@ -116,7 +116,7 @@ namespace ExploreUmami.Data.Configurations
                 CategoryId = 4,
                 PrefectureId = 4,
                 IsActive = true,
-                IsConfirmed = true,
+                IsApproved = true,
                 BusinessOwnerId = Guid.Parse("C805DDB6-BCF7-47A3-8744-3EC84036CAA0")
             };
             businesses.Add(business);
@@ -133,7 +133,7 @@ namespace ExploreUmami.Data.Configurations
                 CategoryId = 5,
                 PrefectureId = 5,
                 IsActive = true,
-                IsConfirmed = true,
+                IsApproved = true,
                 BusinessOwnerId = Guid.Parse("C805DDB6-BCF7-47A3-8744-3EC84036CAA0")
             };
             businesses.Add(business);
@@ -149,7 +149,7 @@ namespace ExploreUmami.Data.Configurations
                 CategoryId = 6,
                 PrefectureId = 6,
                 IsActive = false,
-                IsConfirmed = true,
+                IsApproved = true,
                 BusinessOwnerId = Guid.Parse("E826FF19-1946-4237-B266-E326CBEAD8FF")
             };
             businesses.Add(business);
@@ -165,7 +165,7 @@ namespace ExploreUmami.Data.Configurations
                 CategoryId = 7,
                 PrefectureId = 1,
                 IsActive = true,
-                IsConfirmed = false,
+                IsApproved = false,
                 BusinessOwnerId = Guid.Parse("E826FF19-1946-4237-B266-E326CBEAD8FF")
             };
             businesses.Add(business);
@@ -181,7 +181,7 @@ namespace ExploreUmami.Data.Configurations
                 CategoryId = 8,
                 PrefectureId = 1,
                 IsActive = true,
-                IsConfirmed = false,
+                IsApproved = false,
                 BusinessOwnerId = Guid.Parse("E826FF19-1946-4237-B266-E326CBEAD8FF")
             };
             businesses.Add(business);

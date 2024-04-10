@@ -2,9 +2,11 @@
 {
     public enum BusinessSorting
     {
-        HighestRating = 0,
-        LowestRating = 1,
-        Latest = 2,
-        Oldest = 3,
+        Unconfirmed = 0,
+        HighestRating = 1,
+        LowestRating = 2,
+        Latest = 3,
+        Oldest = 4,
+        
     }
 }

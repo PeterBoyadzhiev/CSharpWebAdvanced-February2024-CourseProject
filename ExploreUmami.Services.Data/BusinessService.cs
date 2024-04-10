@@ -83,7 +83,7 @@ namespace ExploreUmami.Services.Data
             };
 
             IEnumerable<BusinessAllViewModel> businesses = await businessesQuery
-                .Where(b => b.IsActive == true && b.IsConfirmed == true)
+                .Where(b => b.IsActive == true && b.IsApproved == true)
                 .Skip((filterModel.CurrentPage - 1) * filterModel.BusinessPerPage)
                 .Take(filterModel.BusinessPerPage)
                 .Select(b => new BusinessAllViewModel
@@ -96,7 +96,78 @@ namespace ExploreUmami.Services.Data
                 .ToArrayAsync();
 
             int totalBusinesses = await businessesQuery
-                .Where(b => b.IsActive == true && b.IsConfirmed == true)
+                .Where(b => b.IsActive == true && b.IsApproved == true)
+                .CountAsync();
+
+            return new BusinessFilterAndPageModel
+            {
+                TotalBusinessesCount = totalBusinesses,
+                Businesses = businesses,
+            };
+        }
+
+        public async Task<BusinessFilterAndPageModel> GetBusinessFilteredForAdminAsync(BusinessAllFilterModel filterModel)
+        {
+            IQueryable<Business> businessesQuery = this.dbContext
+                .Businesses
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(filterModel.Category))
+            {
+                businessesQuery = businessesQuery
+                    .Where(b => b.Category.Name == filterModel.Category);
+            }
+
+            if (!string.IsNullOrEmpty(filterModel.Prefecture))
+            {
+                businessesQuery = businessesQuery
+                    .Where(b => b.Prefecture.Name == filterModel.Prefecture);
+            }
+
+            if (!string.IsNullOrEmpty(filterModel.SearchTerm))
+            {
+                string wildCardSearchTerm = $"%{filterModel.SearchTerm.ToLower()}%";
+
+                businessesQuery = businessesQuery
+                    .Where(b => EF.Functions.Like(b.Title, wildCardSearchTerm) ||
+                                EF.Functions.Like(b.Description, wildCardSearchTerm) ||
+                                EF.Functions.Like(b.Address, wildCardSearchTerm) ||
+                                EF.Functions.Like(b.PhoneNumber, wildCardSearchTerm) ||
+                                EF.Functions.Like(b.WebsiteUrl ?? "", wildCardSearchTerm));
+            }
+
+            businessesQuery = filterModel.BusinessSorting switch
+            {
+                BusinessSorting.Unconfirmed => businessesQuery
+                    .OrderBy(b => b.IsApproved)
+                    .ThenByDescending(b => b.IsActive),
+                BusinessSorting.HighestRating => businessesQuery
+                    .OrderByDescending(b => b.Reviews.Average(r => r.Rating)),
+                BusinessSorting.LowestRating => businessesQuery
+                    .OrderBy(b => b.Reviews.Average(r => r.Rating)),
+                BusinessSorting.Latest => businessesQuery
+                    .OrderByDescending(b => b.CreatedOn),
+                BusinessSorting.Oldest => businessesQuery
+                    .OrderBy(b => b.CreatedOn),
+                _ => businessesQuery
+                    .OrderByDescending(b => b.Title)
+            };
+
+            IEnumerable<BusinessAllViewModel> businesses = await businessesQuery
+                .Skip((filterModel.CurrentPage - 1) * filterModel.BusinessPerPage)
+                .Take(filterModel.BusinessPerPage)
+                .Select(b => new BusinessAllViewModel
+                {
+                    Id = b.Id.ToString(),
+                    Title = b.Title,
+                    Description = b.Description,
+                    ImageUrl = b.ImageUrl,
+                    isActive = b.IsActive,
+                    IsApproved = b.IsApproved,
+                })
+                .ToArrayAsync();
+
+            int totalBusinesses = await businessesQuery
                 .CountAsync();
 
             return new BusinessFilterAndPageModel
@@ -110,7 +181,7 @@ namespace ExploreUmami.Services.Data
         {   
             IEnumerable<BusinessAllViewModel> businesses = await this.dbContext
                 .Businesses
-                .Where(b => b.IsActive == true && b.IsConfirmed == true && b.BusinessOwnerId == Guid.Parse(ownerId))
+                .Where(b => b.IsActive == true && b.IsApproved == true && b.BusinessOwnerId == Guid.Parse(ownerId))
                 .Select(b => new BusinessAllViewModel
                 {
                     Id = b.Id.ToString(),
@@ -299,7 +370,7 @@ namespace ExploreUmami.Services.Data
         {
             IEnumerable<BusinessAllViewModel> lastThreeHouses = await this.dbContext
                 .Businesses
-                .Where(b => b.IsActive && b.IsConfirmed == false)
+                .Where(b => b.IsActive && b.IsApproved == false)
                 .OrderByDescending(h => h.CreatedOn)
                 .Take(3)
                 .Select(h => new BusinessAllViewModel
@@ -308,6 +379,8 @@ namespace ExploreUmami.Services.Data
                     Title = h.Title,
                     Description = h.Description,
                     ImageUrl = h.ImageUrl,
+                    isActive = h.IsActive,
+                    IsApproved = h.IsApproved,
                 })
                 .ToArrayAsync();
 

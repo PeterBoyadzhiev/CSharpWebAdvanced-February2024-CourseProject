@@ -1,0 +1,47 @@
+﻿@inject IBusinessOwnerService BusinessOwnerService
+@inject IBusinessService BusinessService
+
+@using static ExploreUmami.Common.AppConstantsGeneral;
+
+
+@model BusinessAllViewModel
+
+<div class="col-md-4 mb-3">
+    <div class="card">
+        <img class="card-img-top img-fluid img-thumbnail" src="@Model.ImageUrl" alt="@Model.Title">
+        <div class="card-body">
+            <h5 class="card-title">
+                @Model.Title (@if (Model.isActive)
+                {
+                    <span class="badge bg-success">Active</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">Inactive</span>
+                }
+                )
+            </h5>
+            <p class="card-text">@Model.Description</p>
+            <div class="row">
+                <div class="text-center d-flex justify-content-sm-evenly col-12 mb-2">
+                <a asp-area="" asp-controller="Business" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary col-md-4">Details</a>
+                <a asp-area="" asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary col-md-3">Edit</a>
+                <a asp-area="" asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary col-md-4">Delete</a>
+                </div>
+                @if (!Model.IsApproved && Model.isActive)
+                {
+                    <div class="col-12 text-center">
+                        <a asp-area="@AdminAreaName" asp-controller="Business" asp-action="Approve" asp-route-id="@Model.Id" class="btn btn-success col-md-10">Approve</a>
+                    </div>
+                }
+                else if(!Model.isActive)
+                {
+                    <div class="col-12 text-center">
+                        <a asp-area="@AdminAreaName" asp-controller="Business" asp-action="Reinstate" asp-route-id="@Model.Id" class="btn btn-success col-md-10">Reinstate</a>
+                    </div>
+                }
+            </div>
+            
+        </div>
+    </div>
+</div>

@@ -12,6 +12,8 @@
 
         public bool isActive { get; set; }
 
+        public bool IsApproved { get; set; }
+
     }
 
 }

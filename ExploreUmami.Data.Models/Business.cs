@@ -46,7 +46,7 @@ namespace ExploreUmami.Data.Models
         public bool IsActive { get; set; }
 
         [Required]
-        public bool IsConfirmed { get; set; }
+        public bool IsApproved { get; set; }
 
         [Required]
         [ForeignKey(nameof(Category))]
