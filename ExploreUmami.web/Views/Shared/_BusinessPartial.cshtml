@@ -1,10 +1,21 @@
 ﻿@inject IBusinessOwnerService BusinessOwnerService
 @inject IBusinessService BusinessService
 
-@{
-    bool isOwner = await this.BusinessOwnerService.IsOwnerByUserIdAsync(User.GetId());
+@using static ExploreUmami.Common.AppConstantsGeneral;
 
-    bool isOwnerOfBusiness = await this.BusinessService.IsUserOwnerOfBusinessByIdsAsync(User.GetId(), Model.Id);  
+@{
+    bool isOwner = false;
+    bool isOwnerOfBusiness = false;
+    bool isAdmin = false;
+
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        isOwner = await this.BusinessOwnerService.IsOwnerByUserIdAsync(User.GetId());
+
+        isOwnerOfBusiness = await this.BusinessService.IsUserOwnerOfBusinessByIdsAsync(User.GetId(), Model.Id);
+
+        isAdmin = User.IsInRole(AdminRoleName);
+    } 
 }
 
 @model BusinessAllViewModel
@@ -18,20 +29,22 @@
             </h5>
             <p class="card-text">@Model.Description</p>
             <div class="text-center d-flex justify-content-sm-evenly">
-            <a asp-controller="Business" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary col-md-4">Details</a>
 
-            @if (isOwner)
-            {
-                if (isOwnerOfBusiness)
+                <a asp-controller="Business" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary col-md-4">Details</a>
+
+                @if (isOwner || isAdmin)
                 {
-                    <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary col-md-3">Edit</a>
-                    <a asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary col-md-4">Delete</a>
-                }  
-            }
-            else
-            {
-                <a asp-controller="Reservation" asp-action="Make" asp-route-id="@Model.Id" class="btn btn-primary col-md-6">Make Reservation</a>
-            }
+                    if (isOwnerOfBusiness || isAdmin)
+                    {
+                        <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary col-md-3">Edit</a>
+                        <a asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary col-md-4">Delete</a>
+                    }
+                }
+                else
+                {
+                    <a asp-controller="Reservation" asp-action="Make" asp-route-id="@Model.Id" class="btn btn-primary col-md-6">Make Reservation</a>
+                }
+
             </div>
         </div>
     </div>

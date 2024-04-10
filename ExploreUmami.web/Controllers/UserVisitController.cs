@@ -71,7 +71,7 @@ namespace ExploreUmami.Web.Controllers
                 string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
                 bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
 
-                if (!isOwner)
+                if (!isOwner && !this.User.isAdmin())
                 {
                     TempData["Error"] = "You are not a business owner!";
                     return RedirectToAction("Index", "Home");

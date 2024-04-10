@@ -1,12 +1,9 @@
-﻿using ExploreUmami.Data.Models;
-using ExploreUmami.Services.Data.Interfaces;
+﻿using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Services.Data.Models.Business;
 using ExploreUmami.Web.Infrastructure.Extensions;
 using ExploreUmami.Web.ViewModels.Business;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-using static ExploreUmami.Common.NotificationMessagesConstants;
 
 namespace ExploreUmami.Web.Controllers
 {
@@ -52,10 +49,19 @@ namespace ExploreUmami.Web.Controllers
 
             if (!isOwner)
             {
-                this.TempData["Error"] = "You must be a business owner to add a business!";
+                if (this.User.isAdmin())
+                {
+                    this.TempData["Error"] = "You are an administrator and cannot add a business.";
+                    return RedirectToAction("All", "Business");
+                }
+                else
+                {
+                    this.TempData["Error"] = "You must be a business owner to add a business!";
 
-                return RedirectToAction("Switch", "BusinessOwner");
+                    return RedirectToAction("Switch", "BusinessOwner");
+                }   
             }
+
 
             try
             {
@@ -155,6 +161,11 @@ namespace ExploreUmami.Web.Controllers
                     string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
                     businesses.AddRange(await this.businessService.AllBusinessesByOwnerIdAsync(ownerId!));
                 }
+                else if (this.User.isAdmin())
+                {
+                    TempData["Error"] = "You are an administrator and do not own businesses.";
+                    return RedirectToAction("All", "Business");
+                }
                 else
                 {
                     TempData["Error"] = "You must be a business owner to view your businesses! Become a business owner.";
@@ -211,7 +222,7 @@ namespace ExploreUmami.Web.Controllers
 
             bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(this.User.GetId());
 
-            if (!isOwner)
+            if (!isOwner && !this.User.isAdmin())
             {
                 this.TempData["Error"] = "You must be a business owner to edit a business!";
 
@@ -220,7 +231,7 @@ namespace ExploreUmami.Web.Controllers
 
             bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(this.User.GetId(), id);
 
-            if (!isUserOwner)
+            if (!isUserOwner && !this.User.isAdmin())
             {
                 this.TempData["Error"] = "You must be the owner of the business to edit!";
 
@@ -259,7 +270,7 @@ namespace ExploreUmami.Web.Controllers
 
             bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(this.User.GetId());
 
-            if (!isOwner)
+            if (!isOwner && !this.User.isAdmin())
             {
                 this.TempData["Error"] = "You must be a business owner to edit a business!";
 
@@ -268,7 +279,7 @@ namespace ExploreUmami.Web.Controllers
 
             bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(this.User.GetId(), id);
 
-            if (!isUserOwner)
+            if (!isUserOwner && !this.User.isAdmin())
             {
                 this.TempData["Error"] = "You must be the owner of the business to edit!";
 
@@ -338,7 +349,7 @@ namespace ExploreUmami.Web.Controllers
 
             bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(this.User.GetId());
 
-            if (!isOwner)
+            if (!isOwner && !this.User.isAdmin())
             {
                 this.TempData["Error"] = "You must be a business owner to delete a business!";
 
@@ -347,7 +358,7 @@ namespace ExploreUmami.Web.Controllers
 
             bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(this.User.GetId(), id);
 
-            if (!isUserOwner)
+            if (!isUserOwner && !this.User.isAdmin())
             {
                 this.TempData["Error"] = "You must be the owner of the business to delete!";
 
@@ -380,7 +391,7 @@ namespace ExploreUmami.Web.Controllers
 
             bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(this.User.GetId());
 
-            if (!isOwner)
+            if (!isOwner && !this.User.isAdmin())
             {
                 this.TempData["Error"] = "You must be a business owner to delete a business!";
 
@@ -389,7 +400,7 @@ namespace ExploreUmami.Web.Controllers
 
             bool isUserOwner = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(this.User.GetId(), id);
 
-            if (!isUserOwner)
+            if (!isUserOwner && !this.User.isAdmin())
             {
                 this.TempData["Error"] = "You must be the owner of the business to delete!";
 

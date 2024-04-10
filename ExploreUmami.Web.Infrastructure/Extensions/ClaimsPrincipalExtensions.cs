@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using static ExploreUmami.Common.AppConstantsGeneral;
 
 namespace ExploreUmami.Web.Infrastructure.Extensions
 {
@@ -6,5 +7,8 @@ namespace ExploreUmami.Web.Infrastructure.Extensions
     {
         public static string GetId(this ClaimsPrincipal user)
             => user.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        public static bool isAdmin(this ClaimsPrincipal user)
+            => user.IsInRole(AdminRoleName);
     }
 }

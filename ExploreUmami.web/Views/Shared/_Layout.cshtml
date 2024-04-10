@@ -4,6 +4,7 @@
 
 @{
     bool isOwner = await this.BusinessOwnerService.IsOwnerByUserIdAsync(User.GetId());
+    bool isAdmin = User.IsInRole(AdminRoleName);
 }
 
 <!DOCTYPE html>
@@ -36,9 +37,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Business" asp-action="All">All Businesses</a>
                             </li>
-                            @if (User.Identity?.IsAuthenticated ?? false)
+                        @if (User.Identity?.IsAuthenticated ?? false)
                             {
-                                if (isOwner)
+                                @if (isOwner || isAdmin)
                                 {
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Business" asp-action="MyBusinesses">My Businesses</a>
@@ -48,9 +49,9 @@
                                     </li>
                                     <li>
                                         <a class="nav-link text-dark" asp-area="" asp-controller="UserVisit" asp-action="Visits">Visits</a>
-                                </li>
-                            }
-                            else
+                                    </li>
+                                }
+                                else
                                 {
                                     <li>
                                         <a class="nav-link text-dark" asp-area="" asp-controller="UserVisit" asp-action="Visited">Visited Businesses</a>

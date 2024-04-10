@@ -2,10 +2,13 @@
 @inject IReviewService ReviewService
 @inject IUserVisitService UserVisitService
 
+@using static ExploreUmami.Common.AppConstantsGeneral
+
 @{
     bool isOwner = await this.BusinessOwnerService.IsOwnerByUserIdAsync(User.GetId());
     bool hasVisited = await this.UserVisitService.UserHasVisitAsync(User.GetId(), Model.Id);
     bool isReviewed = await this.ReviewService.ReviewExistsByUserForBusinessAsync(User.GetId(), Model.Id);
+    bool isAdmin = User.IsInRole(AdminRoleName);
 }
 
 @model BusinessDetailsViewModel;
@@ -68,7 +71,7 @@
         </div>
     </div>
     <div class="buttons mt-3 text-center align-content-end">
-        @if (isOwner)
+        @if (isOwner || isAdmin)
         {
             <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
             <a asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Delete</a>
