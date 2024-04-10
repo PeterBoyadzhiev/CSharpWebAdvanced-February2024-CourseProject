@@ -1,15 +1,15 @@
-﻿using ExploreUmami.Services.Data;
+﻿using ExploreUmami.Data.Models;
+using ExploreUmami.Services.Data;
 using ExploreUmami.Services.Data.Interfaces;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExploreUmami.Web.Infrastructure.Extensions
 {
+    using static ExploreUmami.Common.AppConstantsGeneral;
+
     public static class WebApplicationBuilderExtensions
     {
         public static void AddApplicationServices(this IServiceCollection services, Type serviceType)
@@ -40,6 +40,36 @@ namespace ExploreUmami.Web.Infrastructure.Extensions
             }
 
             services.AddScoped<IBusinessService, BusinessService>();
+        }
+
+        public static IApplicationBuilder SeedAdministrator(this IApplicationBuilder app, string email)
+        {
+            using IServiceScope serviceScope = app.ApplicationServices.CreateScope();
+            IServiceProvider serviceProvider = serviceScope.ServiceProvider;
+
+            UserManager<ApplicationUser> userManager =
+                serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            RoleManager<IdentityRole<Guid>> roleManager =
+                serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+
+            Task.Run(async () =>
+            {
+                if(await roleManager.RoleExistsAsync(AdminRoleName))
+                {
+                    return;
+                }
+
+                await roleManager.CreateAsync(new IdentityRole<Guid>(AdminRoleName));
+
+                ApplicationUser user = await userManager.FindByEmailAsync(email);
+
+                await userManager.AddToRoleAsync(user, AdminRoleName);
+            })
+                .GetAwaiter()
+                .GetResult();
+
+            return app;
         }
     }
 }

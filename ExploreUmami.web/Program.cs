@@ -5,6 +5,8 @@ using ExploreUmami.Web.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
+using static ExploreUmami.Common.AppConstantsGeneral;
+
 
 namespace ExploreUmami.Web
 {
@@ -27,6 +29,7 @@ namespace ExploreUmami.Web
                 options.Password.RequireNonAlphanumeric = builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
                 options.Password.RequiredLength = builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
             })
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<ExploreUmamiDbContext>();
 
             builder.Services.AddApplicationServices(typeof(IBusinessService));
@@ -57,6 +60,8 @@ namespace ExploreUmami.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.SeedAdministrator(AdminEmail);
 
             app.MapDefaultControllerRoute();
             app.MapRazorPages();
