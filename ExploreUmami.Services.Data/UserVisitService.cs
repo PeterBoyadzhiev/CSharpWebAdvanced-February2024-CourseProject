@@ -86,7 +86,7 @@ namespace ExploreUmami.Services.Data
                 .Include(uv => uv.Business)
                 .Include(uv => uv.User)
                 .ThenInclude(u => u.Reviews)
-                .Where(uv => uv.Business.BusinessOwnerId.ToString() == ownerId && uv.User.Reviews.Any())
+                .Where(uv => uv.Business.BusinessOwnerId.ToString() == ownerId)
                 .Select(uv => new UserVisitDetailsViewModel
                 {
                     Id = uv.Id.ToString(),
