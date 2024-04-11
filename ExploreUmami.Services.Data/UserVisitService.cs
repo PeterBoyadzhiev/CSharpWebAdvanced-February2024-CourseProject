@@ -47,7 +47,7 @@ namespace ExploreUmami.Services.Data
             return await this.dbContext.UserVisits
                 .Include(uv => uv.Business)
                 .Include(uv => uv.User)
-                .Where(uv => uv.UserId.ToString() == userId)
+                .Where(uv => uv.UserId.ToString() == userId && uv.Business.IsActive)
                 .Include(uv => uv.Reservation)
                 .Select(uv => new
                 {
@@ -86,7 +86,7 @@ namespace ExploreUmami.Services.Data
                 .Include(uv => uv.Business)
                 .Include(uv => uv.User)
                 .ThenInclude(u => u.Reviews)
-                .Where(uv => uv.Business.BusinessOwnerId.ToString() == ownerId)
+                .Where(uv => uv.Business.BusinessOwnerId.ToString() == ownerId && uv.Business.IsActive)
                 .Select(uv => new UserVisitDetailsViewModel
                 {
                     Id = uv.Id.ToString(),

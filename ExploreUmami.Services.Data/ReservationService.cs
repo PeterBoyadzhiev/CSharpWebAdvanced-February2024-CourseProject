@@ -88,7 +88,7 @@ namespace ExploreUmami.Services.Data
         {
 
             var query = this.dbContext.Reservations
-                .Where(r => r.Business.BusinessOwnerId == Guid.Parse(ownerId))
+                .Where(r => r.Business.BusinessOwnerId == Guid.Parse(ownerId) && r.Business.IsActive)
                 .Include(r => r.User)
                 .Include(r => r.Business)
                 .OrderByDescending(r => r.Status)
@@ -149,9 +149,9 @@ namespace ExploreUmami.Services.Data
         public async Task<ReservationFilterAndPageModel> GetReservationsByFilterForUserAsync(ReservationFilterViewModel filterModel, string userId)
         {
             var query = this.dbContext.Reservations
-                .Where(r => r.UserId == Guid.Parse(userId))
                 .Include(r => r.User)
                 .Include(r => r.Business)
+                .Where(r => r.UserId == Guid.Parse(userId) && r.Business.IsActive)
                 .OrderByDescending(r => r.Status)
                 .AsQueryable();
 
