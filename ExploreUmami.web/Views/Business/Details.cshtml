@@ -1,6 +1,7 @@
 ﻿@inject IBusinessOwnerService BusinessOwnerService
 @inject IReviewService ReviewService
 @inject IUserVisitService UserVisitService
+@inject IBusinessService businessService
 
 @using static ExploreUmami.Common.AppConstantsGeneral
 
@@ -8,7 +9,9 @@
     bool isOwner = await this.BusinessOwnerService.IsOwnerByUserIdAsync(User.GetId());
     bool hasVisited = await this.UserVisitService.UserHasVisitAsync(User.GetId(), Model.Id);
     bool isReviewed = await this.ReviewService.ReviewExistsByUserForBusinessAsync(User.GetId(), Model.Id);
+    bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(User.GetId(), Model.Id);
     bool isAdmin = User.IsInRole(AdminRoleName);
+    bool isApproved = await this.businessService.IsBusinessApprovedAsync(Model.Id);
 }
 
 @model BusinessDetailsViewModel;
@@ -71,10 +74,22 @@
         </div>
     </div>
     <div class="buttons mt-3 text-center align-content-end">
-        @if (isOwner || isAdmin)
+        @if ((isOwner && isOwnerOfBusiness) || isAdmin)
         {
             <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
             <a asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary">Delete</a>
+
+            if (isAdmin && !isApproved)
+            {
+                <form asp-area="@AdminAreaName" asp-controller="Business" asp-action="Approve" method="post">
+                        <div class="col-12 text-center mt-2">
+                            <input type="hidden" name="id" asp-for="Id" />
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success col-md-4">Approve</button>
+                            </div>
+                        </div>
+                    </form>
+            }
         }  
         @if (hasVisited)
         {
@@ -82,6 +97,6 @@
             {
                 <a asp-controller="Review" asp-action="Add" asp-route-id="@Model.Id" class="btn btn-primary">Review</a>
             }      
-        } 
+        }
     </div>
 </div>

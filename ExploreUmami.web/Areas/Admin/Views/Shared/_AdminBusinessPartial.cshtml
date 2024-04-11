@@ -30,15 +30,25 @@
                 </div>
                 @if (!Model.IsApproved && Model.isActive)
                 {
-                    <div class="col-12 text-center">
-                        <a asp-area="@AdminAreaName" asp-controller="Business" asp-action="Approve" asp-route-id="@Model.Id" class="btn btn-success col-md-10">Approve</a>
-                    </div>
+                    <form asp-area="@AdminAreaName" asp-controller="Business" asp-action="Approve" method="post">
+                        <div class="col-12 text-center">
+                            <input type="hidden" name="id" asp-for="Id" />
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success col-md-10">Approve</button>
+                            </div>
+                        </div>
+                    </form>
                 }
                 else if(!Model.isActive)
                 {
-                    <div class="col-12 text-center">
-                        <a asp-area="@AdminAreaName" asp-controller="Business" asp-action="Reinstate" asp-route-id="@Model.Id" class="btn btn-success col-md-10">Reinstate</a>
-                    </div>
+                    <form asp-area="@AdminAreaName" asp-controller="Business" asp-action="Reinstate" method="post">
+                       <div class="col-12 text-center">
+                           <input type="hidden" name="id" asp-for="Id" />
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success col-md-10">Reinstate</button>
+                            </div>
+                       </div>
+                    </form>
                 }
             </div>
             

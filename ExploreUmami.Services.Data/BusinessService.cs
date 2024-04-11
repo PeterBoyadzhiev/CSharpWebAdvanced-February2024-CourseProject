@@ -406,5 +406,39 @@ namespace ExploreUmami.Services.Data
 
             return businesses;
         }
+
+        public async Task ApproveBusinessAsync(string id)
+        {
+            Business business = await this.dbContext
+                .Businesses
+                .Where(b => b.Id.ToString() == id)
+                .FirstAsync();
+
+            business.IsApproved = true;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> IsBusinessApprovedAsync(string id)
+        {
+            Business business = await this.dbContext
+                .Businesses
+                .Where(b => b.Id.ToString() == id)
+                .FirstAsync();
+
+            return business.IsApproved;
+        }
+
+        public async Task ReinstateBusinessAsync(string id)
+        {
+            Business business = await this.dbContext
+                .Businesses
+                .Where(b => b.Id.ToString() == id)
+                .FirstAsync();
+
+            business.IsActive = true;
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

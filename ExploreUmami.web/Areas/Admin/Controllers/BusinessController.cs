@@ -2,7 +2,8 @@
 using ExploreUmami.Services.Data.Models.Business;
 using ExploreUmami.Web.ViewModels.Business;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
+
+using static ExploreUmami.Common.NotificationMessagesConstants;
 
 namespace ExploreUmami.Web.Areas.Admin.Controllers
 {
@@ -42,6 +43,43 @@ namespace ExploreUmami.Web.Areas.Admin.Controllers
                 .GetBusinessesForApprovalAsync();
 
             return View(businesses);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Approve(string id)
+        {
+            try
+            {
+                await this.businessService.ApproveBusinessAsync(id);
+
+                TempData["Success"] = "Business approved successfully.";
+                return RedirectToAction(nameof(ForApproval));
+            }
+            catch (Exception)
+            {
+                this.TempData["Error"] = "Unexpected error occurred while editing business";
+
+                return RedirectToAction(nameof(All));
+            }
+            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Reinstate(string id)
+        {
+            try
+            {
+                await this.businessService.ReinstateBusinessAsync(id);
+
+                TempData["Success"] = "Business reinstated successfully.";
+                return RedirectToAction(nameof(All));
+            }
+            catch (Exception)
+            {
+                this.TempData["Error"] = "Unexpected error occurred while editing business";
+
+                return RedirectToAction(nameof(All));
+            }
         }
     }
 }

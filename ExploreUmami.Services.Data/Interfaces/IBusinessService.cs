@@ -34,5 +34,11 @@ namespace ExploreUmami.Services.Data.Interfaces
         Task<IEnumerable<BusinessAllViewModel>> GetLastThreeBusinessesForApprovalAsync();
 
         Task<IEnumerable<BusinessAllViewModel>> GetBusinessesForApprovalAsync();
+
+        Task ApproveBusinessAsync(string id);
+
+        Task<bool> IsBusinessApprovedAsync(string id);
+
+        Task ReinstateBusinessAsync(string id);
     }
 }
