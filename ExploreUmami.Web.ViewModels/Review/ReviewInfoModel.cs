@@ -10,6 +10,8 @@
 
         public DateTime TimeStamp { get; set; }
 
+        public string? UserLocation { get; set; }
+
         public string Reviewer { get; set; } = null!;
     }
 }

@@ -16,7 +16,7 @@ namespace ExploreUmami.Web.Controllers
         }
 
         public IActionResult Index()
-        {
+        { 
             if (this.User.IsInRole(AdminRoleName))
             {
                 return RedirectToAction("Index", "Home", new { Area = AdminAreaName});

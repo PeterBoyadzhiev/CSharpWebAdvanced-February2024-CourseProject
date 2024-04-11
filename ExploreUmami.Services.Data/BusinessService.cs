@@ -238,6 +238,7 @@ namespace ExploreUmami.Services.Data
                         Rating = r.Rating,
                         TimeStamp = r.TimeStamp,
                         Reviewer = r.Reviewer!.UserName,
+                        UserLocation = r.UserLocation ?? ""
                     })
                     .ToArray(),
             };

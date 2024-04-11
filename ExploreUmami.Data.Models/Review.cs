@@ -23,6 +23,8 @@ namespace ExploreUmami.Data.Models
         [Range(MinRating, MaxRating)]
         public double Rating { get; set; }
 
+        public string? UserLocation { get; set; }
+
         [Required]
         public bool IsActive { get; set; }
 

@@ -1,9 +1,9 @@
-﻿using ExploreUmami.Services.Data;
-using ExploreUmami.Services.Data.Interfaces;
+﻿using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Web.Infrastructure.Extensions;
 using ExploreUmami.Web.ViewModels.Review;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Packaging.Signing;
 
 namespace ExploreUmami.Web.Controllers
 {
@@ -23,7 +23,7 @@ namespace ExploreUmami.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add(int id) // Route parameter for businessId
+        public async Task<IActionResult> Add()
         {
             bool isOwner = await businessOwnerService.IsOwnerByUserIdAsync(this.User.GetId());
 
@@ -66,9 +66,16 @@ namespace ExploreUmami.Web.Controllers
                     return RedirectToAction("Visited", "UserVisit");
                 }
 
+                string? userLocation = null;
+
+                if (Request.Cookies["location"] != null)
+                {
+                    userLocation = Uri.UnescapeDataString(Request.Cookies["location"] ?? "");
+                }
+
                 if (hasVisited)
                 {
-                    await reviewService.AddReviewAsync(model, id, userId);
+                    await reviewService.AddReviewAsync(model, id, userId, userLocation);
 
                     this.TempData["Success"] = "Review added successfully!";
                     return RedirectToAction("Visited", "UserVisit");

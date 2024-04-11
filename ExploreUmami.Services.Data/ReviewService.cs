@@ -47,7 +47,7 @@ namespace ExploreUmami.Services.Data
         }
 
 
-        public async Task AddReviewAsync(AddReviewModel model, string businessId, string reviewerId)
+        public async Task AddReviewAsync(AddReviewModel model, string businessId, string reviewerId, string? location)
         {
             Review review = new Review
             {
@@ -57,6 +57,7 @@ namespace ExploreUmami.Services.Data
                 Content = model.Content,
                 Rating = model.Rating,
                 TimeStamp = DateTime.UtcNow,
+                UserLocation = location ?? "",
             };
 
             await this.dbContext.Reviews.AddAsync(review);

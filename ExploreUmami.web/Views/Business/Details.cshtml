@@ -72,7 +72,14 @@
                             <h4>@review.Subject</h4>
                             <p>@review.Content</p>
                             <div class="d-flex w-100 justify-content-end">
-                                <small>Posted by <b>@review.Reviewer</b> at @review.TimeStamp.ToString("HH:mm") on @review.TimeStamp.ToString("dd MMM yyyy")</small>
+                                <div class="d-flex flex-column">
+                                    <p class="m-0"><small>Posted by <b>@review.Reviewer</b></small></p><br />
+                                    <p class="m-0"><small>@review.TimeStamp.ToString("dd MMM yyyy HH:mm")</small></p><br />
+                                    @if (review.UserLocation != "")
+                                    {
+                                        <p id="geolocation" class="m-0"><small>From @review.UserLocation</small></p>
+                                    }   
+                                </div>
                             </div>
                         </li>
                     }
