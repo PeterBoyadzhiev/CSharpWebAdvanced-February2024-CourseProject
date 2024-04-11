@@ -10,5 +10,11 @@ namespace ExploreUmami.Services.Data.Interfaces
         Task<bool> CategoryExistsByIdAsync(int id);
 
         Task<IEnumerable<string>> AllCategoryNamesAsync();
+
+        Task AddCategoryAsync(AddCategoryFormModel model);
+
+        Task<AddCategoryFormModel> GetCategoryToEdit(int id);
+
+        Task EditCategoryAsync(AddCategoryFormModel model);
     }
 }

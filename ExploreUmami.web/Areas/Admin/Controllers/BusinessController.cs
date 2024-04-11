@@ -57,7 +57,7 @@ namespace ExploreUmami.Web.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                this.TempData["Error"] = "Unexpected error occurred while editing business";
+                this.TempData["Error"] = "Unexpected error occurred while editing business.";
 
                 return RedirectToAction(nameof(All));
             }
@@ -76,7 +76,7 @@ namespace ExploreUmami.Web.Areas.Admin.Controllers
             }
             catch (Exception)
             {
-                this.TempData["Error"] = "Unexpected error occurred while editing business";
+                this.TempData["Error"] = "Unexpected error occurred while editing business.";
 
                 return RedirectToAction(nameof(All));
             }

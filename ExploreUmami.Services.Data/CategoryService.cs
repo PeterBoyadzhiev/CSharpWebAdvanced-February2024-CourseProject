@@ -1,4 +1,5 @@
 ﻿using ExploreUmami.Data;
+using ExploreUmami.Data.Models;
 using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Web.ViewModels.Category;
 using Microsoft.EntityFrameworkCore;
@@ -44,5 +45,39 @@ namespace ExploreUmami.Services.Data
 
             return categoryNames;
         }
+
+        public async Task AddCategoryAsync(AddCategoryFormModel model)
+        {
+            Category category = new Category
+            {
+                Name = model.Name,
+            };
+
+            await this.dbContext.Categories.AddAsync(category);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<AddCategoryFormModel> GetCategoryToEdit(int id)
+        {
+            Category category = await this.dbContext.Categories
+                .FirstAsync(c => c.Id == id);
+
+            return new AddCategoryFormModel
+            {
+                Id = category.Id,
+                Name = category.Name,
+            };
+        }
+
+        public async Task EditCategoryAsync(AddCategoryFormModel model)
+        {
+            Category category = await this.dbContext.Categories
+                .FirstAsync(c => c.Id == model.Id);
+
+            category.Name = model.Name;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
     }
 }
