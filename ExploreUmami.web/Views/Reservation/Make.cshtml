@@ -10,13 +10,13 @@
 <div class="container" style="display:inline">
     <div class="row">
         <div class="details-img col-6">
-            <img class="card-img-top img-fluid img-thumbnail" src="@Model.Business.ImageUrl" alt="Business Image">
+            <img class="card-img-top img-fluid img-thumbnail" src="@Model?.Business?.ImageUrl" alt="Business Image">
         </div>
 
         <div class="card col-6 border-0">
-            <p>@Model.Business.Description</p>
-            <p><b>Located at:</b> @Model.Business.Address, @Model.Business.Prefecture</p>
-            <p><b>Business Number:</b> @Model.Business.PhoneNumber</p>
+            <p>@Model?.Business?.Description</p>
+            <p><b>Located at:</b> @Model?.Business?.Address, @Model?.Business?.Prefecture</p>
+            <p><b>Business Number:</b> @Model?.Business?.PhoneNumber</p>
 
             <form method="post">
                 <div class="row">

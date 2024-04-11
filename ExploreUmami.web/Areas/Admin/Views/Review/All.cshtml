@@ -1,0 +1,75 @@
+﻿@using ExploreUmami.Web.ViewModels.Review
+@using static ExploreUmami.Common.AppConstantsGeneral
+
+@model IEnumerable<ReviewInfoAdminModel>
+
+@{
+    ViewData["Title"] = "All Reviews";
+}
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <h1 class="text-center">@ViewData["Title"]</h1>
+        <hr />
+        @if (Model.Count() != 0)
+        {
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Review Date</th>
+                        <th>Business</th>
+                        <th>Reviewer</th>
+                        <th>Subject</th>
+                        <th>Content</th>
+                        <th>Rating</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var review in Model)
+                    {
+                        <tr>
+                            <td>@review.TimeStamp</td>
+                            <td>
+                                <a asp-area="" asp-controller="Business" asp-action="Details" asp-route-id="@review.Business.Id">@review.Business.Title</a>
+                            </td>
+                            <td>@review.Reviewer.FullName</td>
+                            <td>@review.Subject</td>
+                            <td>@review.Content</td>
+                            <td>@review.Rating</td>
+                            @if (review.IsActive)
+                            {
+                                <td>
+                                    <form asp-area="@AdminAreaName" asp-controller="Review" asp-action="Remove" method="post">
+                                        <div class="col-12 text-center">
+                                            <input type="hidden" name="id" asp-for="@review.Id" />
+                                            <button type="submit" class="btn btn-danger">Remove</button>
+                                        </div>
+                                    </form>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <form asp-area="@AdminAreaName" asp-controller="Review" asp-action="Allow" method="post">
+                                        <div class="col-12 text-center">
+                                            <input type="hidden" name="id" asp-for="@review.Id" />
+                                            <button type="submit" class="btn btn-danger">Allow</button>
+                                        </div>
+                                    </form>
+                                </td>
+                            }
+
+                            
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h3 class="text-center">There are no reviews yet.</h3>
+        }
+    </div>
+</div>

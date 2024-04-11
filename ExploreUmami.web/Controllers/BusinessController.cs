@@ -144,7 +144,7 @@ namespace ExploreUmami.Web.Controllers
 
                 await this.businessService.AddBusinessAsync(model, ownerId!);
 
-                this.TempData["Success"] = "Business added successfully!";
+                this.TempData["Success"] = "Business added successfully and awaiting administrator approval!";
             }
             catch (Exception)
             {
@@ -207,7 +207,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!businessExists)
             {
-                this.TempData["Error"] = "Business does not exist!";
+                this.TempData["Error"] = "Business does not exist or is inactive!";
                 return this.RedirectToAction("All", "Business");
             }
 
@@ -234,7 +234,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!businessExists)
             {
-                this.TempData["Error"] = "Business does not exist!";
+                this.TempData["Error"] = "Business does not exist or is inactive!";
                 return this.RedirectToAction("All", "Business");
             }
 
@@ -282,7 +282,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!businessExists)
             {
-                this.TempData["Error"] = "Business does not exist!";
+                this.TempData["Error"] = "Business does not exist or is inactive!";
                 return this.RedirectToAction("All", "Business");
             }
 
@@ -361,7 +361,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!businessExists)
             {
-                this.TempData["Error"] = "Business does not exist!";
+                this.TempData["Error"] = "Business does not exist or is inactive!";
                 return this.RedirectToAction("All", "Business");
             }
 
@@ -403,7 +403,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!businessExists)
             {
-                this.TempData["Error"] = "Business does not exist!";
+                this.TempData["Error"] = "Business does not exist or is inactive!";
                 return this.RedirectToAction("All", "Business");
             }
 
@@ -435,6 +435,11 @@ namespace ExploreUmami.Web.Controllers
             {
                 this.TempData["Error"] = "Unexpected error occurred while deleting business";
                 return RedirectToAction("All", "Business");
+            }
+
+            if (this.User.isAdmin()) 
+            {
+                return RedirectToAction("All", "Business", new { Area = AdminAreaName });
             }
 
             return RedirectToAction("MyBusinesses", "Business");

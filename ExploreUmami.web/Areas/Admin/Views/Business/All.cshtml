@@ -4,7 +4,7 @@
     ViewData["Title"] = "All Businesses";
 }
 
-<h1 class="text-center">@ViewBag.Title</h1>
+<h1 class="text-center">@ViewData["Title"]</h1>
 <hr />
 
 @if (Model.Businesses.Count() == 0)

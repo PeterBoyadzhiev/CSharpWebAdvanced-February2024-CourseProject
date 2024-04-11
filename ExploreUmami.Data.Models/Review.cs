@@ -23,6 +23,9 @@ namespace ExploreUmami.Data.Models
         [Range(MinRating, MaxRating)]
         public double Rating { get; set; }
 
+        [Required]
+        public bool IsActive { get; set; }
+
         public DateTime TimeStamp { get; set; }
 
         [ForeignKey(nameof(Business))]
@@ -31,8 +34,8 @@ namespace ExploreUmami.Data.Models
         public Business Business { get; set; } = null!;
 
         [ForeignKey(nameof(Reviewer))]
-        public Guid? ReviewerId { get; set; }
+        public Guid ReviewerId { get; set; }
 
-        public virtual ApplicationUser? Reviewer { get; set; }
+        public virtual ApplicationUser Reviewer { get; set; } = null!;
     }
 }

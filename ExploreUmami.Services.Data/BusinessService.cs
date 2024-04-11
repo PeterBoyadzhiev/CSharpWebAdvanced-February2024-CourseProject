@@ -206,8 +206,9 @@ namespace ExploreUmami.Services.Data
                 .ThenInclude(b => b.Reviewer)// TODO
                 .FirstAsync(b => b.Id.ToString() == businessId);
 
-            var averageRating = business.Reviews.Any()
-                ? business.Reviews.Average(r => r.Rating)
+            var averageRating = business.Reviews
+                .Any()
+                ? business.Reviews.Where(r => r.IsActive).Average(r => r.Rating)
                 : 0.0;
 
             return new BusinessDetailsViewModel()
@@ -229,6 +230,7 @@ namespace ExploreUmami.Services.Data
                     Email = business.BusinessOwner.User.Email,
                 },
                 Reviews = business.Reviews
+                    .Where(r => r.IsActive)
                     .Select(r => new ReviewInfoModel()
                     {
                         Subject = r.Subject,

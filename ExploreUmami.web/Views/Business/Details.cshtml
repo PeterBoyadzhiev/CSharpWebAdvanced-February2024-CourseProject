@@ -6,12 +6,22 @@
 @using static ExploreUmami.Common.AppConstantsGeneral
 
 @{
-    bool isOwner = await this.BusinessOwnerService.IsOwnerByUserIdAsync(User.GetId());
-    bool hasVisited = await this.UserVisitService.UserHasVisitAsync(User.GetId(), Model.Id);
-    bool isReviewed = await this.ReviewService.ReviewExistsByUserForBusinessAsync(User.GetId(), Model.Id);
-    bool isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(User.GetId(), Model.Id);
-    bool isAdmin = User.IsInRole(AdminRoleName);
-    bool isApproved = await this.businessService.IsBusinessApprovedAsync(Model.Id);
+    bool isOwner = false;
+    bool hasVisited = false;
+    bool isReviewed = false;
+    bool isOwnerOfBusiness = false;
+    bool isAdmin = false;
+    bool isApproved = false;
+
+    @if (User.Identity?.IsAuthenticated ?? false)
+    {
+        isOwner = await this.BusinessOwnerService.IsOwnerByUserIdAsync(User.GetId());
+        hasVisited = await this.UserVisitService.UserHasVisitAsync(User.GetId(), Model.Id);
+        isReviewed = await this.ReviewService.ReviewExistsByUserForBusinessAsync(User.GetId(), Model.Id);
+        isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(User.GetId(), Model.Id);
+        isAdmin = User.IsInRole(AdminRoleName);
+        isApproved = await this.businessService.IsBusinessApprovedAsync(Model.Id);
+    }  
 }
 
 @model BusinessDetailsViewModel;
@@ -52,6 +62,7 @@
             <h3>Reviews</h3>
             @if (Model.Reviews.Any())
             {
+                
                 <p>Average Rating: @Model.AverageRating Stars</p>
                 <ul class="list-group">
                     @foreach (var review in Model.Reviews)
@@ -61,16 +72,23 @@
                             <h4>@review.Subject</h4>
                             <p>@review.Content</p>
                             <div class="d-flex w-100 justify-content-end">
-                                <small>Posted by <b>@review.Reviewer</b> at @review.TimeStamp.ToString("dd MMM yyyy")</small>
+                                <small>Posted by <b>@review.Reviewer</b> at @review.TimeStamp.ToString("HH:mm") on @review.TimeStamp.ToString("dd MMM yyyy")</small>
                             </div>
                         </li>
                     }
                 </ul>
+
+                @if (isOwner)
+                {
+                    <p><small>* You can contact the administrator to remove a review that may be offensive.</small></p>
+                }
             }
             else
             {
                 <p>No reviews yet. Be the first to leave one!</p>
             }
+
+            
         </div>
     </div>
     <div class="buttons mt-3 text-center align-content-end">

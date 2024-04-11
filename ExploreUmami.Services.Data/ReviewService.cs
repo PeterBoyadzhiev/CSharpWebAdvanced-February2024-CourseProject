@@ -1,7 +1,9 @@
 ﻿using ExploreUmami.Data;
 using ExploreUmami.Data.Models;
 using ExploreUmami.Services.Data.Interfaces;
+using ExploreUmami.Web.ViewModels.Business;
 using ExploreUmami.Web.ViewModels.Review;
+using ExploreUmami.Web.ViewModels.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExploreUmami.Services.Data
@@ -15,21 +17,35 @@ namespace ExploreUmami.Services.Data
             this.dbContext = dbContext;
         }
 
-        public async Task<VisitsReviewViewModel> GetReviewPerBusinessVisitAsync(string reviewerId, string businessId)
+        public async Task<IEnumerable<ReviewInfoAdminModel>> GetAllReviewsAsync()
         {
-            VisitsReviewViewModel review = await this.dbContext.Reviews
-                .Where(r => r.ReviewerId.ToString() == reviewerId && r.BusinessId.ToString() == businessId)
-                .Select(r => new VisitsReviewViewModel
+            IEnumerable<ReviewInfoAdminModel> reviews = await this.dbContext.Reviews
+                .Include(r => r.Business)
+                .Include(r => r.Reviewer)
+                .Select(r => new ReviewInfoAdminModel
                 {
+                    Id = r.Id,
                     Subject = r.Subject,
                     Content = r.Content,
                     Rating = r.Rating,
                     TimeStamp = r.TimeStamp,
+                    IsActive = r.IsActive,
+                    Business = new BusinessDetailsViewModel()
+                    {
+                        Id = r.Business.Id.ToString(),
+                        Title = r.Business.Title,
+                    },
+                    Reviewer = new UserDetailsViewModel()
+                    {
+                        Id = r.Reviewer.Id,
+                        FullName = r.Reviewer.FirstName + " " + r.Reviewer.LastName,
+                    }
                 })
-                .FirstAsync();
+                .ToArrayAsync();
 
-            return review;
+            return reviews;
         }
+
 
         public async Task AddReviewAsync(AddReviewModel model, string businessId, string reviewerId)
         {
@@ -59,6 +75,26 @@ namespace ExploreUmami.Services.Data
                 .Include(uv => uv.Business)
                 .ThenInclude(uv => uv.Reviews)
                 .AnyAsync(uv => uv.UserId.ToString() == userId && uv.Id.ToString() == visitId && uv.Business.Reviews.Any(r => r.ReviewerId.ToString() == userId));
+        }
+
+        public async Task RemoveReviewAsync(int id)
+        {
+            Review review = await this.dbContext.Reviews
+                .Where(r => r.Id == id)
+                .FirstAsync(r => r.Id == id);
+
+            review.IsActive = false;
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task AllowReviewAsync(int id)
+        {
+            Review review = await this.dbContext.Reviews
+                .Where(r => r.Id == id)
+                .FirstAsync(r => r.Id == id);
+
+            review.IsActive = true;
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }

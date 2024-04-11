@@ -27,6 +27,10 @@ namespace ExploreUmami.Data.Configurations
                 .Property(b => b.TimeStamp)
                 .HasDefaultValueSql("GETDATE()");
 
+            builder
+                .Property(r => r.IsActive)
+                .HasDefaultValue(true);
+
             builder.HasData(GenerateReviews());
         }
 
