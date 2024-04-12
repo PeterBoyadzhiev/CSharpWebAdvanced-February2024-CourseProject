@@ -8,8 +8,13 @@ namespace ExploreUmami.Data.Models
     public class Review
     {
 
+        public Review()
+        {
+            Id = Guid.NewGuid();
+        }
+
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [MaxLength(SubjectMaxLength)]

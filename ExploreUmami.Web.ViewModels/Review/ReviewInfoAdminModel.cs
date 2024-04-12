@@ -5,7 +5,7 @@
 
     public class ReviewInfoAdminModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; } = null!;
 
         public string Subject { get; set; } = null!;
 

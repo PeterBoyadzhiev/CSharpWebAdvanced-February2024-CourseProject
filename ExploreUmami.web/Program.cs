@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 
 using static ExploreUmami.Common.AppConstantsGeneral;
+using Microsoft.AspNetCore.Mvc;
 
 
 namespace ExploreUmami.Web
@@ -40,7 +41,12 @@ namespace ExploreUmami.Web
                 options.AccessDeniedPath = "/Home/Error/401";
             });
 
-            builder.Services.AddControllersWithViews();
+            builder.Services
+                .AddControllersWithViews()
+                .AddMvcOptions(options =>
+                { 
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+                });
 
             WebApplication app = builder.Build();
 

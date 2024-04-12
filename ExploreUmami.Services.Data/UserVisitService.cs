@@ -71,7 +71,7 @@ namespace ExploreUmami.Services.Data
                             .Where(r => r.BusinessId == uv.BusinessId)
                             .Select(r => new ReviewInfoModel
                             {
-                                Id = r.Id,
+                                Id = r.Id.ToString(),
                                 Subject = r.Subject,
                                 Content = r.Content,
                                 Rating = r.Rating,
@@ -83,7 +83,7 @@ namespace ExploreUmami.Services.Data
                         .Where(r => r.BusinessId == uv.BusinessId)
                         .Select(r => new ReviewInfoModel
                         {
-                            Id = r.Id,
+                            Id = r.Id.ToString(),
                             Subject = r.Subject,
                             Content = r.Content,
                             Rating = r.Rating,

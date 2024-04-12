@@ -24,7 +24,7 @@ namespace ExploreUmami.Services.Data
                 .Include(r => r.Reviewer)
                 .Select(r => new ReviewInfoAdminModel
                 {
-                    Id = r.Id,
+                    Id = r.Id.ToString(),
                     Subject = r.Subject,
                     Content = r.Content,
                     Rating = r.Rating,
@@ -78,40 +78,40 @@ namespace ExploreUmami.Services.Data
                 .AnyAsync(uv => uv.UserId.ToString() == userId && uv.Id.ToString() == visitId && uv.Business.Reviews.Any(r => r.ReviewerId.ToString() == userId));
         }
 
-        public async Task RemoveReviewAsync(int id)
+        public async Task RemoveReviewAsync(string id)
         {
             Review review = await this.dbContext.Reviews
-                .Where(r => r.Id == id)
-                .FirstAsync(r => r.Id == id);
+                .Where(r => r.Id.ToString() == id)
+                .FirstAsync(r => r.Id.ToString() == id);
 
             review.IsActive = false;
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task AllowReviewAsync(int id)
+        public async Task AllowReviewAsync(string id)
         {
             Review review = await this.dbContext.Reviews
-                .Where(r => r.Id == id)
-                .FirstAsync(r => r.Id == id);
+                .Where(r => r.Id.ToString() == id)
+                .FirstAsync(r => r.Id.ToString() == id);
 
             review.IsActive = true;
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task<bool> ReviewBelongsToUserAsync(string userId, int reviewId)
+        public async Task<bool> ReviewBelongsToUserAsync(string userId, string reviewId)
         {
             return await this.dbContext.Reviews
-                .AnyAsync(r => r.ReviewerId.ToString() == userId && r.Id == reviewId);
+                .AnyAsync(r => r.ReviewerId.ToString() == userId && r.Id.ToString() == reviewId);
         }
 
-        public async Task<ReviewEditFormModel> GetReviewToEditAsync(int id)
+        public async Task<ReviewEditFormModel> GetReviewToEditAsync(string id)
         {
             Review review = await this.dbContext.Reviews
-                .FirstAsync(r => r.Id == id);
+                .FirstAsync(r => r.Id.ToString() == id);
 
             return new ReviewEditFormModel
             {
-                Id = review.Id,
+                Id = review.Id.ToString(),
                 Subject = review.Subject,
                 Content = review.Content,
                 Rating = review.Rating,
@@ -121,7 +121,7 @@ namespace ExploreUmami.Services.Data
         public async Task EditReviewAsync(ReviewEditFormModel model)
         {
             Review review = await this.dbContext.Reviews
-                .FirstAsync(r => r.Id == model.Id);
+                .FirstAsync(r => r.Id.ToString() == model.Id);
 
             review.Subject = model.Subject;
             review.Content = model.Content;

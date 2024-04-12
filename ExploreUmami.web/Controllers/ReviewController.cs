@@ -93,7 +93,7 @@ namespace ExploreUmami.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(string id)
         {
             bool isReviewer = await reviewService.ReviewBelongsToUserAsync(this.User.GetId(), id);
 
@@ -109,7 +109,7 @@ namespace ExploreUmami.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(ReviewEditFormModel model, int id)
+        public async Task<IActionResult> Edit(ReviewEditFormModel model, string id)
         {
             if (!this.ModelState.IsValid)
             {

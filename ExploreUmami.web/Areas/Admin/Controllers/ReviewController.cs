@@ -22,7 +22,7 @@ namespace ExploreUmami.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Remove(int id)
+        public async Task<IActionResult> Remove(string id)
         {
             await this.reviewService.RemoveReviewAsync(id);
 
@@ -30,7 +30,7 @@ namespace ExploreUmami.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Allow(int id)
+        public async Task<IActionResult> Allow(string id)
         {
             await this.reviewService.AllowReviewAsync(id);
 

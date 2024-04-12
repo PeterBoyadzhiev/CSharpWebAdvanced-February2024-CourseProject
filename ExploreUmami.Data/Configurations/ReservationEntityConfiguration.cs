@@ -96,6 +96,18 @@ namespace ExploreUmami.Data.Configurations
 
             reservation = new Reservation
             {
+                Id = Guid.Parse("BB49A06D-FBD1-4FDD-A7D4-D309445C59F8"),
+                Status = ReservationStatus.Completed,
+                ReservationDate = DateTime.UtcNow,
+                BusinessId = Guid.Parse("4222168E-C018-418E-812F-F8D41B322522"),
+                UserId = Guid.Parse("8F5D89A1-DDA8-4400-BF47-690AE86F1846"),
+                Notes = "Looking for delicious pastries",
+            };
+
+            reservations.Add(reservation);
+
+            reservation = new Reservation
+            {
                 Id = Guid.Parse("2F014787-C27C-4406-9B55-4DBCEF08EEFF"),
                 Status = ReservationStatus.Cancelled,
                 ReservationDate = DateTime.UtcNow,

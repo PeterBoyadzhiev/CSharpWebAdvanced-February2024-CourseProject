@@ -12,13 +12,13 @@ namespace ExploreUmami.Services.Data.Interfaces
 
         Task<bool> UserHasReviewForVisitAsync(string userId, string visitId);
 
-        Task RemoveReviewAsync(int id);
+        Task RemoveReviewAsync(string id);
 
-        Task AllowReviewAsync(int id);
+        Task AllowReviewAsync(string id);
 
-        Task<bool> ReviewBelongsToUserAsync(string userId, int reviewId);
+        Task<bool> ReviewBelongsToUserAsync(string userId, string reviewId);
 
-        Task<ReviewEditFormModel> GetReviewToEditAsync(int id);
+        Task<ReviewEditFormModel> GetReviewToEditAsync(string id);
 
         Task EditReviewAsync(ReviewEditFormModel model);
     }

@@ -63,6 +63,16 @@ namespace ExploreUmami.Data.Configurations
 
             userVisits.Add(userVisit);
 
+            userVisit = new UserVisit
+            {
+                Id = Guid.Parse("4F8E6201-2013-428A-8DDB-C75312CA9BFF"),
+                UserId = Guid.Parse("8F5D89A1-DDA8-4400-BF47-690AE86F1846"), //reviewer2
+                BusinessId = Guid.Parse("4222168E-C018-418E-812F-F8D41B322522"), // Cafe
+                ReservationId = Guid.Parse("BB49A06D-FBD1-4FDD-A7D4-D309445C59F8")
+            };
+
+            userVisits.Add(userVisit);
+
             return userVisits.ToArray();
         }
     }

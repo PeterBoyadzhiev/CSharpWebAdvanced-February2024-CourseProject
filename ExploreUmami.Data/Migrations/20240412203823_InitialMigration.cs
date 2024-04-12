@@ -28,6 +28,8 @@ namespace ExploreUmami.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, defaultValue: "John"),
+                    LastName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, defaultValue: "Doe"),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -214,7 +216,8 @@ namespace ExploreUmami.Data.Migrations
                     WebsiteUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    IsActive = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
+                    IsApproved = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     PrefectureId = table.Column<int>(type: "int", nullable: false),
                     BusinessOwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -232,20 +235,17 @@ namespace ExploreUmami.Data.Migrations
                         name: "FK_Businesses_BusinessOwners_BusinessOwnerId",
                         column: x => x.BusinessOwnerId,
                         principalTable: "BusinessOwners",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Businesses_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Businesses_Prefectures_PrefectureId",
                         column: x => x.PrefectureId,
                         principalTable: "Prefectures",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -253,11 +253,11 @@ namespace ExploreUmami.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ReservationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Pending"),
-                    UserVisitId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValue: "Pending")
                 },
                 constraints: table =>
                 {
@@ -266,28 +266,27 @@ namespace ExploreUmami.Data.Migrations
                         name: "FK_Reservations_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Reservations_Businesses_BusinessId",
                         column: x => x.BusinessId,
                         principalTable: "Businesses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Reviews",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Subject = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Subject = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     Content = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Rating = table.Column<double>(type: "float", nullable: false),
+                    UserLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReviewerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    ReviewerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -296,14 +295,12 @@ namespace ExploreUmami.Data.Migrations
                         name: "FK_Reviews_AspNetUsers_ReviewerId",
                         column: x => x.ReviewerId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Reviews_Businesses_BusinessId",
                         column: x => x.BusinessId,
                         principalTable: "Businesses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -311,6 +308,7 @@ namespace ExploreUmami.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BusinessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     VisitDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
@@ -323,31 +321,34 @@ namespace ExploreUmami.Data.Migrations
                         name: "FK_UserVisits_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_UserVisits_Businesses_BusinessId",
                         column: x => x.BusinessId,
                         principalTable: "Businesses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_UserVisits_Reservations_ReservationId",
                         column: x => x.ReservationId,
                         principalTable: "Reservations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { new Guid("1ae80037-f648-442e-a309-4b94a3d1315c"), 0, "015ef6f8-895f-437e-bd81-919347045668", "businessowner@gmail.com", false, false, null, "BUSINESSOWNER@GMAIL.COM", "BUSINESSOWNER@GMAIL.COM", "AQAAAAEAACcQAAAAEKe0obrnGnI17OBfb5w6j4l/eUazABQqfq/eSxbSL/5DK/yVuUfTsu1LmK4SV5O1GA==", null, false, "8DE9BFF76769660A48823D891400A8E1", false, "businessowner@gmail.com" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("1ae80037-f648-442e-a309-4b94a3d1315c"), 0, "4c9981d8-f025-4fec-ac61-3b38632243ec", "businessowner@gmail.com", false, false, null, "BUSINESSOWNER@GMAIL.COM", "BUSINESSOWNER@GMAIL.COM", "AQAAAAEAACcQAAAAEFksQDoMNImHnp2pwAZ5PORz3xjXfP/aE7y0gi0p1RxJaBfgrHOjRcRRQFTAvbce8Q==", null, false, "EFC95224D8324D8EC525991DD4C31C51", false, "businessowner@gmail.com" },
-                    { new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846"), 0, "418f3edf-8ddc-4107-b297-85ffec6fd183", "reviewer2@gmail.com", false, false, null, "REVIEWER2@GMAIL.COM", "REVIEWER2@GMAIL.COM", "AQAAAAEAACcQAAAAEM73GXGrNMcyK5VRWgWEQZ1vjaKtGVBJOwnTUAjhP7+tTct3UjV3VhpEhzLWZMGjAw==", null, false, "EFC95224D8324D8EC525991DD4C31C51", false, "reviewer2@gmail.com" },
-                    { new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"), 0, "891bbd22-2e0d-4eeb-8ee6-2045a725a208", "reviewer@gmail.com", false, false, null, "REVIEWER@GMAIL.COM", "REVIEWER@GMAIL.COM", "AQAAAAEAACcQAAAAEFbiP7Bq9TY3tXEZlvUKM+ESN96rRmOA+EK8EFp/oySVKuP6mytQGIJDrvHBs8fw/w==", null, false, "EFC95224D8324D8EC525991DD4C31C51", false, "reviewer@gmail.com" },
-                    { new Guid("b43c3753-de4e-4417-b2ad-1c029c7b9795"), 0, "397f0169-42bb-44d6-bdd2-801c22e6f9eb", "admin@gmail.com", false, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEM287pSO/71F5X4Ef1pPlMoV8QsMBMFsW5hSVt1ASDZBoxASPt12V1yIjvaCE6wN9A==", null, false, "EFC95224D8324D8EC525991DD4C31C51", false, "admin@gmail.com" }
+                    { new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846"), 0, "030f2edc-c525-4abf-87bf-8e59968e68fd", "reviewer2@gmail.com", false, "Janette", "Dane", false, null, "REVIEWER2@GMAIL.COM", "REVIEWER2@GMAIL.COM", "AQAAAAEAACcQAAAAEFsx1jfGt5ydTYlXRZyHPouXYh+I4yJvBNdfygHZ3wbUcBWLJ6ThyRWh8Xe8Dq/VRQ==", null, false, "8DE9BFF76769660A48823D891400A8E1", false, "reviewer2@gmail.com" },
+                    { new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"), 0, "7efd044d-1c61-4e5a-aebe-5e268fa6ffae", "reviewer@gmail.com", false, "Jovani", "Dawson", false, null, "REVIEWER@GMAIL.COM", "REVIEWER@GMAIL.COM", "AQAAAAEAACcQAAAAEEy1hzbzHrEP1TRUs9+mYAGuYuVybLdmnIFVea5FQn7D4+CRC5cjLleK7V0OnT/8Rg==", null, false, "8DE9BFF76769660A48823D891400A8E1", false, "reviewer@gmail.com" },
+                    { new Guid("b43c3753-de4e-4417-b2ad-1c029c7b9795"), 0, "ba04e225-796e-4a9b-9558-ce0e87b7db06", "businessowner2@gmail.com", false, "Jane", "Doe", false, null, "BUSINESSOWNER2@GMAIL.COM", "BUSINESSOWNER2@GMAIL.COM", "AQAAAAEAACcQAAAAEI3hnXfNaIYXHFweQ9ZdzfWQhdSiRdq6CmOANa2e76Tz6Lm94SvGmsoKTK1O2E74dA==", null, false, "8DE9BFF76769660A48823D891400A8E1", false, "businessowner2@gmail.com" },
+                    { new Guid("ded2ed0c-9d4f-4d1d-9be1-a0b183548bfc"), 0, "111c8203-1315-421e-a34f-97903f9f78b8", "admin@gmail.com", false, "Admin", "Adminson", false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEGAYbhLrJ2/SZBny3sLeES0x00DrIuFClOSOG40jl+nNbMdzZIT72TCOagR+d0eV3A==", null, false, "8DE9BFF76769660A48823D891400A8E1", false, "admin@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -398,8 +399,7 @@ namespace ExploreUmami.Data.Migrations
                     { 24, "Mie" },
                     { 25, "Shiga" },
                     { 26, "Kyoto" },
-                    { 27, "Osaka" },
-                    { 28, "Hyogo" }
+                    { 27, "Osaka" }
                 });
 
             migrationBuilder.InsertData(
@@ -407,6 +407,7 @@ namespace ExploreUmami.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
+                    { 28, "Hyogo" },
                     { 29, "Nara" },
                     { 30, "Wakayama" },
                     { 31, "Tottori" },
@@ -431,53 +432,86 @@ namespace ExploreUmami.Data.Migrations
             migrationBuilder.InsertData(
                 table: "BusinessOwners",
                 columns: new[] { "Id", "FirstName", "LastName", "NameOfBusiness", "PhoneNumber", "UserId" },
-                values: new object[] { new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), "John", "Doe", "John's Restaurant", "12-3456-7890", new Guid("b43c3753-de4e-4417-b2ad-1c029c7b9795") });
+                values: new object[] { new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), "John", "Doe", "John's Restaurant", "12-3456-7890", new Guid("1ae80037-f648-442e-a309-4b94a3d1315c") });
 
             migrationBuilder.InsertData(
                 table: "BusinessOwners",
                 columns: new[] { "Id", "FirstName", "LastName", "NameOfBusiness", "PhoneNumber", "UserId" },
-                values: new object[] { new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), "Jane", "Doe", "Jane's Cafe", "12-3456-7890", new Guid("1ae80037-f648-442e-a309-4b94a3d1315c") });
+                values: new object[] { new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), "Jane", "Doe", "Jane's Cafe", "12-3456-7890", new Guid("b43c3753-de4e-4417-b2ad-1c029c7b9795") });
 
             migrationBuilder.InsertData(
                 table: "Businesses",
-                columns: new[] { "Id", "Address", "BusinessOwnerId", "CategoryId", "Description", "ImageUrl", "PhoneNumber", "PrefectureId", "Title", "VisitorId", "WebsiteUrl" },
+                columns: new[] { "Id", "Address", "BusinessOwnerId", "CategoryId", "Description", "ImageUrl", "IsApproved", "PhoneNumber", "PrefectureId", "Title", "VisitorId", "WebsiteUrl" },
+                values: new object[] { new Guid("005caeaa-5262-43d7-9b2b-c30eaa46b6c8"), "1516 Maple Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 6, "A place where you can eat food on the go", "https://dummyimage.com/400x200", true, "12-3456-7890", 6, "Food Truck", null, "https://www.foodtruck.com" });
+
+            migrationBuilder.InsertData(
+                table: "Businesses",
+                columns: new[] { "Id", "Address", "BusinessOwnerId", "CategoryId", "Description", "ImageUrl", "IsActive", "IsApproved", "PhoneNumber", "PrefectureId", "Title", "VisitorId", "WebsiteUrl" },
+                values: new object[] { new Guid("4222168e-c018-418e-812f-f8d41b322522"), "1012 Pine Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 4, "A place where you can buy bread", "https://dummyimage.com/400x200", true, true, "12-3456-7890", 4, "Bakery", null, "https://www.bakery.com" });
+
+            migrationBuilder.InsertData(
+                table: "Businesses",
+                columns: new[] { "Id", "Address", "BusinessOwnerId", "CategoryId", "Description", "ImageUrl", "IsActive", "PhoneNumber", "PrefectureId", "Title", "VisitorId", "WebsiteUrl" },
+                values: new object[] { new Guid("5f2516ab-1013-47c9-a521-1dc868780d64"), "1920 Cherry Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 8, "A place where you can buy food", "https://dummyimage.com/400x200", true, "12-3456-7890", 1, "Grocery Store", null, "https://www.grocerystore.com" });
+
+            migrationBuilder.InsertData(
+                table: "Businesses",
+                columns: new[] { "Id", "Address", "BusinessOwnerId", "CategoryId", "Description", "ImageUrl", "IsActive", "IsApproved", "PhoneNumber", "PrefectureId", "Title", "VisitorId", "WebsiteUrl" },
                 values: new object[,]
                 {
-                    { new Guid("04e9e63e-73b5-4e65-b2db-c0c72240654b"), "1516 Maple Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 6, "A place where you can eat food on the go", "https://dummyimage.com/400x200", "12-3456-7890", 6, "Food Truck", null, "https://www.foodtruck.com" },
-                    { new Guid("3e9a5581-00b1-49aa-817d-19bc34c21f60"), "1012 Pine Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 4, "A place where you can buy bread", "https://dummyimage.com/400x200", "12-3456-7890", 4, "Bakery", null, "https://www.bakery.com" },
-                    { new Guid("4809bf2e-2101-4bd9-9ae3-931805032c51"), "1718 Walnut Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 7, "A place where you can eat dessert", "https://dummyimage.com/400x200", "12-3456-7890", 1, "Dessert Shop", null, "https://www.dessertshop.com" },
-                    { new Guid("681b003d-30cb-4743-b6ff-09e3b037e9c4"), "1314 Cedar Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 5, "A place where you can eat food quickly", "https://dummyimage.com/400x200", "12-3456-7890", 5, "Fast Food", null, "https://www.fastfood.com" }
+                    { new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"), "123 Main Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 1, "A place where you can eat food", "https://dummyimage.com/400x200", true, true, "12-3456-7890", 1, "Restaurant", null, "https://www.restaurant.com" },
+                    { new Guid("7c8605e4-9e6c-474f-8c3c-a837d631c8d4"), "789 Oak Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 3, "A place where you can drink alcohol", "https://dummyimage.com/400x200", true, true, "12-3456-7890", 3, "Bar", null, "https://www.bar.com" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Businesses",
                 columns: new[] { "Id", "Address", "BusinessOwnerId", "CategoryId", "Description", "ImageUrl", "IsActive", "PhoneNumber", "PrefectureId", "Title", "VisitorId", "WebsiteUrl" },
-                values: new object[] { new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"), "123 Main Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 1, "A place where you can eat food", "https://dummyimage.com/400x200", true, "12-3456-7890", 1, "Restaurant", null, "https://www.restaurant.com" });
+                values: new object[] { new Guid("841ded07-9c44-4d5b-9f96-9d3c3a39a8c4"), "1718 Walnut Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 7, "A place where you can eat dessert", "https://dummyimage.com/400x200", true, "12-3456-7890", 1, "Dessert Shop", null, "https://www.dessertshop.com" });
 
             migrationBuilder.InsertData(
                 table: "Businesses",
-                columns: new[] { "Id", "Address", "BusinessOwnerId", "CategoryId", "Description", "ImageUrl", "PhoneNumber", "PrefectureId", "Title", "VisitorId", "WebsiteUrl" },
-                values: new object[] { new Guid("748f9c8b-2c3e-40a4-8980-39b55106aa18"), "1920 Cherry Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 8, "A place where you can buy food", "https://dummyimage.com/400x200", "12-3456-7890", 1, "Grocery Store", null, "https://www.grocerystore.com" });
+                columns: new[] { "Id", "Address", "BusinessOwnerId", "CategoryId", "Description", "ImageUrl", "IsActive", "IsApproved", "PhoneNumber", "PrefectureId", "Title", "VisitorId", "WebsiteUrl" },
+                values: new object[,]
+                {
+                    { new Guid("8f87f835-3deb-43b4-aa01-852c5d287984"), "456 Elm Street", new Guid("e826ff19-1946-4237-b266-e326cbead8ff"), 2, "A place where you can drink coffee", "https://dummyimage.com/400x200", true, true, "12-3456-7890", 2, "Cafe", null, "https://www.cafe.com" },
+                    { new Guid("e39d9dc4-519f-4c74-9f59-86083df887c6"), "1314 Cedar Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 5, "A place where you can eat food quickly", "https://dummyimage.com/400x200", true, true, "12-3456-7890", 5, "Fast Food", null, "https://www.fastfood.com" }
+                });
 
             migrationBuilder.InsertData(
-                table: "Businesses",
-                columns: new[] { "Id", "Address", "BusinessOwnerId", "CategoryId", "Description", "ImageUrl", "IsActive", "PhoneNumber", "PrefectureId", "Title", "VisitorId", "WebsiteUrl" },
-                values: new object[] { new Guid("8f87f835-3deb-43b4-aa01-852c5d287984"), "456 Elm Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 2, "A place where you can drink coffee", "https://dummyimage.com/400x200", true, "12-3456-7890", 2, "Cafe", null, "https://www.cafe.com" });
+                table: "Reservations",
+                columns: new[] { "Id", "BusinessId", "Notes", "ReservationDate", "Status", "UserId" },
+                values: new object[,]
+                {
+                    { new Guid("11154b62-2abd-404a-827e-f4e69ad94678"), new Guid("4222168e-c018-418e-812f-f8d41b322522"), "I'll be visiting with my grandma.", new DateTime(2024, 4, 12, 20, 38, 23, 511, DateTimeKind.Utc).AddTicks(9356), "Confirmed", new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83") },
+                    { new Guid("266a74bb-e01c-4bfc-86a6-d5aaee18574f"), new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"), "Please reserve a table for a family of 3 adults and 2 children", new DateTime(2024, 4, 12, 20, 38, 23, 511, DateTimeKind.Utc).AddTicks(9344), "Completed", new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846") },
+                    { new Guid("2f014787-c27c-4406-9b55-4dbcef08eeff"), new Guid("e39d9dc4-519f-4c74-9f59-86083df887c6"), "I won't be able to make it, sorry!", new DateTime(2024, 4, 12, 20, 38, 23, 511, DateTimeKind.Utc).AddTicks(9364), "Cancelled", new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846") },
+                    { new Guid("ccbf170d-f0a7-4dbf-8bdf-6f101548f833"), new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"), null, new DateTime(2024, 4, 12, 20, 38, 23, 511, DateTimeKind.Utc).AddTicks(9331), "Completed", new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83") }
+                });
 
             migrationBuilder.InsertData(
-                table: "Businesses",
-                columns: new[] { "Id", "Address", "BusinessOwnerId", "CategoryId", "Description", "ImageUrl", "PhoneNumber", "PrefectureId", "Title", "VisitorId", "WebsiteUrl" },
-                values: new object[] { new Guid("cc33e3cf-7d2e-4978-8a24-8731eefa2314"), "789 Oak Street", new Guid("c805ddb6-bcf7-47a3-8744-3ec84036caa0"), 3, "A place where you can drink alcohol", "https://dummyimage.com/400x200", "12-3456-7890", 3, "Bar", null, "https://www.bar.com" });
+                table: "Reservations",
+                columns: new[] { "Id", "BusinessId", "Notes", "ReservationDate", "UserId" },
+                values: new object[] { new Guid("cd6698f0-7d34-4b6c-b9d2-76b1335af34f"), new Guid("7c8605e4-9e6c-474f-8c3c-a837d631c8d4"), "Reserve 4 tables, we are a big company", new DateTime(2024, 4, 12, 20, 38, 23, 511, DateTimeKind.Utc).AddTicks(9351), new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846") });
 
             migrationBuilder.InsertData(
-                table: "Reviews",
-                columns: new[] { "Id", "BusinessId", "Content", "Rating", "ReviewerId", "Subject" },
-                values: new object[] { -2, new Guid("8f87f835-3deb-43b4-aa01-852c5d287984"), "The coffee was amazing, I had a very pleasant coffee experience", 5.0, new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"), "Great coffee!" });
+                table: "Reservations",
+                columns: new[] { "Id", "BusinessId", "Notes", "ReservationDate", "Status", "UserId" },
+                values: new object[] { new Guid("d3d3d3d3-3d3d-3d3d-3d3d-3d3d3d3d3d3d"), new Guid("8f87f835-3deb-43b4-aa01-852c5d287984"), "Please reserve a table for 4 adults", new DateTime(2024, 4, 12, 20, 38, 23, 511, DateTimeKind.Utc).AddTicks(9348), "Completed", new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83") });
 
             migrationBuilder.InsertData(
-                table: "Reviews",
-                columns: new[] { "Id", "BusinessId", "Content", "Rating", "ReviewerId", "Subject" },
-                values: new object[] { -1, new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"), "The food was incredible, best chefs in the prefecture", 5.0, new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"), "Great food!" });
+                table: "UserVisits",
+                columns: new[] { "Id", "BusinessId", "Notes", "ReservationId", "UserId" },
+                values: new object[] { new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1847"), new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"), null, new Guid("266a74bb-e01c-4bfc-86a6-d5aaee18574f"), new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846") });
+
+            migrationBuilder.InsertData(
+                table: "UserVisits",
+                columns: new[] { "Id", "BusinessId", "Notes", "ReservationId", "UserId" },
+                values: new object[] { new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c84"), new Guid("8f87f835-3deb-43b4-aa01-852c5d287984"), null, new Guid("d3d3d3d3-3d3d-3d3d-3d3d-3d3d3d3d3d3d"), new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83") });
+
+            migrationBuilder.InsertData(
+                table: "UserVisits",
+                columns: new[] { "Id", "BusinessId", "Notes", "ReservationId", "UserId" },
+                values: new object[] { new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c85"), new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"), null, new Guid("ccbf170d-f0a7-4dbf-8bdf-6f101548f833"), new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83") });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -557,8 +591,7 @@ namespace ExploreUmami.Data.Migrations
                 name: "IX_Reviews_BusinessId_ReviewerId",
                 table: "Reviews",
                 columns: new[] { "BusinessId", "ReviewerId" },
-                unique: true,
-                filter: "[ReviewerId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_ReviewerId",
@@ -573,8 +606,7 @@ namespace ExploreUmami.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_UserVisits_ReservationId",
                 table: "UserVisits",
-                column: "ReservationId",
-                unique: true);
+                column: "ReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserVisits_UserId",
