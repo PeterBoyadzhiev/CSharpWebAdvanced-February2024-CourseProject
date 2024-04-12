@@ -9,7 +9,7 @@ namespace ExploreUmami.Web.ViewModels.Business
     {
         public BusinessFormModel()
         {
-            Categories = new HashSet<SelectCategoryFormModel>();
+            Categories = new HashSet<SelectCategoryViewModel>();
             Prefectures = new HashSet<SelectPrefectureFormModel>();
         }
 
@@ -46,7 +46,7 @@ namespace ExploreUmami.Web.ViewModels.Business
         [Display(Name = "Prefecture")]
         public int PrefectureId { get; set; }
 
-        public IEnumerable<SelectCategoryFormModel> Categories { get; set; }
+        public IEnumerable<SelectCategoryViewModel> Categories { get; set; }
 
         public IEnumerable<SelectPrefectureFormModel> Prefectures { get; set; }
 

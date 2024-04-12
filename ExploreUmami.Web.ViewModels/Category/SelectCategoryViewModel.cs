@@ -1,6 +1,6 @@
 ﻿namespace ExploreUmami.Web.ViewModels.Category
 {
-    public class SelectCategoryFormModel
+    public class SelectCategoryViewModel
     {
         public int Id { get; set; }
 

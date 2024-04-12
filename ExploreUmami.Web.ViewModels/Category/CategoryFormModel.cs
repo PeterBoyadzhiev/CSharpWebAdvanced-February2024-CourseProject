@@ -3,7 +3,7 @@ using static ExploreUmami.Common.ValidationConstants.Category;
 
 namespace ExploreUmami.Web.ViewModels.Category
 {
-    public class AddCategoryFormModel
+    public class CategoryFormModel
     {
         public int Id { get; set; }
 

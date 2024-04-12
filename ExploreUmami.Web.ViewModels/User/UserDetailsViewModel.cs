@@ -12,6 +12,6 @@ namespace ExploreUmami.Web.ViewModels.User
 
         public string Email { get; set; } = null!;
 
-        public virtual ICollection<ReviewInfoModel>? Reviews { get; set; }
+        public virtual IEnumerable<ReviewInfoModel>? Reviews { get; set; }
     }
 }

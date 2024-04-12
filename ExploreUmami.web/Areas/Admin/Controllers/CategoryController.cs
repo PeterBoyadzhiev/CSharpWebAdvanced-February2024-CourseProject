@@ -17,7 +17,7 @@ namespace ExploreUmami.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            IEnumerable<SelectCategoryFormModel> categories = await this.categoryService.GetAllCategoriesAsync();
+            IEnumerable<SelectCategoryViewModel> categories = await this.categoryService.GetAllCategoriesAsync();
 
             return View(categories);
         }
@@ -29,7 +29,7 @@ namespace ExploreUmami.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddCategoryFormModel model)
+        public async Task<IActionResult> Add(CategoryFormModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -55,13 +55,13 @@ namespace ExploreUmami.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            AddCategoryFormModel model = await this.categoryService.GetCategoryToEdit(id);
+            CategoryFormModel model = await this.categoryService.GetCategoryToEdit(id);
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(AddCategoryFormModel model)
+        public async Task<IActionResult> Edit(CategoryFormModel model)
         {
             if (!this.ModelState.IsValid)
             {

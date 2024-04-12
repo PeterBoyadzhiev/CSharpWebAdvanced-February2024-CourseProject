@@ -6,6 +6,8 @@ using ExploreUmami.Web.ViewModels.Review;
 using ExploreUmami.Web.ViewModels.User;
 using ExploreUmami.Web.ViewModels.UserVisit;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ExploreUmami.Services.Data
 {
@@ -44,40 +46,55 @@ namespace ExploreUmami.Services.Data
 
         public async Task<IEnumerable<UserVisitDetailsViewModel>> GetUserVisitsAsync(string userId)
         {
-            return await this.dbContext.UserVisits
+            var userVisits = await this.dbContext.UserVisits
                 .Include(uv => uv.Business)
                 .Include(uv => uv.User)
-                .Where(uv => uv.UserId.ToString() == userId && uv.Business.IsActive)
-                .Include(uv => uv.Reservation)
-                .Select(uv => new
+                .ThenInclude(u => u.Reviews)
+                .Where(uv => uv.User.Id.ToString() == userId && uv.Business.IsActive)
+                .Select(uv => new UserVisitDetailsViewModel
                 {
-                    uv.Id,
-                    uv.VisitDate,
-                    uv.Notes,
+                    Id = uv.Id.ToString(),
+                    VisitDate = uv.VisitDate,
+                    Notes = uv.Notes,
                     Business = new BusinessDetailsViewModel
                     {
                         Id = uv.Business.Id.ToString(),
                         Title = uv.Business.Title,
-                        Address = uv.Business.Address,
-                        Category = uv.Business.Category!.ToString() ?? "Category not available",
-                        Prefecture = uv.Business.Prefecture!.ToString() ?? "Prefecture not available",
-                        PhoneNumber = uv.Business.PhoneNumber,
-                        WebsiteUrl = uv.Business.WebsiteUrl ?? "null",
-                        Description = uv.Business.Description,
-                        ImageUrl = uv.Business.ImageUrl,
                     },
-                    HasReview = false
+                    User = new UserDetailsViewModel
+                    {
+                        Id = uv.User.Id,
+                        UserName = uv.User.UserName,
+                        Email = uv.User.Email,
+                        FullName = uv.User.FirstName + " " + uv.User.LastName,
+                        Reviews = uv.User.Reviews
+                            .Where(r => r.BusinessId == uv.BusinessId)
+                            .Select(r => new ReviewInfoModel
+                            {
+                                Id = r.Id,
+                                Subject = r.Subject,
+                                Content = r.Content,
+                                Rating = r.Rating,
+                                TimeStamp = r.TimeStamp,
+                            })
+                            .ToList(),
+                    },
+                    Review = uv.User.Reviews
+                        .Where(r => r.BusinessId == uv.BusinessId)
+                        .Select(r => new ReviewInfoModel
+                        {
+                            Id = r.Id,
+                            Subject = r.Subject,
+                            Content = r.Content,
+                            Rating = r.Rating,
+                            TimeStamp = r.TimeStamp,
+                        })
+                        .FirstOrDefault(),
                 })
-                .OrderByDescending(x => x.VisitDate)
-                .Select(x => new UserVisitDetailsViewModel
-                {
-                    Id = x.Id.ToString(),
-                    VisitDate = x.VisitDate,
-                    Notes = x.Notes,
-                    Business = x.Business,
-                    HasReview = x.HasReview
-                })
+                .OrderByDescending(uv => uv.VisitDate)
                 .ToListAsync();
+
+            return userVisits;
         }
 
         public async Task<IEnumerable<UserVisitDetailsViewModel>> GetBusinessVisitsPerOwnerAsync(string ownerId)
@@ -96,13 +113,6 @@ namespace ExploreUmami.Services.Data
                     {
                         Id = uv.Business.Id.ToString(),
                         Title = uv.Business.Title,
-                        Address = uv.Business.Address,
-                        Category = uv.Business.Category!.ToString() ?? "Category not available",
-                        Prefecture = uv.Business.Prefecture!.ToString() ?? "Prefecture not available",
-                        PhoneNumber = uv.Business.PhoneNumber,
-                        WebsiteUrl = uv.Business.WebsiteUrl ?? "null",
-                        Description = uv.Business.Description,
-                        ImageUrl = uv.Business.ImageUrl,
                     },
                     User = new UserDetailsViewModel
                     {

@@ -15,13 +15,13 @@ namespace ExploreUmami.Services.Data
             this.dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<SelectCategoryFormModel>> GetAllCategoriesAsync()
+        public async Task<IEnumerable<SelectCategoryViewModel>> GetAllCategoriesAsync()
         {
-            IEnumerable<SelectCategoryFormModel> categories = await this.dbContext
+            IEnumerable<SelectCategoryViewModel> categories = await this.dbContext
                 .Categories
                 .OrderBy(c => c.Name)
                 .AsNoTracking()
-                .Select(c => new SelectCategoryFormModel
+                .Select(c => new SelectCategoryViewModel
                 {
                     Id = c.Id,
                     Name = c.Name,
@@ -46,7 +46,7 @@ namespace ExploreUmami.Services.Data
             return categoryNames;
         }
 
-        public async Task AddCategoryAsync(AddCategoryFormModel model)
+        public async Task AddCategoryAsync(CategoryFormModel model)
         {
             Category category = new Category
             {
@@ -57,19 +57,19 @@ namespace ExploreUmami.Services.Data
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task<AddCategoryFormModel> GetCategoryToEdit(int id)
+        public async Task<CategoryFormModel> GetCategoryToEdit(int id)
         {
             Category category = await this.dbContext.Categories
                 .FirstAsync(c => c.Id == id);
 
-            return new AddCategoryFormModel
+            return new CategoryFormModel
             {
                 Id = category.Id,
                 Name = category.Name,
             };
         }
 
-        public async Task EditCategoryAsync(AddCategoryFormModel model)
+        public async Task EditCategoryAsync(CategoryFormModel model)
         {
             Category category = await this.dbContext.Categories
                 .FirstAsync(c => c.Id == model.Id);

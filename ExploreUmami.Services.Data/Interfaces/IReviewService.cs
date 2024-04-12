@@ -6,7 +6,7 @@ namespace ExploreUmami.Services.Data.Interfaces
     {
         Task<IEnumerable<ReviewInfoAdminModel>> GetAllReviewsAsync();
 
-        Task AddReviewAsync(AddReviewModel model, string businessId, string reviewerId, string? location);
+        Task AddReviewAsync(ReviewFormModel model, string businessId, string reviewerId, string? location);
 
         Task<bool> ReviewExistsByUserForBusinessAsync(string reviewerId, string businessId);
 
@@ -15,5 +15,11 @@ namespace ExploreUmami.Services.Data.Interfaces
         Task RemoveReviewAsync(int id);
 
         Task AllowReviewAsync(int id);
+
+        Task<bool> ReviewBelongsToUserAsync(string userId, int reviewId);
+
+        Task<ReviewEditFormModel> GetReviewToEditAsync(int id);
+
+        Task EditReviewAsync(ReviewEditFormModel model);
     }
 }

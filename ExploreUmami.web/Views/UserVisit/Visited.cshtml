@@ -16,28 +16,40 @@
                         <th>Visit Date</th>
                         <th>Business</th>
                         <th>Notes</th>
-                        <th>Review</th>
+                        <th>Review Status</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var visit in Model)
                     {
                         <tr>
-                            <td>@visit.VisitDate.ToString("yyyy-MM-dd")</td>
+                            <td>@visit.VisitDate.ToString("yyyy-MM-dd HH:mm")</td>
                             <td>
                                 <a asp-controller="Business" asp-action="Details" asp-route-id="@visit.Business.Id">@visit.Business.Title</a>
                             </td>
                             <td>@visit.Notes</td>
-                            <td>
+                            
                                 @if (visit.HasReview)
                                 {
-                                    <span>Review already submitted.</span>
+                                    <td>
+                                        <span>Review already submitted.</span>
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Review" asp-action="Edit" asp-route-id="@visit.Review?.Id" class="btn btn-primary">Edit your Review</a>
+                                    </td>
+
                                 }
                                 else
                                 {
-                                    <a asp-controller="Review" asp-action="Add" asp-route-id="@visit.Business.Id" class="btn btn-primary">Write a Review</a>
+                                    <td>
+                                        <span>No review submitted yet.</span>   
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Review" asp-action="Add" asp-route-id="@visit.Business.Id" class="btn btn-primary">Write a Review</a>
+                                    </td>
                                 }
-                            </td>
+                            
                         </tr>
                     }
                 </tbody>

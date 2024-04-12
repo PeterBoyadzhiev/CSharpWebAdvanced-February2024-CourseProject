@@ -1,5 +1,5 @@
 ﻿@using static ExploreUmami.Common.ValidationConstants;
-@model ReviewFormModel
+@model ReviewEditFormModel
 
 @{
     ViewData["Title"] = "Write a Review";
@@ -10,7 +10,7 @@
         <h1 class="text-center mb-4">@ViewData["Title"]</h1>
         <hr />
 
-        <form asp-action="Add" method="post">
+        <form asp-action="Edit" method="post">
             <div class="form-group mt-2">
                 <label asp-for="Subject">Subject</label>
                 <input asp-for="Subject" class="form-control mt-1" placeholder="Review Title...">
@@ -32,6 +32,7 @@
                 <span asp-validation-for="Rating" class="small text-danger"></span>
             </div>
             <div class="text-center">
+                <input type="hidden" name="id" asp-for="@Model.Id" />
                 <input class="btn btn-primary mt-3" type="submit" value="Submit Review" />
                 <p><small>* Your city and country may be shown on your review.</small></p>
             </div>

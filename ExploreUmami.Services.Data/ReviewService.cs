@@ -47,7 +47,7 @@ namespace ExploreUmami.Services.Data
         }
 
 
-        public async Task AddReviewAsync(AddReviewModel model, string businessId, string reviewerId, string? location)
+        public async Task AddReviewAsync(ReviewFormModel model, string businessId, string reviewerId, string? location)
         {
             Review review = new Review
             {
@@ -95,6 +95,38 @@ namespace ExploreUmami.Services.Data
                 .FirstAsync(r => r.Id == id);
 
             review.IsActive = true;
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<bool> ReviewBelongsToUserAsync(string userId, int reviewId)
+        {
+            return await this.dbContext.Reviews
+                .AnyAsync(r => r.ReviewerId.ToString() == userId && r.Id == reviewId);
+        }
+
+        public async Task<ReviewEditFormModel> GetReviewToEditAsync(int id)
+        {
+            Review review = await this.dbContext.Reviews
+                .FirstAsync(r => r.Id == id);
+
+            return new ReviewEditFormModel
+            {
+                Id = review.Id,
+                Subject = review.Subject,
+                Content = review.Content,
+                Rating = review.Rating,
+            };
+        }
+
+        public async Task EditReviewAsync(ReviewEditFormModel model)
+        {
+            Review review = await this.dbContext.Reviews
+                .FirstAsync(r => r.Id == model.Id);
+
+            review.Subject = model.Subject;
+            review.Content = model.Content;
+            review.Rating = model.Rating;
+
             await this.dbContext.SaveChangesAsync();
         }
     }

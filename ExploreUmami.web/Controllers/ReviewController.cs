@@ -3,7 +3,6 @@ using ExploreUmami.Web.Infrastructure.Extensions;
 using ExploreUmami.Web.ViewModels.Review;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Packaging.Signing;
 
 namespace ExploreUmami.Web.Controllers
 {
@@ -37,9 +36,8 @@ namespace ExploreUmami.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddReviewModel model, string id)
+        public async Task<IActionResult> Add(ReviewFormModel model, string id)
         {
-            // Check for existing review for business and user
             string? userId = this.User.GetId();
             bool hasVisited = await userVisitService.UserHasVisitAsync(userId, id);
 
@@ -91,6 +89,54 @@ namespace ExploreUmami.Web.Controllers
             {
                 this.TempData["Error"] = "Unexpected error occurred!";
                 return RedirectToAction("All", "Business");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            bool isReviewer = await reviewService.ReviewBelongsToUserAsync(this.User.GetId(), id);
+
+            if (!isReviewer)
+            {
+                TempData["Error"] = "You cannot edit this review as it belongs to another user.";
+                return RedirectToAction("Visited", "UserVisit");
+            }
+
+            ReviewEditFormModel model = await this.reviewService.GetReviewToEditAsync(id);
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ReviewEditFormModel model, int id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            bool isReviewer = await reviewService.ReviewBelongsToUserAsync(this.User.GetId(), id);
+
+            if (!isReviewer)
+            {
+                TempData["Error"] = "You cannot edit this review as it belongs to another user.";
+                return RedirectToAction("Visited", "UserVisit");
+            }
+
+            try
+            {
+                await this.reviewService.EditReviewAsync(model);
+
+                this.TempData["Success"] = "Review edited successfully.";
+
+                return RedirectToAction("Visited", "UserVisit");
+            }
+            catch (Exception)
+            {
+                this.TempData["Error"] = "Unexpected error occurred while editing review.";
+
+                return RedirectToAction("Visited", "UserVisit");
             }
         }
     }

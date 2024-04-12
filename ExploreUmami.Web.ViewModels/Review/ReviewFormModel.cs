@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 using static ExploreUmami.Common.ValidationConstants.Review;
 
 namespace ExploreUmami.Web.ViewModels.Review
 {
-    public class AddReviewModel
+    public class ReviewFormModel
     {
+
         [Required]
         [StringLength(SubjectMaxLength,MinimumLength = SubjectMinLength)]
         public string Subject { get; set; } = null!;

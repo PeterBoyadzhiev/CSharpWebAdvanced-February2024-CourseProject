@@ -5,16 +5,16 @@ namespace ExploreUmami.Services.Data.Interfaces
 {
     public interface ICategoryService
     {
-        Task<IEnumerable<SelectCategoryFormModel>> GetAllCategoriesAsync();
+        Task<IEnumerable<SelectCategoryViewModel>> GetAllCategoriesAsync();
 
         Task<bool> CategoryExistsByIdAsync(int id);
 
         Task<IEnumerable<string>> AllCategoryNamesAsync();
 
-        Task AddCategoryAsync(AddCategoryFormModel model);
+        Task AddCategoryAsync(CategoryFormModel model);
 
-        Task<AddCategoryFormModel> GetCategoryToEdit(int id);
+        Task<CategoryFormModel> GetCategoryToEdit(int id);
 
-        Task EditCategoryAsync(AddCategoryFormModel model);
+        Task EditCategoryAsync(CategoryFormModel model);
     }
 }
