@@ -33,9 +33,26 @@
                             </td>
                             @if (visit.Review != null)
                             {
+                                int numberOfFullStars = (int)visit.Review.Rating;
+                                bool hasHalfStar = visit.Review.Rating % 1 != 0;
+                                int numberOfEmptyStars = 5 - numberOfFullStars - (hasHalfStar ? 1 : 0);
+
                                 <td class="justify-content-center">
                                     <p class="m-1">@visit.Review.Subject</p>
-                                    <p class="m-1">@visit.Review.Rating Stars</p>
+                                    <p class="m-1">
+                                    @for (int i = 0; i < numberOfFullStars; i++)
+                                    {
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    }
+                                    @if (hasHalfStar)
+                                    {
+                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                    }
+                                    @for (int i = 0; i < numberOfEmptyStars; i++)
+                                    {
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    }
+                                    </p>
                                     <p class="m-1"><i>@visit.Review.Content</i></p>
                                 </td>
                             }

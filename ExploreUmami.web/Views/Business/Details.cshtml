@@ -62,32 +62,72 @@
             <h3>Reviews</h3>
             @if (Model.Reviews.Any())
             {
-                
-                <p>Average Rating: @Model.AverageRating Stars</p>
-                <ul class="list-group">
-                    @foreach (var review in Model.Reviews)
-                    {
-                        <li class="list-group-item">
-                            <p class="mb-1">@review.Rating Stars</p>
-                            <h4>@review.Subject</h4>
-                            <p>@review.Content</p>
-                            <div class="d-flex w-100 justify-content-end">
-                                <div class="d-flex flex-column">
-                                    <p class="m-0"><small>Posted by <b>@review.Reviewer</b></small></p><br />
-                                    <p class="m-0"><small>@review.TimeStamp.ToString("dd MMM yyyy HH:mm")</small></p><br />
-                                    @if (review.UserLocation != "")
-                                    {
-                                        <p id="geolocation" class="m-0"><small>From @review.UserLocation</small></p>
-                                    }   
-                                </div>
-                            </div>
-                        </li>
-                    }
-                </ul>
+                int numberOfFullStars = (int)Model.AverageRating;
+                bool hasHalfStar = Model.AverageRating % 1 != 0;
+                int numberOfEmptyStars = 5 - numberOfFullStars - (hasHalfStar ? 1 : 0);
 
-                @if (isOwner)
+                <p>
+                    Average Rating:
+                    @for (int i = 0; i < numberOfFullStars; i++)
+                    {
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    }
+                    @if (hasHalfStar)
+                    {
+                        <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                    }
+                    @for (int i = 0; i < numberOfEmptyStars; i++)
+                    {
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                    }
+                </p>
+
+                @foreach (var review in Model.Reviews)
                 {
-                    <p><small>* You can contact the administrator to remove a review that may be offensive.</small></p>
+                    numberOfFullStars = (int)review.Rating;
+                    hasHalfStar = review.Rating % 1 != 0;
+                    numberOfEmptyStars = 5 - numberOfFullStars - (hasHalfStar ? 1 : 0);
+                    
+                    @if (review.Rating != 0)
+                    {
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                Rating: 
+
+                                @for (int i = 0; i < numberOfFullStars; i++)
+                                {
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                }
+                                @if (hasHalfStar)
+                                {
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                }
+                                @for (int i = 0; i < numberOfEmptyStars; i++)
+                                {
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                }
+
+                                <h4>@review.Subject</h4>
+                                <p>@review.Content</p>
+                                <div class="d-flex w-100 justify-content-end">
+                                    <div class="d-flex flex-column">
+                                        <p class="m-0"><small>Posted by <b>@review.Reviewer</b></small></p><br />
+                                        <p class="m-0"><small>@review.TimeStamp.ToString("dd MMM yyyy HH:mm")</small></p><br />
+                                        @if (review.UserLocation != "")
+                                        {
+                                            <p id="geolocation" class="m-0"><small>From @review.UserLocation</small></p>
+                                        }   
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                        @if (isOwner)
+                        {
+                            <p><small>* You can contact the administrator to remove a review that may be offensive.</small></p>
+                        }
+                    }
                 }
             }
             else
