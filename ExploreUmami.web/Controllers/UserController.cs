@@ -2,6 +2,7 @@
 using ExploreUmami.Web.ViewModels.User;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
 using static ExploreUmami.Common.NotificationMessagesConstants;
 
@@ -83,6 +84,54 @@ namespace ExploreUmami.Web.Controllers
             }
 
             return Redirect(model.ReturnUrl ?? "/");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangePassword()
+        {
+            var user = await userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
+            }
+
+            var hasPassword = await userManager.HasPasswordAsync(user);
+            if (!hasPassword)
+            {
+                return RedirectToPage("./SetPassword");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
+            }
+
+            var changePasswordResult = await userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+            if (!changePasswordResult.Succeeded)
+            {
+                foreach (var error in changePasswordResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View(model);
+            }
+
+            await signInManager.RefreshSignInAsync(user);
+            TempData["Success"] = "Password changed successfully!";
+
+            return RedirectToAction("Index", "Home");
         }
 
 

@@ -85,6 +85,14 @@ namespace ExploreUmami.Web.Controllers
                 return RedirectToAction("All", "Reservation");
             }
 
+            bool isAdmin = this.User.IsInRole(AdminRoleName);
+
+            if (isAdmin)
+            {
+                this.TempData["Error"] = "You cannot make a reservation as an administrator!";
+                return RedirectToAction("All", "Reservation");
+            }
+
             try
             {
                 BusinessDetailsReservationViewModel businessModel = await this.businessService.GetBusinessDetailsForReservationAsync(id);
