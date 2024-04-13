@@ -35,6 +35,8 @@ namespace ExploreUmami.Web
 
             builder.Services.AddApplicationServices(typeof(IBusinessService));
 
+            builder.Services.AddRecaptchaService();
+
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/User/Login";

@@ -24,10 +24,9 @@
             <p class="card-text">@Model.Description</p>
             <div class="row">
                 <div class="text-center d-flex justify-content-sm-evenly col-12 mb-2">
-                <a asp-area="" asp-controller="Business" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary col-md-4">Details</a>
-                <a asp-area="" asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary col-md-3">Edit</a>
-                <a asp-area="" asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary col-md-4">Delete</a>
+                    <a asp-area="" asp-controller="Business" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary col-md-4">Details</a>
                 </div>
+
                 @if (!Model.IsApproved && Model.isActive)
                 {
                     <form asp-area="@AdminAreaName" asp-controller="Business" asp-action="Approve" method="post">
@@ -49,6 +48,13 @@
                             </div>
                        </div>
                     </form>
+                }
+                else
+                {
+                    <div class="text-center d-flex justify-content-sm-evenly col-12 mb-2">
+                    <a asp-area="" asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary col-md-4">Edit</a>
+                    <a asp-area="" asp-controller="Business" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary col-md-4">Delete</a>
+                    </div>
                 }
             </div>
             

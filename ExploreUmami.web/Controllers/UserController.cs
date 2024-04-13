@@ -1,5 +1,6 @@
 ﻿using ExploreUmami.Data.Models;
 using ExploreUmami.Web.ViewModels.User;
+using Griesoft.AspNetCore.ReCaptcha;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -20,12 +21,15 @@ namespace ExploreUmami.Web.Controllers
             this.userManager = userManager;
         }
 
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        [ValidateRecaptcha(Action = nameof(Register),
+            ValidationFailedAction = ValidationFailedAction.ContinueRequest)]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterFormModel model)
         {
@@ -68,6 +72,8 @@ namespace ExploreUmami.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateRecaptcha(Action = nameof(Login),
+            ValidationFailedAction = ValidationFailedAction.ContinueRequest)]
         public async Task<IActionResult> Login(LoginFormModel model)
         {
             if (!ModelState.IsValid)

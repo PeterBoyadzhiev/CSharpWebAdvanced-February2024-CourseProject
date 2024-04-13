@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-4 offset-md-4">
         <section>
-            <form id="account" method="post">
+            <form id="login" method="post">
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating mb-3">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <recaptcha-v3 form-id="login" action="submit" class="w-100 btn btn-lg btn-primary">Log in</recaptcha-v3>
                 </div>
                 <div class="text-center mt-1">
                     <p>
@@ -43,5 +43,6 @@
 </div>
 
 @section Scripts {
+    <recaptcha-script />
     <partial name="_ValidationScriptsPartial" />
 }
