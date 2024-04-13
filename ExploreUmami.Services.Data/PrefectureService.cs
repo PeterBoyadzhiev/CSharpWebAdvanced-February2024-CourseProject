@@ -1,5 +1,6 @@
 ﻿using ExploreUmami.Data;
 using ExploreUmami.Services.Data.Interfaces;
+using ExploreUmami.Web.ViewModels.Business;
 using ExploreUmami.Web.ViewModels.Prefectures;
 using Microsoft.EntityFrameworkCore;
 
@@ -43,6 +44,44 @@ namespace ExploreUmami.Services.Data
                 .ToArrayAsync();
 
             return prefectureNames;
+        }
+
+        public async Task<PrefectureInfoModel> GetPrefectureInfoAsync(string prefecture)
+        {
+            var businessCount = await this.dbContext.Businesses
+                    .Where(b => b.Prefecture.Name == prefecture)
+                    .CountAsync();
+
+            BusinessDetailsViewModel? highestRatedBusiness = null;
+
+
+            if(businessCount > 0)
+            {
+                highestRatedBusiness = await this.dbContext.Businesses
+                    .Where(b => b.Prefecture.Name == prefecture)
+                    .Select(b => new BusinessDetailsViewModel
+                    {
+                        Id = b.Id.ToString(),
+                        Title = b.Title,
+                        Description = b.Description,
+                        ImageUrl = b.ImageUrl,
+                        AverageRating = b.Reviews
+                                    .Any()
+                                    ? b.Reviews.Where(r => r.IsActive).Average(r => r.Rating)
+                                    : 0.0
+                    })
+                    .OrderByDescending(b => b.AverageRating)
+                    .FirstOrDefaultAsync();
+            }
+
+            PrefectureInfoModel model = new PrefectureInfoModel
+            {
+                PrefectureName = prefecture,
+                BusinessCount = businessCount,
+                HighestRatedBusiness = businessCount > 0 ? highestRatedBusiness : null,
+            };
+
+            return model;
         }
     }
 }

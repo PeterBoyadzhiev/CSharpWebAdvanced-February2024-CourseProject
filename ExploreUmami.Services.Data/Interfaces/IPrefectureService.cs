@@ -9,5 +9,7 @@ namespace ExploreUmami.Services.Data.Interfaces
         Task<bool> PrefectureExistsByIdAsync(int id);
 
         Task<IEnumerable<string>> AllPrefectureNamesAsync();
+
+        Task<PrefectureInfoModel> GetPrefectureInfoAsync(string prefecture);
     }
 }

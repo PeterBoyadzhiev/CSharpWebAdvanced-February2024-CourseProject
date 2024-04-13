@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreUmami.Web.Infrastruc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreUmami.Services.Data.Models", "ExploreUmami.Services.Data.Models\ExploreUmami.Services.Data.Models.csproj", "{38C14F71-AC10-4ABA-85ED-BE056EA5F955}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExploreUmami.WebAPI", "ExploreUmami.WebAPI\ExploreUmami.WebAPI.csproj", "{C44BB60E-E022-4059-B5A8-B2D87E369404}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{38C14F71-AC10-4ABA-85ED-BE056EA5F955}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38C14F71-AC10-4ABA-85ED-BE056EA5F955}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38C14F71-AC10-4ABA-85ED-BE056EA5F955}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C44BB60E-E022-4059-B5A8-B2D87E369404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C44BB60E-E022-4059-B5A8-B2D87E369404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C44BB60E-E022-4059-B5A8-B2D87E369404}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C44BB60E-E022-4059-B5A8-B2D87E369404}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{896B7363-3CEC-4890-ABC0-E6198B347868} = {35316D46-4756-45FC-959B-A7D5985B5351}
 		{0EF5C102-38DF-4058-8FC8-586E689EA36B} = {8ED865AC-F6E8-46BE-B96F-38DF0DED886C}
 		{38C14F71-AC10-4ABA-85ED-BE056EA5F955} = {35316D46-4756-45FC-959B-A7D5985B5351}
+		{C44BB60E-E022-4059-B5A8-B2D87E369404} = {8ED865AC-F6E8-46BE-B96F-38DF0DED886C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F0C1DA79-B539-46B0-8A2B-DD17B7B950D5}

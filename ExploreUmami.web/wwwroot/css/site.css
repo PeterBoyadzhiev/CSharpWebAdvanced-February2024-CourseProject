@@ -46,3 +46,7 @@ body{
     max-width: 100%;
     max-height: 400px;
 }
+
+#map-container .hidden{
+    display: none;
+}

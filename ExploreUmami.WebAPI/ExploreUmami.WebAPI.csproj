@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>5d6a589f-9bb8-4dbd-8d32-697e2824bde9</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AppConstantsCommon\ExploreUmami.Common.csproj" />
+    <ProjectReference Include="..\ExploreUmami.Services.Data.Models\ExploreUmami.Services.Data.Models.csproj" />
+    <ProjectReference Include="..\ExploreUmami.Services.Data\ExploreUmami.Services.Data.csproj" />
+    <ProjectReference Include="..\ExploreUmami.Web.Infrastructure\ExploreUmami.Web.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
