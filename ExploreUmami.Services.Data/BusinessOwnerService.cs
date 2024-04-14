@@ -24,35 +24,6 @@ namespace ExploreUmami.Services.Data
             return result;
         }
 
-        public async Task<bool> OwnerExistsByDetailsAsync(string businessName, string businessPhoneNumber, string ownerFirstName, string ownerLastName)
-        { 
-            var existingOwner = await dbContext.BusinessOwners
-                .Where(owner =>
-                    (owner.NameOfBusiness == businessName) ||
-                    (owner.PhoneNumber == businessPhoneNumber) ||
-                    (owner.FirstName == ownerFirstName && owner.LastName == ownerLastName))
-                .FirstOrDefaultAsync();
-
-            if (existingOwner != null)
-            {
-                if (existingOwner.NameOfBusiness == businessName)
-                {
-                    throw new ArgumentException("A business owner with the provided business name already exists.");
-                }
-                if (existingOwner.PhoneNumber == businessPhoneNumber)
-                {
-
-                    throw new ArgumentException("A business owner with the provided phone number already exists.");
-                }
-                if (existingOwner.FirstName == ownerFirstName && existingOwner.LastName == ownerLastName)
-                {
-                    throw new ArgumentException("A business owner with the provided first and last name combination already exists.");
-                }
-            }
-
-            return existingOwner == null;
-        }
-
         public async Task AddOwnerAsync(string userId, SwitchFormModel model)
         {
             ApplicationUser user = await dbContext.Users.FirstAsync(x => x.Id == Guid.Parse(userId));
