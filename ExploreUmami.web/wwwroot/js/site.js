@@ -45,6 +45,7 @@
     function showInfoWindow(info) {
         const prefectureName = document.querySelector('.prefecture-name');
         const businessCount = document.querySelector('.business-count');
+        const highestRated = document.querySelector('.highest-rated');
         const businessImage = document.querySelector('.business-card .card-img-top');
         const businessTitle = document.querySelector('.business-card .card-title');
         const businessDescription = document.querySelector('.business-card .card-text');
@@ -59,13 +60,15 @@
         businessCount.textContent = `${info.businessCount} Businesses`;
 
         if (info.highestRatedBusiness) {
-            cardElement.classList.remove("hidden")
+            cardElement.classList.remove('hidden');
+            highestRated.classList.remove('hidden');
             businessImage.src = info.highestRatedBusiness?.imageUrl;
             businessTitle.textContent = info.highestRatedBusiness?.title;
             businessDescription.textContent = info.highestRatedBusiness?.description;
         }
         else {
             cardElement.classList.add('hidden');
+            highestRated.classList.add('hidden');
         }
         
     }
