@@ -26,8 +26,6 @@ namespace ExploreUmami.Data.Configurations
             ICollection<ApplicationUser> applicationUsers = new HashSet<ApplicationUser>();
 
             var hasher = new PasswordHasher<ApplicationUser>();
-            byte[] randomBytes = RandomNumberGenerator.GetBytes(16); //TODO take this out in a method and generate different security stamp for each user
-            string securityStamp = BitConverter.ToString(randomBytes).Replace("-", "");
 
             ApplicationUser applicationUser;
 
@@ -44,7 +42,7 @@ namespace ExploreUmami.Data.Configurations
             };
 
             applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "123456");
-            applicationUser.SecurityStamp = securityStamp;
+            applicationUser.SecurityStamp = GenerateSecurityStamp();
 
             applicationUsers.Add(applicationUser);
 
@@ -58,7 +56,7 @@ namespace ExploreUmami.Data.Configurations
             };
 
             applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "123456");
-            applicationUser.SecurityStamp = securityStamp;
+            applicationUser.SecurityStamp = GenerateSecurityStamp();
 
             applicationUsers.Add(applicationUser);
 
@@ -75,7 +73,7 @@ namespace ExploreUmami.Data.Configurations
             };
 
             applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "123456");
-            applicationUser.SecurityStamp = securityStamp;
+            applicationUser.SecurityStamp = GenerateSecurityStamp();
             applicationUsers.Add(applicationUser);
 
             applicationUser = new ApplicationUser
@@ -91,7 +89,7 @@ namespace ExploreUmami.Data.Configurations
             };
 
             applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "123456");
-            applicationUser.SecurityStamp = securityStamp;
+            applicationUser.SecurityStamp = GenerateSecurityStamp();
             applicationUsers.Add(applicationUser);
 
             applicationUser = new ApplicationUser
@@ -106,10 +104,16 @@ namespace ExploreUmami.Data.Configurations
             };
 
             applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "123456");
-            applicationUser.SecurityStamp = securityStamp;
+            applicationUser.SecurityStamp = GenerateSecurityStamp();
             applicationUsers.Add(applicationUser);
 
             return applicationUsers.ToArray();
+        }
+
+        private string GenerateSecurityStamp()
+        {
+            byte[] randomBytes = RandomNumberGenerator.GetBytes(16);
+            return BitConverter.ToString(randomBytes).Replace("-", "");
         }
     }  
 }
