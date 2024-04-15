@@ -1,6 +1,5 @@
 ﻿using ExploreUmami.Services.Data;
 using ExploreUmami.Services.Data.Interfaces;
-using ExploreUmami.Services.Tests.Mocks;
 using ExploreUmami.Web.ViewModels.BusinessOwner;
 
 namespace ExploreUmami.Services.Tests.UnitTests
