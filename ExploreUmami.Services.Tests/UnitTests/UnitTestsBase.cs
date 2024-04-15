@@ -1,5 +1,6 @@
 ﻿using ExploreUmami.Data;
 using ExploreUmami.Data.Models;
+using ExploreUmami.Data.Models.Enums;
 using ExploreUmami.Services.Tests.Mocks;
 
 namespace ExploreUmami.Services.Tests.UnitTests
@@ -8,11 +9,10 @@ namespace ExploreUmami.Services.Tests.UnitTests
     {
         protected ExploreUmamiDbContext _data;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUpBase()
         {
             _data = DatabaseMock.Instance;
-
             SeedDatabase();
         }
 
@@ -20,6 +20,15 @@ namespace ExploreUmami.Services.Tests.UnitTests
         public ApplicationUser User2 { get; private set; }
         public ApplicationUser BusinessOwnerUser { get; private set; }
         public BusinessOwner BusinessOwner { get; private set; }
+        public Business Business { get; private set; }
+        public Business Business2 { get; private set; }
+        public Prefecture Prefecture { get; private set; }
+        public Prefecture Prefecture2 { get; private set; }
+        public Category Category { get; private set; }
+        public Category Category2 { get; private set; }
+        public Reservation Reservation { get; private set; }
+        public UserVisit UserVisit { get; private set; }
+        public Review Review { get; private set; }
 
         public void SeedDatabase()
         {
@@ -83,10 +92,108 @@ namespace ExploreUmami.Services.Tests.UnitTests
                 LastName = "Doe",
                 NameOfBusiness = "John's Restaurant",
                 PhoneNumber = "12-3456-7890",
-                UserId = Guid.Parse("330734B1-7BC6-43C7-8D38-FFD1A8C952C8")
+                UserId = Guid.Parse("330734B1-7BC6-43C7-8D38-FFD1A8C952C8"),
+                User = BusinessOwnerUser
             };
 
             _data.BusinessOwners.Add(BusinessOwner);
+
+            Prefecture = new Prefecture
+            {
+                Name = "Hokkaido"
+            };
+
+            _data.Prefectures.Add(Prefecture);
+
+            Prefecture2 = new Prefecture
+            {
+                Name = "Tokyo"
+            };
+
+            _data.Prefectures.Add(Prefecture2);
+
+            Category = new Category
+            {
+                Name = "Restaurant"
+            };
+
+            _data.Categories.Add(Category);
+
+            Category2 = new Category
+            {
+                Name = "Cafe"
+            };
+
+            _data.Categories.Add(Category2);
+
+            Business = new Business
+            {
+                Id = Guid.Parse("123CF5E9-DEFA-4BE9-831C-5A2021D8725D"),
+                Title = "Restaurant",
+                Description = "A place where you can eat food",
+                Address = "123 Main Street",
+                PhoneNumber = "12-3456-7890",
+                WebsiteUrl = "https://www.restaurant.com",
+                ImageUrl = "https://dummyimage.com/400x200",
+                CategoryId = 1,
+                PrefectureId = 1,
+                IsActive = true,
+                IsApproved = true,
+                BusinessOwnerId = Guid.Parse("330734B1-7BC6-43C7-8D38-FFD1A8C952C8"),
+                BusinessOwner = BusinessOwner
+            };
+
+            _data.Businesses.Add(Business);
+
+            Business2 = new Business
+            {
+                Id = Guid.Parse("1BD6BFCC-71EB-4575-964E-09ECC600AD29"),
+                Title = "Cafe",
+                Description = "A place where you can drink coffee",
+                Address = "124 Main Street",
+                PhoneNumber = "12-3456-7890",
+                WebsiteUrl = "https://www.cafe.com",
+                ImageUrl = "https://dummyimage.com/400x200",
+                CategoryId = 2,
+                PrefectureId = 2,
+                IsActive = false,
+                IsApproved = false,
+                BusinessOwnerId = Guid.Parse("330734B1-7BC6-43C7-8D38-FFD1A8C952C8"),
+                BusinessOwner = BusinessOwner
+            };
+
+            _data.Businesses.Add(Business2);
+
+            Reservation = new Reservation
+            {
+                BusinessId = Guid.Parse("123CF5E9-DEFA-4BE9-831C-5A2021D8725D"),
+                UserId = Guid.Parse("FB3DE047-2B22-4EE8-A038-85DC5EE1BDD2"),
+                ReservationDate = DateTime.UtcNow,
+                Status = ReservationStatus.Completed
+            };
+
+            _data.Reservations.Add(Reservation);
+
+            UserVisit = new UserVisit
+            {
+                BusinessId = Guid.Parse("123CF5E9-DEFA-4BE9-831C-5A2021D8725D"),
+                UserId = Guid.Parse("FB3DE047-2B22-4EE8-A038-85DC5EE1BDD2"),
+                VisitDate = DateTime.UtcNow
+            };
+
+            _data.UserVisits.Add(UserVisit);
+
+            Review = new Review
+            {
+                Rating = 5,
+                Subject = "Great place!",
+                Content = "I had a great time at this place!",
+                ReviewerId = Guid.Parse("FB3DE047-2B22-4EE8-A038-85DC5EE1BDD2"),
+                BusinessId = Guid.Parse("123CF5E9-DEFA-4BE9-831C-5A2021D8725D"),
+                IsActive = true,
+            };
+
+            _data.Reviews.Add(Review);
 
             _data.SaveChanges();
         }
@@ -94,6 +201,7 @@ namespace ExploreUmami.Services.Tests.UnitTests
         [OneTimeTearDown]
         public void TearDownBase()
         {
+            _data.Database.EnsureDeleted();
             _data.Dispose();
         }
     }

@@ -1,5 +1,6 @@
 ﻿using ExploreUmami.Services.Data;
 using ExploreUmami.Services.Data.Interfaces;
+using ExploreUmami.Services.Tests.Mocks;
 using ExploreUmami.Web.ViewModels.BusinessOwner;
 
 namespace ExploreUmami.Services.Tests.UnitTests
@@ -8,10 +9,9 @@ namespace ExploreUmami.Services.Tests.UnitTests
     {
         private IBusinessOwnerService _businessOwnerService;
 
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
+        [SetUp]
+        public void SetUp()
         {
-            _data.Database.EnsureCreated();
             _businessOwnerService = new BusinessOwnerService(_data);
         }
 
