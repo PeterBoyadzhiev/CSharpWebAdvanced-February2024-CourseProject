@@ -8,10 +8,21 @@ namespace ExploreUmami.Data
 {
     public class ExploreUmamiDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
-        public ExploreUmamiDbContext(DbContextOptions<ExploreUmamiDbContext> options)
+        private bool seedDb;
+
+        public ExploreUmamiDbContext(DbContextOptions<ExploreUmamiDbContext> options, bool seed = true)
             : base(options)
         {
+            if(Database.IsRelational())
+            {
+                Database.Migrate();
+            }
+            else
+            {
+                Database.EnsureCreated();
+            }
 
+            this.seedDb = seed;
         }
 
         public DbSet<Business> Businesses { get; set; } = null!;
@@ -31,8 +42,11 @@ namespace ExploreUmami.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            Assembly configAssembly = Assembly.GetAssembly(typeof(ExploreUmamiDbContext)) ?? Assembly.GetExecutingAssembly();
-            builder.ApplyConfigurationsFromAssembly(configAssembly);
+            if(this.seedDb)
+            {
+                Assembly configAssembly = Assembly.GetAssembly(typeof(ExploreUmamiDbContext)) ?? Assembly.GetExecutingAssembly();
+                builder.ApplyConfigurationsFromAssembly(configAssembly);
+            }
 
             base.OnModelCreating(builder);
         }

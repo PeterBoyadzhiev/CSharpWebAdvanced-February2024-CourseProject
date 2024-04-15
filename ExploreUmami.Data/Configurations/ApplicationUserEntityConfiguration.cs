@@ -52,7 +52,9 @@ namespace ExploreUmami.Data.Configurations
                 UserName = "businessowner@gmail.com",
                 NormalizedUserName = "BUSINESSOWNER@GMAIL.COM",
                 Email = "businessowner@gmail.com",
-                NormalizedEmail = "BUSINESSOWNER@GMAIL.COM"
+                NormalizedEmail = "BUSINESSOWNER@GMAIL.COM",
+                FirstName = "Jon",
+                LastName = "Doe"
             };
 
             applicationUser.PasswordHash = hasher.HashPassword(applicationUser, "123456");
