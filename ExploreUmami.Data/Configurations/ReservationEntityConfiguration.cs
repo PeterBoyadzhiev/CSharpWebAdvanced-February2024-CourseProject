@@ -2,9 +2,11 @@
 using ExploreUmami.Data.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ExploreUmami.Data.Configurations
 {
+    [ExcludeFromCodeCoverage]
     public class ReservationEntityConfiguration : IEntityTypeConfiguration<Reservation>
     {
         public void Configure(EntityTypeBuilder<Reservation> builder)

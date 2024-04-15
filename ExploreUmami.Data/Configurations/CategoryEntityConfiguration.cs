@@ -1,10 +1,12 @@
 ﻿using ExploreUmami.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ExploreUmami.Data.Configurations
 {
-    internal class CategoryEntityConfiguration : IEntityTypeConfiguration<Category>
+    [ExcludeFromCodeCoverage]
+    public class CategoryEntityConfiguration : IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {

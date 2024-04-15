@@ -1,11 +1,12 @@
 ﻿using ExploreUmami.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Net.NetworkInformation;
+using System.Diagnostics.CodeAnalysis;
 
 
 namespace ExploreUmami.Data.Configurations
 {
+    [ExcludeFromCodeCoverage]
     public class BusinessOwnerEntityConfiguration : IEntityTypeConfiguration<BusinessOwner>
     {
         public void Configure(EntityTypeBuilder<BusinessOwner> builder)

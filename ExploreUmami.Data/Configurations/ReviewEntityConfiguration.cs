@@ -1,10 +1,12 @@
 ﻿using ExploreUmami.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Diagnostics.CodeAnalysis;
 using static ExploreUmami.Common.ValidationConstants.Review;
 
 namespace ExploreUmami.Data.Configurations
 {
+    [ExcludeFromCodeCoverage]
     public class ReviewEntityConfiguration : IEntityTypeConfiguration<Review>
     {
         public void Configure(EntityTypeBuilder<Review> builder)

@@ -1,10 +1,12 @@
 ﻿using ExploreUmami.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ExploreUmami.Data.Configurations
 {
-    internal class PrefectureEntityConfiguration : IEntityTypeConfiguration<Prefecture>
+    [ExcludeFromCodeCoverage]
+    public class PrefectureEntityConfiguration : IEntityTypeConfiguration<Prefecture>
     {
         public void Configure(EntityTypeBuilder<Prefecture> builder)
         {
