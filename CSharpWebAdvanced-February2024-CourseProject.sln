@@ -29,7 +29,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreUmami.WebAPI", "Expl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E57577C0-AF5D-4090-B9C6-4C6B398B5D5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExploreUmami.Services.Tests", "ExploreUmami.Services.Tests\ExploreUmami.Services.Tests.csproj", "{D516942E-7E3F-4DD4-9527-BF16D575A064}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreUmami.Services.Tests", "ExploreUmami.Services.Tests\ExploreUmami.Services.Tests.csproj", "{D516942E-7E3F-4DD4-9527-BF16D575A064}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{850B4200-0394-474D-9D8E-2B6CEA2771B9}"
+	ProjectSection(SolutionItems) = preProject
+		README.txt = README.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

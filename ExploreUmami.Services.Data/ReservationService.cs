@@ -88,7 +88,7 @@ namespace ExploreUmami.Services.Data
                 .Include(r => r.User)
                 .Include(r => r.Business)
                 .Where(r => r.UserId == Guid.Parse(userId) && r.Business.IsActive)
-                .OrderByDescending(r => r.Status)
+                .OrderBy(r => r.Status)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filterModel.SearchTerm))
