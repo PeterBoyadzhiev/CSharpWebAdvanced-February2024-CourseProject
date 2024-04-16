@@ -14,12 +14,10 @@ namespace ExploreUmami.Services.Data
     public class UserVisitService : IUserVisitService
     {
         private readonly ExploreUmamiDbContext dbContext;
-        private readonly IReviewService reviewService;
 
-        public UserVisitService(ExploreUmamiDbContext dbContext, IReviewService reviewService)
+        public UserVisitService(ExploreUmamiDbContext dbContext)
         {
             this.dbContext = dbContext;
-            this.reviewService = reviewService;
         }
 
         public async Task AddUserVisitForCompletedReservationAsync(Guid reservationId, string? notes)

@@ -189,10 +189,5 @@ namespace ExploreUmami.Services.Tests.UnitTests
             Assert.That(review.Subject, Is.EqualTo(editModel.Subject));
             Assert.That(review.Content, Is.EqualTo(editModel.Content));
         }
-
-        [Test]
-
-
-
     }
 }
