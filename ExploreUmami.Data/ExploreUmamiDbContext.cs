@@ -42,11 +42,9 @@ namespace ExploreUmami.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            if(this.seedDb)
-            {
-                Assembly configAssembly = Assembly.GetAssembly(typeof(ExploreUmamiDbContext)) ?? Assembly.GetExecutingAssembly();
-                builder.ApplyConfigurationsFromAssembly(configAssembly);
-            }
+            Assembly configAssembly = Assembly.GetAssembly(typeof(ExploreUmamiDbContext)) ?? Assembly.GetExecutingAssembly();
+            builder.ApplyConfigurationsFromAssembly(configAssembly);
+            
 
             base.OnModelCreating(builder);
         }

@@ -34,7 +34,7 @@ namespace ExploreUmami.Services.Tests.UnitTests
 
             await _businessService.AddBusinessAsync(business, ownerId.ToString());
 
-            Assert.That(_data.Businesses.Count(), Is.EqualTo(3));
+            Assert.That(_data.Businesses.Count(), Is.EqualTo(11));
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace ExploreUmami.Services.Tests.UnitTests
 
             var result = await _businessService.GetBusinessFilteredAsync(filterModel);
 
-            Assert.That(result.Businesses.Count(), Is.EqualTo(1));
+            Assert.That(result.Businesses.Count(), Is.EqualTo(2));
         }
 
         [Test]
@@ -64,7 +64,7 @@ namespace ExploreUmami.Services.Tests.UnitTests
 
             var result = await _businessService.GetBusinessFilteredAsync(filterModel);
 
-            Assert.That(result.Businesses.Count(), Is.EqualTo(1));
+            Assert.That(result.Businesses.Count(), Is.EqualTo(2));
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace ExploreUmami.Services.Tests.UnitTests
 
             var result = await _businessService.GetBusinessFilteredAsync(filterModel);
 
-            Assert.That(result.Businesses.Count(), Is.EqualTo(1));
+            Assert.That(result.Businesses.Count(), Is.EqualTo(2));
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace ExploreUmami.Services.Tests.UnitTests
 
             var result = await _businessService.GetBusinessFilteredAsync(filterModel);
 
-            Assert.That(result.Businesses.Count(), Is.EqualTo(1));
+            Assert.That(result.Businesses.Count(), Is.EqualTo(2));
         }
 
         [Test]
@@ -110,7 +110,7 @@ namespace ExploreUmami.Services.Tests.UnitTests
 
             var result = await _businessService.GetBusinessFilteredForAdminAsync(filterModel);
 
-            Assert.That(result.Businesses.Count(), Is.EqualTo(2));
+            Assert.That(result.Businesses.Count(), Is.EqualTo(3));
         }
 
         [Test]
@@ -125,7 +125,7 @@ namespace ExploreUmami.Services.Tests.UnitTests
 
             var result = await _businessService.GetBusinessFilteredForAdminAsync(filterModel);
 
-            Assert.That(result.Businesses.Count(), Is.EqualTo(1));
+            Assert.That(result.Businesses.Count(), Is.EqualTo(2));
         }
 
         [Test]
@@ -133,14 +133,14 @@ namespace ExploreUmami.Services.Tests.UnitTests
         {
             var filterModel = new BusinessAllFilterModel
             {
-                Prefecture = "Tokyo",
+                Prefecture = "Hokkaido",
                 CurrentPage = 1,
                 BusinessPerPage = 3,
             };
 
             var result = await _businessService.GetBusinessFilteredForAdminAsync(filterModel);
 
-            Assert.That(result.Businesses.Count(), Is.EqualTo(1));
+            Assert.That(result.Businesses.Count(), Is.EqualTo(3));
         }
 
         [Test]
@@ -214,7 +214,7 @@ namespace ExploreUmami.Services.Tests.UnitTests
             var userId = Guid.NewGuid();
             var businessId = Guid.NewGuid();
 
-            Assert.ThrowsAsync<InvalidOperationException>(() => _businessService.IsUserOwnerOfBusinessByIdsAsync(userId.ToString(), businessId.ToString()));
+            Assert.ThrowsAsync<InvalidOperationException>(async () => await _businessService.IsUserOwnerOfBusinessByIdsAsync(userId.ToString(), businessId.ToString()));
         }
 
         [Test]
@@ -311,7 +311,7 @@ namespace ExploreUmami.Services.Tests.UnitTests
 
             var result = await _businessService.GetBusinessesPerPrefectureAsync(prefecture);
 
-            Assert.That(result.Count(), Is.EqualTo(1));
+            Assert.That(result.Count(), Is.EqualTo(2));
         }
 
         [Test]
@@ -351,7 +351,7 @@ namespace ExploreUmami.Services.Tests.UnitTests
 
             var result = await _businessService.GetLastThreeBusinessesForApprovalAsync();
 
-            Assert.That(result.Count(), Is.EqualTo(2));
+            Assert.That(result.Count(), Is.EqualTo(3));
         }
 
         [Test]
@@ -407,7 +407,7 @@ namespace ExploreUmami.Services.Tests.UnitTests
 
             var result = await _businessService.GetBusinessesForApprovalAsync();
 
-            Assert.That(result.Count(), Is.EqualTo(3));
+            Assert.That(result.Count(), Is.EqualTo(5));
         }
 
         [Test]

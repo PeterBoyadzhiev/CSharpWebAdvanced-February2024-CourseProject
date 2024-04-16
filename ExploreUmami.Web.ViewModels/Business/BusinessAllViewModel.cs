@@ -2,7 +2,7 @@
 {
     public class BusinessAllViewModel
     {
-        public string Id { get; set; } = null!;
+        public Guid Id { get; set; }
 
         public string Title { get; set; } = null!;
 

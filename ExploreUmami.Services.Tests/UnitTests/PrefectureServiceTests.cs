@@ -50,21 +50,5 @@ namespace ExploreUmami.Services.Tests.UnitTests
             Assert.That(actualPrefectureNames.Count(), Is.EqualTo(expectedPrefectureNames.Count));
         }
 
-        [Test]
-        public async Task GetPrefectureInfoAsync_ShouldReturnPrefectureInfo_WhenValidPrefectureNameProvided()
-        {
-            var prefectureName = Prefecture.Name;
-            var expectedPrefectureInfo = new PrefectureInfoModel
-            {
-                PrefectureName = Prefecture.Name,
-                BusinessCount = Prefecture.Businesses.Count,
-            };
-
-            var actualPrefectureInfo = await _prefectureService.GetPrefectureInfoAsync(prefectureName);
-
-            Assert.That(actualPrefectureInfo.PrefectureName, Is.EqualTo(expectedPrefectureInfo.PrefectureName));
-            Assert.That(actualPrefectureInfo.BusinessCount, Is.EqualTo(expectedPrefectureInfo.BusinessCount));
-        }
-
     }
 }

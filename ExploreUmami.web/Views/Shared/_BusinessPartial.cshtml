@@ -12,7 +12,7 @@
     {
         isOwner = await this.BusinessOwnerService.IsOwnerByUserIdAsync(User.GetId());
 
-        isOwnerOfBusiness = await this.BusinessService.IsUserOwnerOfBusinessByIdsAsync(User.GetId(), Model.Id);
+        isOwnerOfBusiness = await this.BusinessService.IsUserOwnerOfBusinessByIdsAsync(User.GetId(), Model.Id.ToString());
 
         isAdmin = User.IsInRole(AdminRoleName);
     } 

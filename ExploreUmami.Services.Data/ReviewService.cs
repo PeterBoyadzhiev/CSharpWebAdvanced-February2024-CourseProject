@@ -32,7 +32,7 @@ namespace ExploreUmami.Services.Data
                     IsActive = r.IsActive,
                     Business = new BusinessDetailsViewModel()
                     {
-                        Id = r.Business.Id.ToString(),
+                        Id = r.Business.Id,
                         Title = r.Business.Title,
                     },
                     Reviewer = new UserDetailsViewModel()

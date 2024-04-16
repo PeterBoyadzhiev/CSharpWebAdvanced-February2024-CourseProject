@@ -16,11 +16,11 @@
     @if (User.Identity?.IsAuthenticated ?? false)
     {
         isOwner = await this.BusinessOwnerService.IsOwnerByUserIdAsync(User.GetId());
-        hasVisited = await this.UserVisitService.UserHasVisitAsync(User.GetId(), Model.Id);
-        isReviewed = await this.ReviewService.ReviewExistsByUserForBusinessAsync(User.GetId(), Model.Id);
-        isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(User.GetId(), Model.Id);
+        hasVisited = await this.UserVisitService.UserHasVisitAsync(User.GetId(), Model.Id.ToString());
+        isReviewed = await this.ReviewService.ReviewExistsByUserForBusinessAsync(User.GetId(), Model.Id.ToString());
+        isOwnerOfBusiness = await this.businessService.IsUserOwnerOfBusinessByIdsAsync(User.GetId(), Model.Id.ToString());
         isAdmin = User.IsInRole(AdminRoleName);
-        isApproved = await this.businessService.IsBusinessApprovedAsync(Model.Id);
+        isApproved = await this.businessService.IsBusinessApprovedAsync(Model.Id.ToString());
     }  
 }
 

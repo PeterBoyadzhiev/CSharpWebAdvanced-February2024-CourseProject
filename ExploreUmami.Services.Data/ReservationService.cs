@@ -27,7 +27,7 @@ namespace ExploreUmami.Services.Data
                 .Where(r => r.Business.BusinessOwnerId == Guid.Parse(ownerId) && r.Business.IsActive)
                 .Include(r => r.User)
                 .Include(r => r.Business)
-                .OrderByDescending(r => r.Status)
+                .OrderBy(r => r.Status)
                 .ThenByDescending(r => r.ReservationDate)
                 .AsQueryable();
 
@@ -57,7 +57,7 @@ namespace ExploreUmami.Services.Data
                     Id = r.Id,
                     Business = new BusinessDetailsReservationViewModel
                     {
-                        Id = r.Business.Id.ToString(),
+                        Id = r.Business.Id,
                         Title = r.Business.Title,
                         Address = r.Business.Address,
                         PhoneNumber = r.Business.PhoneNumber,
@@ -112,7 +112,7 @@ namespace ExploreUmami.Services.Data
                     Id = r.Id,
                     Business = new BusinessDetailsReservationViewModel
                     {
-                        Id = r.Business.Id.ToString(),
+                        Id = r.Business.Id,
                         Title = r.Business.Title,
                         Address = r.Business.Address,
                         PhoneNumber = r.Business.PhoneNumber,

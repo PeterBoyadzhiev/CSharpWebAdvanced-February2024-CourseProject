@@ -39,7 +39,7 @@ namespace ExploreUmami.Web.Controllers
                 foreach (var visit in model)
                 {
                     visit.HasReview = await reviewService.UserHasReviewForVisitAsync(userId, visit.Id);
-                    bool hasVisited = await userVisitService.UserHasVisitAsync(userId, visit.Business.Id);
+                    bool hasVisited = await userVisitService.UserHasVisitAsync(userId, visit.Business.Id.ToString());
                 }
 
                 

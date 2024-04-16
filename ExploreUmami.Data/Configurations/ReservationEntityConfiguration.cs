@@ -12,11 +12,6 @@ namespace ExploreUmami.Data.Configurations
         public void Configure(EntityTypeBuilder<Reservation> builder)
         {
             builder
-                .Property(r => r.Status)
-                .HasConversion<string>()
-                .HasDefaultValue(ReservationStatus.Pending);
-
-            builder
                 .HasOne(r => r.Business)
                 .WithMany(b => b.Reservations)
                 .HasForeignKey(r => r.BusinessId)

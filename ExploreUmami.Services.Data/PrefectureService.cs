@@ -49,7 +49,7 @@ namespace ExploreUmami.Services.Data
         public async Task<PrefectureInfoModel> GetPrefectureInfoAsync(string prefecture)
         {
             var businessCount = await this.dbContext.Businesses
-                    .Where(b => b.Prefecture.Name == prefecture)
+                    .Where(b => b.Prefecture.Name == prefecture && (b.IsActive && b.IsApproved))
                     .CountAsync();
 
             BusinessDetailsViewModel? highestRatedBusiness = null;
@@ -61,7 +61,7 @@ namespace ExploreUmami.Services.Data
                     .Where(b => b.Prefecture.Name == prefecture)
                     .Select(b => new BusinessDetailsViewModel
                     {
-                        Id = b.Id.ToString(),
+                        Id = b.Id,
                         Title = b.Title,
                         Description = b.Description,
                         ImageUrl = b.ImageUrl,

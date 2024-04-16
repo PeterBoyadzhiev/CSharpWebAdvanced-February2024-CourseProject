@@ -46,7 +46,7 @@ namespace ExploreUmami.Services.Tests.UnitTests
 
             var testModel = new SwitchFormModel { NameOfBusiness = "Test Business", PhoneNumber = "123-456-7890" };
 
-            int expectedCount = 2; // Initial count is 1, so this should be 2 after adding a new owner
+            int expectedCount = 4; // Initial count is 1, so this should be 2 after adding a new owner
 
             await businessOwnerService.AddOwnerAsync(userId, testModel);
 

@@ -56,7 +56,7 @@ namespace ExploreUmami.Services.Data
                     Notes = uv.Notes,
                     Business = new BusinessDetailsViewModel
                     {
-                        Id = uv.Business.Id.ToString(),
+                        Id = uv.Business.Id,
                         Title = uv.Business.Title,
                     },
                     User = new UserDetailsViewModel
@@ -109,7 +109,7 @@ namespace ExploreUmami.Services.Data
                     Notes = uv.Notes,
                     Business = new BusinessDetailsViewModel
                     {
-                        Id = uv.Business.Id.ToString(),
+                        Id = uv.Business.Id,
                         Title = uv.Business.Title,
                     },
                     User = new UserDetailsViewModel

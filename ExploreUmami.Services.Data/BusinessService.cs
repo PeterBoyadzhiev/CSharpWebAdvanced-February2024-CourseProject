@@ -88,7 +88,7 @@ namespace ExploreUmami.Services.Data
                 .Take(filterModel.BusinessPerPage)
                 .Select(b => new BusinessAllViewModel
                 {
-                    Id = b.Id.ToString(),
+                    Id = b.Id,
                     Title = b.Title,
                     Description = b.Description,
                     ImageUrl = b.ImageUrl,
@@ -158,7 +158,7 @@ namespace ExploreUmami.Services.Data
                 .Take(filterModel.BusinessPerPage)
                 .Select(b => new BusinessAllViewModel
                 {
-                    Id = b.Id.ToString(),
+                    Id = b.Id,
                     Title = b.Title,
                     Description = b.Description,
                     ImageUrl = b.ImageUrl,
@@ -184,7 +184,7 @@ namespace ExploreUmami.Services.Data
                 .Where(b => b.IsActive == true && b.IsApproved == true && b.BusinessOwnerId == Guid.Parse(ownerId))
                 .Select(b => new BusinessAllViewModel
                 {
-                    Id = b.Id.ToString(),
+                    Id = b.Id,
                     Title = b.Title,
                     Description = b.Description,
                     ImageUrl = b.ImageUrl,
@@ -213,7 +213,7 @@ namespace ExploreUmami.Services.Data
 
             return new BusinessDetailsViewModel()
             {
-                Id = business.Id.ToString(),
+                Id = business.Id,
                 Title = business.Title,
                 Description = business.Description,
                 Address = business.Address,
@@ -337,7 +337,7 @@ namespace ExploreUmami.Services.Data
                 .Where(b => b.Id.ToString() == businessId)
                 .Select(b => new BusinessDetailsReservationViewModel
                 {
-                    Id = b.Id.ToString(),
+                    Id = b.Id,
                     Title = b.Title,
                     Description = b.Description,
                     Address = b.Address,
@@ -354,12 +354,12 @@ namespace ExploreUmami.Services.Data
         {
             IEnumerable<BusinessAllViewModel> businesses = await this.dbContext
                 .Businesses
-                .Where(b => b.Prefecture.Name == prefecture && b.IsActive == true)
+                .Where(b => b.Prefecture.Name == prefecture && (b.IsActive == true && b.IsApproved))
                 .OrderByDescending(b => b.CreatedOn)
                 .ThenBy(b => b.Title)
                 .Select(b => new BusinessAllViewModel
                 {
-                    Id = b.Id.ToString(),
+                    Id = b.Id,
                     Title = b.Title,
                     Description = b.Description,
                     ImageUrl = b.ImageUrl,
@@ -378,7 +378,7 @@ namespace ExploreUmami.Services.Data
                 .Take(3)
                 .Select(h => new BusinessAllViewModel
                 {
-                    Id = h.Id.ToString(),
+                    Id = h.Id,
                     Title = h.Title,
                     Description = h.Description,
                     ImageUrl = h.ImageUrl,
@@ -398,7 +398,7 @@ namespace ExploreUmami.Services.Data
                 .OrderByDescending(h => h.CreatedOn)
                 .Select(h => new BusinessAllViewModel
                 {
-                    Id = h.Id.ToString(),
+                    Id = h.Id,
                     Title = h.Title,
                     Description = h.Description,
                     ImageUrl = h.ImageUrl,

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExploreUmami.Data.Migrations
 {
     [DbContext(typeof(ExploreUmamiDbContext))]
-    [Migration("20240412204700_SeedReviews")]
-    partial class SeedReviews
+    [Migration("20240416191350_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -108,7 +108,7 @@ namespace ExploreUmami.Data.Migrations
                         {
                             Id = new Guid("ded2ed0c-9d4f-4d1d-9be1-a0b183548bfc"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3ac31b6a-be17-4346-9c76-b833b5eac984",
+                            ConcurrencyStamp = "1b65821c-73e4-43ad-bf94-d230ab58cb65",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -116,9 +116,9 @@ namespace ExploreUmami.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFqmxayqAFuJZLvJwmZAg876uT8KQ4uuS89dX5fro5yuZEEEEhz7OvorMYkrz/3ioQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJ/pGWZwn3wdMgBX0mEW90ofiFYDGFWhSnK5t2itUCJmOGsej7yPG6pzoVmsjvbVOg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0D1C82E31145A2FC088783CFA54F0D88",
+                            SecurityStamp = "652A09CC512DBF378382884ADD53F2F5",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         },
@@ -126,15 +126,17 @@ namespace ExploreUmami.Data.Migrations
                         {
                             Id = new Guid("1ae80037-f648-442e-a309-4b94a3d1315c"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a3e56514-6bad-48bc-9529-54e294a27ce3",
+                            ConcurrencyStamp = "0283a8e2-8aff-4d2a-8cbb-23da5c543145",
                             Email = "businessowner@gmail.com",
                             EmailConfirmed = false,
+                            FirstName = "Jon",
+                            LastName = "Doe",
                             LockoutEnabled = false,
                             NormalizedEmail = "BUSINESSOWNER@GMAIL.COM",
                             NormalizedUserName = "BUSINESSOWNER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFpM8m9Lc0PbouixssuKq5dyGstnTRFo9PResMYRBzCctJZK7MOptQgcxQVcrtF/gg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEObEfuXF6olj8jlSyytC8lqSbMuosrzoknm4CCL2ESnrBCWMxBrxSQk2BJp/tjYC5A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0D1C82E31145A2FC088783CFA54F0D88",
+                            SecurityStamp = "DB5B2C34E2E912E60E3DFFE6F2BC2E91",
                             TwoFactorEnabled = false,
                             UserName = "businessowner@gmail.com"
                         },
@@ -142,7 +144,7 @@ namespace ExploreUmami.Data.Migrations
                         {
                             Id = new Guid("b43c3753-de4e-4417-b2ad-1c029c7b9795"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fbc0e856-2411-419b-b8d2-8c4cb30e428d",
+                            ConcurrencyStamp = "e1124013-8c9d-4855-98a7-dd54e1d120b6",
                             Email = "businessowner2@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Jane",
@@ -150,9 +152,9 @@ namespace ExploreUmami.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "BUSINESSOWNER2@GMAIL.COM",
                             NormalizedUserName = "BUSINESSOWNER2@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBQx5mIjEaVgmirYSRLb60phTryFWFlY5+lve9yE/i6BfCsMlWcONzTZcZ+jDCVklg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAnKxBds2Ub+S2l3UtYBB03AYs8m9Su+1DaJUfC0Y/J1PQ9mseSHua0i0vuHBxdG0g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0D1C82E31145A2FC088783CFA54F0D88",
+                            SecurityStamp = "0D9D8B5F48C672211364E9F0433D48CD",
                             TwoFactorEnabled = false,
                             UserName = "businessowner2@gmail.com"
                         },
@@ -160,7 +162,7 @@ namespace ExploreUmami.Data.Migrations
                         {
                             Id = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "05ee465d-3918-45bc-84a3-71649f06b7cc",
+                            ConcurrencyStamp = "46327f41-963c-428b-9266-069a5c87689c",
                             Email = "reviewer@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Jovani",
@@ -168,9 +170,9 @@ namespace ExploreUmami.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "REVIEWER@GMAIL.COM",
                             NormalizedUserName = "REVIEWER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEb2HJbsLlg2vhHO7SY/s1+N+Pd+3k3h2osl3R2aubAD/zX4Xmb7L8/5o9TS57neYg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK4ZbhpyhUP0fqbSUc5DmKCHruWqndzOkdcAIKCwTq501PmO1QK7WLklS6qmDyUgDA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0D1C82E31145A2FC088783CFA54F0D88",
+                            SecurityStamp = "B77562F24ECF7CF97C86903E54A9F911",
                             TwoFactorEnabled = false,
                             UserName = "reviewer@gmail.com"
                         },
@@ -178,7 +180,7 @@ namespace ExploreUmami.Data.Migrations
                         {
                             Id = new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f972e454-805a-4c16-992b-569def512a2f",
+                            ConcurrencyStamp = "f06fb22b-5bdc-4c20-ba4e-673617c69125",
                             Email = "reviewer2@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Janette",
@@ -186,9 +188,9 @@ namespace ExploreUmami.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "REVIEWER2@GMAIL.COM",
                             NormalizedUserName = "REVIEWER2@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGHpOdP+91yORYhiFujQA8K1qowxRnfG+yW/JzFtgZb3/ZO53iS0Es7+/2DdSDKg+g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI/s7UpAAb1/sNfBDlbo1SeZGX0qUOdQgYnwfjoh1KBx5eB5y85KkTaSxk3ZTH+/Kw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0D1C82E31145A2FC088783CFA54F0D88",
+                            SecurityStamp = "54B832A01E6E3DA4DFA8FF4F07416ECB",
                             TwoFactorEnabled = false,
                             UserName = "reviewer2@gmail.com"
                         });
@@ -351,7 +353,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("96f83ecc-8818-42a1-a2b6-d9871d5871c6"),
+                            Id = new Guid("77f46bea-82df-4089-8165-237317b2b501"),
                             Address = "1516 Maple Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 6,
@@ -367,7 +369,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("abe0f7eb-bec3-4bd0-8826-629358d10483"),
+                            Id = new Guid("08bbe192-9ab3-45f6-aa3c-7429e8078669"),
                             Address = "1718 Walnut Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 7,
@@ -383,7 +385,7 @@ namespace ExploreUmami.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a9b00a38-d114-4ca8-ace9-2e20f6b798a5"),
+                            Id = new Guid("56955419-0b8e-4ca0-9bcb-96824ed5dfba"),
                             Address = "1920 Cherry Street",
                             BusinessOwnerId = new Guid("e826ff19-1946-4237-b266-e326cbead8ff"),
                             CategoryId = 8,
@@ -796,11 +798,8 @@ namespace ExploreUmami.Data.Migrations
                     b.Property<DateTime>("ReservationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("Pending");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -818,8 +817,8 @@ namespace ExploreUmami.Data.Migrations
                         {
                             Id = new Guid("ccbf170d-f0a7-4dbf-8bdf-6f101548f833"),
                             BusinessId = new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"),
-                            ReservationDate = new DateTime(2024, 4, 12, 20, 47, 0, 288, DateTimeKind.Utc).AddTicks(3787),
-                            Status = "Completed",
+                            ReservationDate = new DateTime(2024, 4, 16, 19, 13, 50, 120, DateTimeKind.Utc).AddTicks(4001),
+                            Status = 2,
                             UserId = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83")
                         },
                         new
@@ -827,8 +826,8 @@ namespace ExploreUmami.Data.Migrations
                             Id = new Guid("266a74bb-e01c-4bfc-86a6-d5aaee18574f"),
                             BusinessId = new Guid("6eec121f-f98e-4008-9551-2d8a4b38da98"),
                             Notes = "Please reserve a table for a family of 3 adults and 2 children",
-                            ReservationDate = new DateTime(2024, 4, 12, 20, 47, 0, 288, DateTimeKind.Utc).AddTicks(3795),
-                            Status = "Completed",
+                            ReservationDate = new DateTime(2024, 4, 16, 19, 13, 50, 120, DateTimeKind.Utc).AddTicks(4013),
+                            Status = 2,
                             UserId = new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846")
                         },
                         new
@@ -836,8 +835,8 @@ namespace ExploreUmami.Data.Migrations
                             Id = new Guid("d3d3d3d3-3d3d-3d3d-3d3d-3d3d3d3d3d3d"),
                             BusinessId = new Guid("8f87f835-3deb-43b4-aa01-852c5d287984"),
                             Notes = "Please reserve a table for 4 adults",
-                            ReservationDate = new DateTime(2024, 4, 12, 20, 47, 0, 288, DateTimeKind.Utc).AddTicks(3799),
-                            Status = "Completed",
+                            ReservationDate = new DateTime(2024, 4, 16, 19, 13, 50, 120, DateTimeKind.Utc).AddTicks(4018),
+                            Status = 2,
                             UserId = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83")
                         },
                         new
@@ -845,8 +844,8 @@ namespace ExploreUmami.Data.Migrations
                             Id = new Guid("cd6698f0-7d34-4b6c-b9d2-76b1335af34f"),
                             BusinessId = new Guid("7c8605e4-9e6c-474f-8c3c-a837d631c8d4"),
                             Notes = "Reserve 4 tables, we are a big company",
-                            ReservationDate = new DateTime(2024, 4, 12, 20, 47, 0, 288, DateTimeKind.Utc).AddTicks(3804),
-                            Status = "Pending",
+                            ReservationDate = new DateTime(2024, 4, 16, 19, 13, 50, 120, DateTimeKind.Utc).AddTicks(4021),
+                            Status = 0,
                             UserId = new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846")
                         },
                         new
@@ -854,8 +853,8 @@ namespace ExploreUmami.Data.Migrations
                             Id = new Guid("11154b62-2abd-404a-827e-f4e69ad94678"),
                             BusinessId = new Guid("4222168e-c018-418e-812f-f8d41b322522"),
                             Notes = "I'll be visiting with my grandma.",
-                            ReservationDate = new DateTime(2024, 4, 12, 20, 47, 0, 288, DateTimeKind.Utc).AddTicks(3810),
-                            Status = "Confirmed",
+                            ReservationDate = new DateTime(2024, 4, 16, 19, 13, 50, 120, DateTimeKind.Utc).AddTicks(4026),
+                            Status = 1,
                             UserId = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83")
                         },
                         new
@@ -863,8 +862,8 @@ namespace ExploreUmami.Data.Migrations
                             Id = new Guid("bb49a06d-fbd1-4fdd-a7d4-d309445c59f8"),
                             BusinessId = new Guid("4222168e-c018-418e-812f-f8d41b322522"),
                             Notes = "Looking for delicious pastries",
-                            ReservationDate = new DateTime(2024, 4, 12, 20, 47, 0, 288, DateTimeKind.Utc).AddTicks(3816),
-                            Status = "Completed",
+                            ReservationDate = new DateTime(2024, 4, 16, 19, 13, 50, 120, DateTimeKind.Utc).AddTicks(4029),
+                            Status = 2,
                             UserId = new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846")
                         },
                         new
@@ -872,8 +871,8 @@ namespace ExploreUmami.Data.Migrations
                             Id = new Guid("2f014787-c27c-4406-9b55-4dbcef08eeff"),
                             BusinessId = new Guid("e39d9dc4-519f-4c74-9f59-86083df887c6"),
                             Notes = "I won't be able to make it, sorry!",
-                            ReservationDate = new DateTime(2024, 4, 12, 20, 47, 0, 288, DateTimeKind.Utc).AddTicks(3819),
-                            Status = "Cancelled",
+                            ReservationDate = new DateTime(2024, 4, 16, 19, 13, 50, 120, DateTimeKind.Utc).AddTicks(4032),
+                            Status = 3,
                             UserId = new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846")
                         });
                 });
@@ -1018,6 +1017,14 @@ namespace ExploreUmami.Data.Migrations
                             BusinessId = new Guid("8f87f835-3deb-43b4-aa01-852c5d287984"),
                             ReservationId = new Guid("d3d3d3d3-3d3d-3d3d-3d3d-3d3d3d3d3d3d"),
                             UserId = new Guid("ab13755f-eaef-4fb4-86a1-9c4609641c83"),
+                            VisitDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("4f8e6201-2013-428a-8ddb-c75312ca9bff"),
+                            BusinessId = new Guid("4222168e-c018-418e-812f-f8d41b322522"),
+                            ReservationId = new Guid("bb49a06d-fbd1-4fdd-a7d4-d309445c59f8"),
+                            UserId = new Guid("8f5d89a1-dda8-4400-bf47-690ae86f1846"),
                             VisitDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });

@@ -18,22 +18,16 @@ namespace ExploreUmami.Web.Controllers
         private readonly IReservationService reservationService;
         private readonly IBusinessOwnerService businessOwnerService;
         private readonly IBusinessService businessService;
-        private readonly ICategoryService categoryService;
-        private readonly IPrefectureService prefectureService;
         private readonly IUserVisitService userVisitService;
 
         public ReservationController(IReservationService reservationService,
             IBusinessOwnerService businessOwnerService,
             IBusinessService businessService,
-            ICategoryService categoryService,
-            IPrefectureService prefectureService,
             IUserVisitService userVisitService)
         {
             this.reservationService = reservationService;
             this.businessOwnerService = businessOwnerService;
             this.businessService = businessService;
-            this.categoryService = categoryService;
-            this.prefectureService = prefectureService;
             this.userVisitService = userVisitService;
         }
 
@@ -50,20 +44,30 @@ namespace ExploreUmami.Web.Controllers
             bool isOwner = await this.businessOwnerService.IsOwnerByUserIdAsync(userId);
             ReservationFilterAndPageModel serviceModel;
 
-            if (isOwner)
+            try
             {
-                string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
-                serviceModel = await this.reservationService.GetReservationsByFilterForOwnerAsync(filterModel, ownerId!);
+                if (isOwner)
+                {
+                    string? ownerId = await this.businessOwnerService.GetOwnerIdByUserIdAsync(userId);
+                    serviceModel = await this.reservationService.GetReservationsByFilterForOwnerAsync(filterModel, ownerId!);
+                }
+                else
+                {
+                    serviceModel = await this.reservationService.GetReservationsByFilterForUserAsync(filterModel, userId);
+                }
+
+                filterModel.Reservations = serviceModel.Reservations;
+                filterModel.TotalReservations = serviceModel.TotalReservationsCount;
+
+                return View(filterModel);
             }
-            else
+            catch (Exception)
             {
-                serviceModel = await this.reservationService.GetReservationsByFilterForUserAsync(filterModel, userId);
+                this.TempData["Error"] = "Unexpected error occurred!";
+                return RedirectToAction("Index", "Home");
             }
 
-            filterModel.Reservations = serviceModel.Reservations;
-            filterModel.TotalReservations = serviceModel.TotalReservationsCount;
-
-            return View(filterModel);
+            
         }
 
         [HttpGet]

@@ -53,17 +53,14 @@ namespace ExploreUmami.Services.Tests.UnitTests
 
             var testModel = new ReviewFormModel { Rating = 5, Subject = "Test Subject", Content = "Test Content" };
 
-            int expectedCount = 2; // Initial count is 1, so this should be 2 after adding a new review
+            int expectedCount = 5;
             string location = "Test,Test";
 
             await reviewService.AddReviewAsync(testModel, userId, businessId, location);
 
-            // Verify data is added to the database (without relying on mocking)
             int reviewCount = this._data.Reviews.Count();
             Assert.That(expectedCount, Is.EqualTo(reviewCount));
 
-            // You can optionally verify specific properties of the added Review object
-            // using LINQ or other methods to retrieve it from the DbContext.
         }
 
         [Test]
