@@ -28,6 +28,7 @@ The project is structured in a way that the main project is the ExploreUmami.Web
 used for the Map on the Index page. You need to run both projects to see the full functionality of the application.
 Reviews are tied to UserVisits, so you need to visit a business to leave a review.
 UserVisits are tied to Completed Reservations, so you need to make a reservation to visit a business and have it Completed (by Business Owner).
+*Fetching location data is only for reviews and uses JS + a third-party geolocation API, so it might not work in some cases (i.e. if you're blocking CORS)*
 
 Functionality:
 Anonymous users:
@@ -118,3 +119,4 @@ Example journey 2:
 - Admin reinstates the deleted business from the All Businesses page.
 - Business Owner logs in and sees the business in the All Businesses page.
 - Business Owner edits the business from the All Businesses page with the new category.
+

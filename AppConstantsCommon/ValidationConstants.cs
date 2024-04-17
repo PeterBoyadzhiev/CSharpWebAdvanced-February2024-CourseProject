@@ -78,5 +78,13 @@
             public const int NotesMinLength = 10;
             public const int NotesMaxLength = 500;
         }
+
+        public static class ErrorMessages
+        {
+            public const string GeneralErrorMessage = "Unexpected error occurred!";
+            public const string CategoryDoesNotExistError = "Category does not exist!";
+            public const string PrefectureDoesNotExistError = "Prefecture does not exist!";
+            public const string BusinessDoesNotExistError = "Business does not exist or is inactive!";
+        }
     }
 }

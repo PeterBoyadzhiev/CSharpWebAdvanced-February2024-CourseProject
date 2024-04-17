@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using static ExploreUmami.Common.AppConstantsGeneral;
+using static ExploreUmami.Common.ValidationConstants.ErrorMessages;
 
 namespace ExploreUmami.Web.Controllers
 {
@@ -56,7 +57,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData["Error"] = "Unexpected error occurred!";
+                this.TempData["Error"] = GeneralErrorMessage;
                 return RedirectToAction("Index", "Home");
             }
             
@@ -89,7 +90,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData["Error"] = "Unexpected error occurred!";
+                this.TempData["Error"] = GeneralErrorMessage;
                 return RedirectToAction("Index", "Home");
             } 
         }

@@ -13,7 +13,7 @@ namespace ExploreUmami.Services.Tests.Mocks
                     .UseInMemoryDatabase("ExploreUmamiInMemory" + Guid.NewGuid().ToString())
                     .Options;
 
-                return new ExploreUmamiDbContext(dbContextOptions, false);
+                return new ExploreUmamiDbContext(dbContextOptions);
             }
         }
     }

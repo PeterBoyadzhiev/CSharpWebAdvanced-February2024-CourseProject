@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using static ExploreUmami.Common.AppConstantsGeneral;
+using static ExploreUmami.Common.ValidationConstants.ErrorMessages;
 
 
 namespace ExploreUmami.Web.Controllers
@@ -88,7 +89,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData["Error"] = "Unexpected error occurred!";
+                this.TempData["Error"] = GeneralErrorMessage;
                 return RedirectToAction("All", "Business");
             }
 
@@ -112,7 +113,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!categoryExists)
             {
-                this.TempData["Error"] = "Category does not exist";
+                this.TempData["Error"] = CategoryDoesNotExistError;
 
                 model.Categories = await this.categoryService.GetAllCategoriesAsync();
                 model.Prefectures = await this.prefectureService.GetAllPrefecturesAsync();
@@ -122,7 +123,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!prefectureExists)
             {
-                this.TempData["Error"] = "Prefecture does not exist";
+                this.TempData["Error"] = PrefectureDoesNotExistError;
 
                 model.Categories = await this.categoryService.GetAllCategoriesAsync();
                 model.Prefectures = await this.prefectureService.GetAllPrefecturesAsync();
@@ -194,7 +195,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData["Error"] = "Unexpected error occurred!";
+                this.TempData["Error"] = GeneralErrorMessage;
                 return RedirectToAction("All", "Business");
             }
         }
@@ -207,7 +208,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!businessExists)
             {
-                this.TempData["Error"] = "Business does not exist or is inactive!";
+                this.TempData["Error"] = BusinessDoesNotExistError;
                 return this.RedirectToAction("All", "Business");
             }
 
@@ -219,7 +220,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData["Error"] = "Unexpected error occurred!";
+                this.TempData["Error"] = GeneralErrorMessage;
                 return RedirectToAction("All", "Business");
             }
 
@@ -234,7 +235,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!businessExists)
             {
-                this.TempData["Error"] = "Business does not exist or is inactive!";
+                this.TempData["Error"] = BusinessDoesNotExistError;
                 return this.RedirectToAction("All", "Business");
             }
 
@@ -282,7 +283,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!businessExists)
             {
-                this.TempData["Error"] = "Business does not exist or is inactive!";
+                this.TempData["Error"] = BusinessDoesNotExistError;
                 return this.RedirectToAction("All", "Business");
             }
 
@@ -310,7 +311,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!categoryExists)
             {
-                this.TempData["Error"] = "Category does not exist";
+                this.TempData["Error"] = CategoryDoesNotExistError;
 
                 model.Categories = await this.categoryService.GetAllCategoriesAsync();
                 model.Prefectures = await this.prefectureService.GetAllPrefecturesAsync();
@@ -320,7 +321,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!prefectureExists)
             {
-                this.TempData["Error"] = "Prefecture does not exist";
+                this.TempData["Error"] = PrefectureDoesNotExistError;
 
                 model.Categories = await this.categoryService.GetAllCategoriesAsync();
                 model.Prefectures = await this.prefectureService.GetAllPrefecturesAsync();
@@ -361,7 +362,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!businessExists)
             {
-                this.TempData["Error"] = "Business does not exist or is inactive!";
+                this.TempData["Error"] = BusinessDoesNotExistError;
                 return this.RedirectToAction("All", "Business");
             }
 
@@ -403,7 +404,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!businessExists)
             {
-                this.TempData["Error"] = "Business does not exist or is inactive!";
+                this.TempData["Error"] = BusinessDoesNotExistError;
                 return this.RedirectToAction("All", "Business");
             }
 
@@ -450,7 +451,7 @@ namespace ExploreUmami.Web.Controllers
         {
             if (string.IsNullOrWhiteSpace(name))
             {
-                this.TempData["Error"] = "Invalid Prefecture!";
+                this.TempData["Error"] = PrefectureDoesNotExistError;
                 return this.RedirectToAction("Index", "Home");
             }
 

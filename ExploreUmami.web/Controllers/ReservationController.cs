@@ -1,5 +1,4 @@
-﻿using ExploreUmami.Data.Models;
-using ExploreUmami.Data.Models.Enums;
+﻿using ExploreUmami.Data.Models.Enums;
 using ExploreUmami.Services.Data.Interfaces;
 using ExploreUmami.Services.Data.Models.Reservation;
 using ExploreUmami.Web.Infrastructure.Extensions;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using static ExploreUmami.Common.AppConstantsGeneral;
+using static ExploreUmami.Common.ValidationConstants.ErrorMessages;
 
 namespace ExploreUmami.Web.Controllers
 {
@@ -63,7 +63,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData["Error"] = "Unexpected error occurred!";
+                this.TempData["Error"] = GeneralErrorMessage;
                 return RedirectToAction("Index", "Home");
             }
 
@@ -77,7 +77,7 @@ namespace ExploreUmami.Web.Controllers
 
             if (!businessExists)
             {
-                this.TempData["Error"] = "Business does not exist!";
+                this.TempData["Error"] = BusinessDoesNotExistError;
                 return this.RedirectToAction("All", "Business");
             }
 
@@ -112,7 +112,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData["Error"] = "Unexpected error occurred!";
+                this.TempData["Error"] = GeneralErrorMessage;
                 return RedirectToAction("All", "Reservation");
             }
         }
@@ -144,7 +144,7 @@ namespace ExploreUmami.Web.Controllers
 
                 if (!businessExists)
                 {
-                    this.TempData["Error"] = "Business does not exist!";
+                    this.TempData["Error"] = BusinessDoesNotExistError;
                     return this.RedirectToAction("All", "Business");
                 }
 
@@ -172,7 +172,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                this.TempData["Error"] = "Unexpected error occurred!";
+                this.TempData["Error"] = GeneralErrorMessage;
                 return RedirectToAction("All", "Reservation");
             }
         }
@@ -252,7 +252,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                TempData["Error"] = "Unexpected error occurred!";
+                TempData["Error"] = GeneralErrorMessage;
                 return RedirectToAction("All", "Reservation");
             }
         }
@@ -291,7 +291,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                TempData["Error"] = "Unexpected error occurred!";
+                TempData["Error"] = GeneralErrorMessage;
                 return RedirectToAction("All", "Reservation");
             }
         }
@@ -345,7 +345,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                TempData["Error"] = "Unexpected error occurred!";
+                TempData["Error"] = GeneralErrorMessage;
                 return RedirectToAction("All", "Reservation");
             }
         }
@@ -388,7 +388,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                TempData["Error"] = "Unexpected error occurred!";
+                TempData["Error"] = GeneralErrorMessage;
                 return RedirectToAction("All", "Reservation");
             }
         }
@@ -443,7 +443,7 @@ namespace ExploreUmami.Web.Controllers
             }
             catch (Exception)
             {
-                TempData["Error"] = "Unexpected error occurred!";
+                TempData["Error"] = GeneralErrorMessage;
                 return RedirectToAction("All", "Reservation");
             }
         }

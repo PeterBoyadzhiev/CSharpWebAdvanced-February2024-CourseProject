@@ -8,9 +8,7 @@ namespace ExploreUmami.Data
 {
     public class ExploreUmamiDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
-        private bool seedDb;
-
-        public ExploreUmamiDbContext(DbContextOptions<ExploreUmamiDbContext> options, bool seed = true)
+        public ExploreUmamiDbContext(DbContextOptions<ExploreUmamiDbContext> options)
             : base(options)
         {
             if(Database.IsRelational())
@@ -21,8 +19,6 @@ namespace ExploreUmami.Data
             {
                 Database.EnsureCreated();
             }
-
-            this.seedDb = seed;
         }
 
         public DbSet<Business> Businesses { get; set; } = null!;
